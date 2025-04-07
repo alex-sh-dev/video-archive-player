@@ -9,15 +9,14 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            VStack {
-                Image(systemName: "globe")
-                    .imageScale(.large)
-                    .foregroundColor(.red)
-                Text("Hello, world!")
-            }
-            .padding()
-            Button("Test") {
+        VStack(alignment: .center, spacing: 4.0) {
+            Text("Add a url to the json file containing a list of video files")
+                .multilineTextAlignment(.leading)
+            TextField("Url to json file", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+                .padding(.all)
+                .padding(.leading)
+                .padding(.trailing)
+            Button("Start player") {
                 /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
             }
         }
