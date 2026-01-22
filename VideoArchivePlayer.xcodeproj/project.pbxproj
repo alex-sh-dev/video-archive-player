@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D7B5E7152F223D4F00B7B64B /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B5E7142F223D4F00B7B64B /* PlayerViewController.swift */; };
 		D7EEE24C2F221C040098A5CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EEE24B2F221C040098A5CB /* AppDelegate.swift */; };
 		D7EEE24E2F221C040098A5CB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EEE24D2F221C040098A5CB /* SceneDelegate.swift */; };
 		D7EEE2502F221C040098A5CB /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EEE24F2F221C040098A5CB /* StartViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D7B5E7142F223D4F00B7B64B /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		D7EEE2482F221C040098A5CB /* VideoArchivePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoArchivePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7EEE24B2F221C040098A5CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7EEE24D2F221C040098A5CB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 		D7EEE24A2F221C040098A5CB /* VideoArchivePlayer */ = {
 			isa = PBXGroup;
 			children = (
+				D7B5E7142F223D4F00B7B64B /* PlayerViewController.swift */,
 				D7EEE24B2F221C040098A5CB /* AppDelegate.swift */,
 				D7EEE24D2F221C040098A5CB /* SceneDelegate.swift */,
 				D7EEE24F2F221C040098A5CB /* StartViewController.swift */,
@@ -151,6 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7EEE2502F221C040098A5CB /* StartViewController.swift in Sources */,
+				D7B5E7152F223D4F00B7B64B /* PlayerViewController.swift in Sources */,
 				D7EEE24C2F221C040098A5CB /* AppDelegate.swift in Sources */,
 				D7EEE24E2F221C040098A5CB /* SceneDelegate.swift in Sources */,
 			);

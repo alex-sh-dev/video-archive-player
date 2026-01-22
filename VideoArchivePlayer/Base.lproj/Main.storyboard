@@ -56,10 +56,10 @@
             </objects>
             <point key="canvasLocation" x="25" y="-34"/>
         </scene>
-        <!--View Controller-->
+        <!--Player View Controller-->
         <scene sceneID="0AK-nV-XK6">
             <objects>
-                <viewController id="ZUM-Mc-HDV" sceneMemberID="viewController">
+                <viewController id="ZUM-Mc-HDV" customClass="PlayerViewController" customModule="VideoArchivePlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uYf-jx-wvH">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
