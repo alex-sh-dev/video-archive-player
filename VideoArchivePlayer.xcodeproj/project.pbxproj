@@ -7,7 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D71C626B2F22ACFD00D7341D /* libExtendedScrollView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D71C626A2F22ACFD00D7341D /* libExtendedScrollView.a */; };
+		D71C626D2F2327E700D7341D /* ZoomingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C626C2F2327E700D7341D /* ZoomingView.swift */; };
+		D71C626F2F23286400D7341D /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C626E2F23286400D7341D /* VideoView.swift */; };
+		D71C62712F23297500D7341D /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C62702F23297500D7341D /* ActivityIndicatorView.swift */; };
+		D71C62732F232A1C00D7341D /* ActivityIndicatorBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C62722F232A1C00D7341D /* ActivityIndicatorBackgroundView.swift */; };
+		D71C62752F23455500D7341D /* TimeSliderHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C62742F23455500D7341D /* TimeSliderHolder.swift */; };
+		D71C62772F2345CF00D7341D /* TimeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C62762F2345CF00D7341D /* TimeSlider.swift */; };
 		D7B5E7152F223D4F00B7B64B /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B5E7142F223D4F00B7B64B /* PlayerViewController.swift */; };
+		D7B5E7172F226ACF00B7B64B /* FragmentVideoPlayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7B5E7162F226ACF00B7B64B /* FragmentVideoPlayer.xib */; };
 		D7EEE24C2F221C040098A5CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EEE24B2F221C040098A5CB /* AppDelegate.swift */; };
 		D7EEE24E2F221C040098A5CB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EEE24D2F221C040098A5CB /* SceneDelegate.swift */; };
 		D7EEE2502F221C040098A5CB /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EEE24F2F221C040098A5CB /* StartViewController.swift */; };
@@ -18,7 +26,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D71C626A2F22ACFD00D7341D /* libExtendedScrollView.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libExtendedScrollView.a; path = Libraries/ExtendedScrollView/libExtendedScrollView.a; sourceTree = "<group>"; };
+		D71C626C2F2327E700D7341D /* ZoomingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomingView.swift; sourceTree = "<group>"; };
+		D71C626E2F23286400D7341D /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
+		D71C62702F23297500D7341D /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
+		D71C62722F232A1C00D7341D /* ActivityIndicatorBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorBackgroundView.swift; sourceTree = "<group>"; };
+		D71C62742F23455500D7341D /* TimeSliderHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSliderHolder.swift; sourceTree = "<group>"; };
+		D71C62762F2345CF00D7341D /* TimeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSlider.swift; sourceTree = "<group>"; };
 		D7B5E7142F223D4F00B7B64B /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
+		D7B5E7162F226ACF00B7B64B /* FragmentVideoPlayer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FragmentVideoPlayer.xib; sourceTree = SOURCE_ROOT; };
 		D7EEE2482F221C040098A5CB /* VideoArchivePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoArchivePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7EEE24B2F221C040098A5CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7EEE24D2F221C040098A5CB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -35,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D71C626B2F22ACFD00D7341D /* libExtendedScrollView.a in Frameworks */,
 				D7EEE2612F221C8C0098A5CB /* MobileVLCKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -62,6 +79,9 @@
 		D7EEE24A2F221C040098A5CB /* VideoArchivePlayer */ = {
 			isa = PBXGroup;
 			children = (
+				D7B5E7162F226ACF00B7B64B /* FragmentVideoPlayer.xib */,
+				D71C626C2F2327E700D7341D /* ZoomingView.swift */,
+				D71C626E2F23286400D7341D /* VideoView.swift */,
 				D7B5E7142F223D4F00B7B64B /* PlayerViewController.swift */,
 				D7EEE24B2F221C040098A5CB /* AppDelegate.swift */,
 				D7EEE24D2F221C040098A5CB /* SceneDelegate.swift */,
@@ -70,6 +90,10 @@
 				D7EEE2542F221C050098A5CB /* Assets.xcassets */,
 				D7EEE2562F221C050098A5CB /* LaunchScreen.storyboard */,
 				D7EEE2592F221C050098A5CB /* Info.plist */,
+				D71C62702F23297500D7341D /* ActivityIndicatorView.swift */,
+				D71C62722F232A1C00D7341D /* ActivityIndicatorBackgroundView.swift */,
+				D71C62742F23455500D7341D /* TimeSliderHolder.swift */,
+				D71C62762F2345CF00D7341D /* TimeSlider.swift */,
 			);
 			path = VideoArchivePlayer;
 			sourceTree = "<group>";
@@ -77,6 +101,7 @@
 		D7EEE25F2F221C8C0098A5CB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D71C626A2F22ACFD00D7341D /* libExtendedScrollView.a */,
 				D7EEE2602F221C8C0098A5CB /* MobileVLCKit.framework */,
 			);
 			name = Frameworks;
@@ -140,6 +165,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7B5E7172F226ACF00B7B64B /* FragmentVideoPlayer.xib in Resources */,
 				D7EEE2582F221C050098A5CB /* LaunchScreen.storyboard in Resources */,
 				D7EEE2552F221C050098A5CB /* Assets.xcassets in Resources */,
 				D7EEE2532F221C040098A5CB /* Main.storyboard in Resources */,
@@ -153,10 +179,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D71C626F2F23286400D7341D /* VideoView.swift in Sources */,
 				D7EEE2502F221C040098A5CB /* StartViewController.swift in Sources */,
 				D7B5E7152F223D4F00B7B64B /* PlayerViewController.swift in Sources */,
+				D71C62752F23455500D7341D /* TimeSliderHolder.swift in Sources */,
+				D71C626D2F2327E700D7341D /* ZoomingView.swift in Sources */,
 				D7EEE24C2F221C040098A5CB /* AppDelegate.swift in Sources */,
+				D71C62732F232A1C00D7341D /* ActivityIndicatorBackgroundView.swift in Sources */,
 				D7EEE24E2F221C040098A5CB /* SceneDelegate.swift in Sources */,
+				D71C62712F23297500D7341D /* ActivityIndicatorView.swift in Sources */,
+				D71C62772F2345CF00D7341D /* TimeSlider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,6 +355,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Libraries/ExtendedScrollView",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.limbo.video.archive.player;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -357,6 +393,10 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Libraries/ExtendedScrollView",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.limbo.video.archive.player;
