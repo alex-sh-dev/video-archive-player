@@ -91,10 +91,9 @@ private class MediaItem {
 // MARK: consts
 
 private struct Constants {
-    static let kDefaultMediaListPlayerOptions = ["--no-stats"]
+    static let kDefaultMediaListPlayerOptions = ["--no-stats", "--http-reconnect", "--network-caching=1000"]
     static let kDefaultMediaPlayerPosition = -1
-    static let kDefaultOptionsToDisableAudio = [":no-audio" : 1, ":no-sout-audio" : 1]
-    static let kCacheOptions = ["network-caching": 1000]
+    static let kDefaultOptionsToDisableAudio = ["--no-audio", "--no-sout-audio"]
 }
 
 final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListPlayerDelegate {
@@ -121,12 +120,10 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
     
     // MARK: private properties
     
-    private let _mediaListPlayer: VLCMediaListPlayer = VLCMediaListPlayer(options:Constants.kDefaultMediaListPlayerOptions)
+    private var _mediaListPlayer: VLCMediaListPlayer!
     private let _mediaList: VLCMediaList = VLCMediaList(array: [])
-    private weak var _videoView: UIView?
     
     private var _state: PlaylistVideoPlayerState = .stopped
-    private var _audioDisabled: Bool = false
     private var _playerPosition: Int  = Constants.kDefaultMediaPlayerPosition
     
     // MARK: private functions
@@ -135,7 +132,12 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
         _state = newState
     }
     
-    private func configure() {
+    private func configure(drawable: UIView, noAudio: Bool = false) {
+        var options: [String] = Constants.kDefaultMediaListPlayerOptions
+        if noAudio {
+            options.append(contentsOf: Constants.kDefaultOptionsToDisableAudio)
+        }
+        _mediaListPlayer = VLCMediaListPlayer(options: options)
 #if DEBUG
         VLCLibrary.shared().debugLogging = true
         VLCLibrary.shared().debugLoggingLevel = 4
@@ -144,6 +146,8 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
 #endif
         _mediaListPlayer.delegate = self
         _mediaListPlayer.mediaPlayer?.delegate = self
+        _mediaListPlayer.mediaPlayer?.drawable = drawable
+        _mediaListPlayer.mediaList = _mediaList
         _mediaListPlayer.repeatMode = .doNotRepeat
     }
     
@@ -197,10 +201,6 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
     }
     
     private func appendMedia(media: VLCMedia, options:[String: Any] = [:]) {
-        if _audioDisabled {
-            media.addOptions(Constants.kDefaultOptionsToDisableAudio)
-        }
-        
         if !options.isEmpty {
             media.addOptions(options)
         }
@@ -270,10 +270,9 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
     
     // MARK: init
     
-    init(videoView: UIView) {
+    init(videoView: UIView, noAudio: Bool = false) {
         super.init()
-        _videoView = videoView
-        configure()
+        configure(drawable: videoView, noAudio: noAudio)
     }
     
     // MARK: deinit
@@ -426,30 +425,14 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
     final func setFiles(_ filePaths: [String]) {
         clearMediaList()
         for filePath in filePaths {
-            if filePath.isEmpty {
-                continue
-            }
-            
-            guard let media = createMedia(filePath: filePath) else {
-                continue
-            }
-            
-            if locateMediaFile(filePath: filePath) == .onServer {
-                appendMedia(media: media, options: Constants.kCacheOptions)
-            } else {
-                appendMedia(media: media)
-            }
+            append(toPlaylist: filePath)
         }
     }
     
     final func play(startingFrom itemIndex: PlaylistItemIndex = .unspecified) {
         var play = false
         switch (_state) {
-        case .paused:
-            play = true
-        case .stopped:
-            _mediaListPlayer.mediaList = _mediaList
-            _mediaListPlayer.mediaPlayer.drawable = _videoView
+        case .paused, .stopped:
             play = true
         default:
             break
@@ -533,10 +516,6 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
         
         return false
     }
-    
-    final func disableAudio(disabled: Bool) {
-        _audioDisabled = disabled
-    }
 
     final func append(toPlaylist filePath: String) {
         if filePath.isEmpty {
@@ -547,11 +526,7 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
             return
         }
         
-        if locateMediaFile(filePath: filePath) == .onServer {
-            appendMedia(media: media, options: Constants.kCacheOptions)
-        } else {
-            appendMedia(media: media)
-        }
+        appendMedia(media: media)
     }
     
     final func remove(fromPlaylistAt index: UInt) {

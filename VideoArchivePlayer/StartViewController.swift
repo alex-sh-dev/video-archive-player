@@ -15,7 +15,7 @@ class StartViewController: UIViewController {
         super.viewDidLoad()
         
         //??
-        _player = PlaylistVideoPlayer(videoView: self.contentView)
+        _player = PlaylistVideoPlayer(videoView: self.contentView, noAudio: true)
         _player!.play(withFiles: ["http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
                                   "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"])
         //??
