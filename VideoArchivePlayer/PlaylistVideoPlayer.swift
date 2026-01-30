@@ -136,7 +136,12 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
     }
     
     private func configure() {
+#if DEBUG
+        VLCLibrary.shared().debugLogging = true
+        VLCLibrary.shared().debugLoggingLevel = 4
+#else
         VLCLibrary.shared().debugLogging = false
+#endif
         _mediaListPlayer.delegate = self
         _mediaListPlayer.mediaPlayer?.delegate = self
         _mediaListPlayer.repeatMode = .doNotRepeat
@@ -250,7 +255,7 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
             if itemIndex == .last {
                 index = .value(count - 1)
             }
-            if index.rawValue >= 0 && index.rawValue < count { //?? ok?
+            if index.rawValue >= 0 && index.rawValue < count {
                 media = _mediaList.media(at: index.rawValue)
             }
         }
@@ -265,15 +270,10 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
     
     // MARK: init
     
-    private func test() { //??
-
-    }
-    
     init(videoView: UIView) {
         super.init()
         _videoView = videoView
         configure()
-        test()//??
     }
     
     // MARK: deinit
@@ -295,9 +295,10 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
         assert(player == _mediaListPlayer.mediaPlayer)
             
         let state = player.state
+        easyLog("\(state)")
 
         if state == .buffering {
-            if let userInfo = aNotification.userInfo as? Dictionary<String, NSNumber> { //?? check
+            if let userInfo = aNotification.userInfo as? Dictionary<String, NSNumber> {
                 var completeness = 0
                 if let cache = userInfo["cache"] {
                     completeness = cache.intValue
@@ -362,9 +363,9 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
         
         self.delegate?.playerPositionChanged(player: self)
         
-        let pos = player.directTime != VLCTime.null() ? Int(player.directTime.intValue / 1000) : 0 //?? cast ок?
+        let pos = player.directTime != VLCTime.null() ? Int(player.directTime.intValue / 1000) : 0
         assert(pos >= 0)
-        if let mediaItem = currentPlayerMedia(), pos != _playerPosition { //?? check pass to {}
+        if let mediaItem = currentPlayerMedia(), pos != _playerPosition {
             self.delegate?.playerPositionChangedAtItem(palyer: self, pos: UInt(pos), itemIndex: mediaItem.index)
         }
         _playerPosition = pos
@@ -373,6 +374,7 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
     // MARK: VLCMediaListPlayerDelegate
     
     func mediaListPlayer(_ player: VLCMediaListPlayer!, nextMedia media: VLCMedia!) {
+        easyLog()
         assert(player == _mediaListPlayer)
         self.delegate?.playerNextItemSet(player: self)
         
@@ -484,12 +486,12 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
         
         let mi: MediaInfo = media.object()
         mi.startTime = startTime
-        let pos = VLCTime(number: NSNumber(value: Int(startTime) * 1000)) //?? check creation and passing pos
+        let pos = VLCTime(number: NSNumber(value: Int(startTime) * 1000))
         _mediaListPlayer.playItemIndex(Int32(itemIndex), inPosition: pos)
         return true
     }
     
-    final func play(withPaths filePaths: [String], startingFrom itemIndex: PlaylistItemIndex = .first) {
+    final func play(withFiles filePaths: [String], startingFrom itemIndex: PlaylistItemIndex = .first) {
         setFiles(filePaths)
         play(startingFrom: itemIndex)
     }

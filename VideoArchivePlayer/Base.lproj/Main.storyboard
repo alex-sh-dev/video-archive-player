@@ -35,10 +35,19 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="icX-aZ-K02" userLabel="contentView">
+                                <rect key="frame" x="76.666666666666686" y="508" width="240" height="128"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="8Yw-nK-0a2"/>
+                                    <constraint firstAttribute="height" constant="128" id="B2P-Z1-wfs"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="icX-aZ-K02" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4Se-j1-auX"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dAC-2z-fKN" secondAttribute="trailing" constant="20" id="B7V-VR-rhF"/>
                             <constraint firstItem="jqf-SL-bue" firstAttribute="top" secondItem="dAC-2z-fKN" secondAttribute="bottom" constant="20" id="Itm-EB-UFA"/>
                             <constraint firstItem="dAC-2z-fKN" firstAttribute="top" secondItem="OJ8-YP-1Gr" secondAttribute="bottom" constant="20" id="QuL-RX-upm"/>
@@ -46,11 +55,15 @@
                             <constraint firstItem="dAC-2z-fKN" firstAttribute="centerX" secondItem="OJ8-YP-1Gr" secondAttribute="centerX" id="Xw1-Dt-MdR"/>
                             <constraint firstAttribute="trailing" secondItem="OJ8-YP-1Gr" secondAttribute="trailing" constant="20" id="kjT-0q-DKh"/>
                             <constraint firstItem="jqf-SL-bue" firstAttribute="centerX" secondItem="dAC-2z-fKN" secondAttribute="centerX" id="l4J-zp-f0l"/>
+                            <constraint firstItem="icX-aZ-K02" firstAttribute="top" secondItem="jqf-SL-bue" secondAttribute="bottom" constant="10" id="ms5-ea-ygL"/>
                             <constraint firstItem="dAC-2z-fKN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="qqL-jm-dQR"/>
                             <constraint firstItem="dAC-2z-fKN" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="v9t-g0-0W8"/>
                             <constraint firstItem="dAC-2z-fKN" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="yuW-OK-izk"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="contentView" destination="icX-aZ-K02" id="Sy5-Q1-EWp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

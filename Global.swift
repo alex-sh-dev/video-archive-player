@@ -28,3 +28,12 @@ class Unsafe {
         Unmanaged<T>.fromOpaque(ptr).release()
     }
 }
+
+func easyLog(_ text: String = "", funcName: String = #function) {
+#if DEBUG
+    print(funcName)
+    if !text.isEmpty {
+        print(text)
+    }
+#endif
+}
