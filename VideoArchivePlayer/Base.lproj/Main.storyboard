@@ -63,8 +63,20 @@
                     <view key="view" contentMode="scaleToFill" id="uYf-jx-wvH">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YRh-ZE-q9N" userLabel="contentView">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="g9S-DR-cl4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="YRh-ZE-q9N" firstAttribute="width" secondItem="g9S-DR-cl4" secondAttribute="width" id="2tN-O6-hg2"/>
+                            <constraint firstItem="YRh-ZE-q9N" firstAttribute="centerY" secondItem="g9S-DR-cl4" secondAttribute="centerY" id="AzE-rS-qPt"/>
+                            <constraint firstItem="YRh-ZE-q9N" firstAttribute="height" secondItem="g9S-DR-cl4" secondAttribute="height" id="GjN-f9-Aq6"/>
+                            <constraint firstItem="YRh-ZE-q9N" firstAttribute="centerX" secondItem="g9S-DR-cl4" secondAttribute="centerX" id="k2k-an-nnj"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k0a-TE-Ydd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

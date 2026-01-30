@@ -4,6 +4,7 @@
 *.xcuserstate
 project.xcworkspace/
 xcuserdata/
+xcshareddata/
 
 build/
 dist/
