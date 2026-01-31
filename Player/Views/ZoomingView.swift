@@ -14,7 +14,7 @@ class ZoomingView: UIView {
                 return
             }
 
-            videoView.frame = oldValue
+            videoView.frame = frame
 
             guard let vlcVideoView = videoView.subviews.first else {
                 return
