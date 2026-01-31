@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		D71C626D2F2327E700D7341D /* ZoomingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C626C2F2327E700D7341D /* ZoomingView.swift */; };
 		D71C626F2F23286400D7341D /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C626E2F23286400D7341D /* VideoView.swift */; };
-		D71C62712F23297500D7341D /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C62702F23297500D7341D /* ActivityIndicatorView.swift */; };
 		D71C62732F232A1C00D7341D /* ActivityIndicatorBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C62722F232A1C00D7341D /* ActivityIndicatorBackgroundView.swift */; };
 		D71C62752F23455500D7341D /* TimeSliderHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C62742F23455500D7341D /* TimeSliderHolder.swift */; };
 		D71C62772F2345CF00D7341D /* TimeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C62762F2345CF00D7341D /* TimeSlider.swift */; };
@@ -41,7 +40,6 @@
 /* Begin PBXFileReference section */
 		D71C626C2F2327E700D7341D /* ZoomingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomingView.swift; sourceTree = "<group>"; };
 		D71C626E2F23286400D7341D /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
-		D71C62702F23297500D7341D /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		D71C62722F232A1C00D7341D /* ActivityIndicatorBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorBackgroundView.swift; sourceTree = "<group>"; };
 		D71C62742F23455500D7341D /* TimeSliderHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSliderHolder.swift; sourceTree = "<group>"; };
 		D71C62762F2345CF00D7341D /* TimeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSlider.swift; sourceTree = "<group>"; };
@@ -111,8 +109,6 @@
 		D78A35B02F2DD53D00DC3B87 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D71C62722F232A1C00D7341D /* ActivityIndicatorBackgroundView.swift */,
-				D71C62702F23297500D7341D /* ActivityIndicatorView.swift */,
 				D71C62742F23455500D7341D /* TimeSliderHolder.swift */,
 				D71C62762F2345CF00D7341D /* TimeSlider.swift */,
 			);
@@ -124,6 +120,7 @@
 			children = (
 				D71C626E2F23286400D7341D /* VideoView.swift */,
 				D71C626C2F2327E700D7341D /* ZoomingView.swift */,
+				D71C62722F232A1C00D7341D /* ActivityIndicatorBackgroundView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -275,7 +272,6 @@
 				D71C627F2F28C28F00D7341D /* PlaylistVideoPlayer.swift in Sources */,
 				D71C62732F232A1C00D7341D /* ActivityIndicatorBackgroundView.swift in Sources */,
 				D7EEE24E2F221C040098A5CB /* SceneDelegate.swift in Sources */,
-				D71C62712F23297500D7341D /* ActivityIndicatorView.swift in Sources */,
 				D71C62772F2345CF00D7341D /* TimeSlider.swift in Sources */,
 				D71C62812F28C3E900D7341D /* PlaylistVideoPlayerDelegate.swift in Sources */,
 				D720B6F72F2B79D6005FDA6B /* HttpHelpers.swift in Sources */,
