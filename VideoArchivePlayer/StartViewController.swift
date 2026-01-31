@@ -18,6 +18,7 @@ class StartViewController: UIViewController {
         _player = PlaylistVideoPlayer(videoView: self.contentView, noAudio: true)
         _player!.play(withFiles: ["http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
                                   "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"])
+        _ = _player!.setVideoSpeed(1.7)
         //??
     }
     

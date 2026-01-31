@@ -94,6 +94,8 @@ private struct Constants {
     static let kDefaultMediaListPlayerOptions = ["--no-stats", "--http-reconnect", "--network-caching=1000"]
     static let kDefaultMediaPlayerPosition = -1
     static let kDefaultOptionsToDisableAudio = ["--no-audio", "--no-sout-audio"]
+    static let kMaxVideoSpeed: Float = 2.0
+    static let kMinVideoSpeed: Float = 0.25
 }
 
 final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListPlayerDelegate {
@@ -514,6 +516,16 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
             return true
         }
         
+        return false
+    }
+
+    final func setVideoSpeed(_ speed: Float) -> Bool {
+        if speed >= Constants.kMinVideoSpeed &&
+            speed <= Constants.kMaxVideoSpeed {
+            _mediaListPlayer.mediaPlayer?.rate = speed
+            return true
+        }
+
         return false
     }
 
