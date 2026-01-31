@@ -31,7 +31,8 @@ class VideoView: UIView {
 
     override func didAddSubview(_ subview: UIView) {
         let strFromClass = String(describing: subview.self)
-        assert(strFromClass.contains(expectedVideoView), "Video view is not \(expectedVideoView)")
+        assert(strFromClass.contains(expectedVideoView),
+               "Video view is not \(expectedVideoView)")
         super.didAddSubview(subview)
         subview.contentScaleFactor = calcScaleFactor()
     }
