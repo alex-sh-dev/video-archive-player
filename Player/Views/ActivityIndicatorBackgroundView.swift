@@ -19,12 +19,15 @@ class ActivityIndicatorBackgroundView: UIView {
         }
         
         if !self.subviews.isEmpty {
-            self.indicator = self.subviews.first(where: {$0 is ActivityIndicatorView}) as? ActivityIndicatorView
+            self.indicator = self.subviews.first(
+                where: {$0 is ActivityIndicatorView}) as? ActivityIndicatorView
         }
         
         assert(self.indicator != nil)
         
-        if !self.constraints.isEmpty, let constraint = self.constraints.first(where: {$0.identifier == "width"}) {
+        if !self.constraints.isEmpty,
+            let constraint = self.constraints.first(
+                where: {$0.identifier == "width"}) {
             let bounds = UIScreen.main.bounds
             constraint.constant = CGFloat.maximum(CGRectGetHeight(bounds), CGRectGetWidth(bounds))
         }
