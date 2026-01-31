@@ -128,17 +128,33 @@
 			path = views;
 			sourceTree = "<group>";
 		};
+		D78A35B32F2DE49000DC3B87 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D7EEE24F2F221C040098A5CB /* StartViewController.swift */,
+				D7B5E7142F223D4F00B7B64B /* PlayerViewController.swift */,
+			);
+			path = controllers;
+			sourceTree = "<group>";
+		};
+		D78A35B42F2DE4F900DC3B87 /* helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D720B6F62F2B79D6005FDA6B /* HttpHelpers.swift */,
+			);
+			path = helpers;
+			sourceTree = "<group>";
+		};
 		D7EEE23F2F221C040098A5CB = {
 			isa = PBXGroup;
 			children = (
+				D78A35B42F2DE4F900DC3B87 /* helpers */,
+				D78A35B32F2DE49000DC3B87 /* controllers */,
 				D78A35B02F2DD53D00DC3B87 /* views */,
 				D78A35AF2F2DD51600DC3B87 /* player */,
 				D720B6F22F2B77F9005FDA6B /* Global.swift */,
-				D720B6F62F2B79D6005FDA6B /* HttpHelpers.swift */,
 				D7EEE24B2F221C040098A5CB /* AppDelegate.swift */,
 				D7EEE24D2F221C040098A5CB /* SceneDelegate.swift */,
-				D7EEE24F2F221C040098A5CB /* StartViewController.swift */,
-				D7B5E7142F223D4F00B7B64B /* PlayerViewController.swift */,
 				D7EEE2512F221C040098A5CB /* Main.storyboard */,
 				D7EEE2562F221C050098A5CB /* LaunchScreen.storyboard */,
 				D7EEE2542F221C050098A5CB /* Assets.xcassets */,
