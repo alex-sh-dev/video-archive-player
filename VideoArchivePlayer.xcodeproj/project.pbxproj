@@ -96,19 +96,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D78A35AF2F2DD51600DC3B87 /* player */ = {
+		D78A35AF2F2DD51600DC3B87 /* Player */ = {
 			isa = PBXGroup;
 			children = (
 				D71C627E2F28C28F00D7341D /* PlaylistVideoPlayer.swift */,
 				D71C62802F28C3E900D7341D /* PlaylistVideoPlayerDelegate.swift */,
 				D7B5E7162F226ACF00B7B64B /* FragmentVideoPlayer.xib */,
 				D720B6F42F2B7945005FDA6B /* VLCExtensions.swift */,
-				D78A35B22F2DD62400DC3B87 /* views */,
+				D78A35B22F2DD62400DC3B87 /* Views */,
 			);
-			path = player;
+			path = Player;
 			sourceTree = "<group>";
 		};
-		D78A35B02F2DD53D00DC3B87 /* views */ = {
+		D78A35B02F2DD53D00DC3B87 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				D71C62722F232A1C00D7341D /* ActivityIndicatorBackgroundView.swift */,
@@ -116,42 +116,42 @@
 				D71C62742F23455500D7341D /* TimeSliderHolder.swift */,
 				D71C62762F2345CF00D7341D /* TimeSlider.swift */,
 			);
-			path = views;
+			path = Views;
 			sourceTree = "<group>";
 		};
-		D78A35B22F2DD62400DC3B87 /* views */ = {
+		D78A35B22F2DD62400DC3B87 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				D71C626E2F23286400D7341D /* VideoView.swift */,
 				D71C626C2F2327E700D7341D /* ZoomingView.swift */,
 			);
-			path = views;
+			path = Views;
 			sourceTree = "<group>";
 		};
-		D78A35B32F2DE49000DC3B87 /* controllers */ = {
+		D78A35B32F2DE49000DC3B87 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				D7EEE24F2F221C040098A5CB /* StartViewController.swift */,
 				D7B5E7142F223D4F00B7B64B /* PlayerViewController.swift */,
 			);
-			path = controllers;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
-		D78A35B42F2DE4F900DC3B87 /* helpers */ = {
+		D78A35B42F2DE4F900DC3B87 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				D720B6F62F2B79D6005FDA6B /* HttpHelpers.swift */,
 			);
-			path = helpers;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		D7EEE23F2F221C040098A5CB = {
 			isa = PBXGroup;
 			children = (
-				D78A35B42F2DE4F900DC3B87 /* helpers */,
-				D78A35B32F2DE49000DC3B87 /* controllers */,
-				D78A35B02F2DD53D00DC3B87 /* views */,
-				D78A35AF2F2DD51600DC3B87 /* player */,
+				D78A35B42F2DE4F900DC3B87 /* Helpers */,
+				D78A35B32F2DE49000DC3B87 /* Controllers */,
+				D78A35B02F2DD53D00DC3B87 /* Views */,
+				D78A35AF2F2DD51600DC3B87 /* Player */,
 				D720B6F22F2B77F9005FDA6B /* Global.swift */,
 				D7EEE24B2F221C040098A5CB /* AppDelegate.swift */,
 				D7EEE24D2F221C040098A5CB /* SceneDelegate.swift */,
