@@ -7,6 +7,6 @@
 
 import UIKit
 
-class TimeSlider: UIView {
+class TimeSlider: StepSlider {
  
 }
