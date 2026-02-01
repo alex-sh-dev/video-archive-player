@@ -58,7 +58,12 @@ class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate, StepSliderDe
     @IBAction func buttonTapped(sender: UIButton) {
         switch (sender) {
         case self.playButton:
-            break
+            //??
+            setPreferredVideoSize(CGSize(width: 1280, height: 720)) //?? move?
+            _player!.play(withFiles: ["http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                                              "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"])
+            _ = _player!.setVideoSpeed(1.7)
+            //??
         case self.fastForwardButton:
             break
         case self.rewindButton:
@@ -76,6 +81,7 @@ class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate, StepSliderDe
     
     @IBAction func tapped(_ sender: Any) {
         //??
+        
     }
     
     // MARK: private functions
@@ -133,15 +139,42 @@ class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate, StepSliderDe
         
         //??
         _player = PlaylistVideoPlayer(videoView:self.videoView, noAudio: true)
-        
-        _player!.play(withFiles: ["http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-                                          "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"])
-        _ = _player!.setVideoSpeed(1.7)
+        let ss = UIScreen.main.bounds.size
+        let newSize = CGSize(width: CGFloat.maximum(ss.height, ss.width),
+                             height: CGFloat.minimum(ss.height, ss.width)) //?? so ok?
+        setPreferredVideoSize(newSize)
         //??
     }
     
     private func showPlayButton() {
         
+    }
+    
+    private func setPreferredVideoSize(_ videoSize: CGSize) { //?? rename
+        if videoSize.equalTo(CGSizeZero) {
+            return
+        }
+        
+        let scale = UIScreen.main.scale
+        var vs = videoSize
+        
+        vs.height = (vs.height / scale).rounded(.down)
+        vs.width = (vs.width / scale).rounded(.down)
+        
+        self.videoView.originalVideoSize = vs
+        
+        let ss = UIScreen.main.bounds.size
+        var newSize = CGSize(width: CGFloat.maximum(ss.height, ss.width),
+                             height: CGFloat.minimum(ss.height, ss.width))
+        
+        if vs.width < newSize.width {
+            let p = vs.height / vs.width
+            newSize.height = (vs.height + (newSize.width - vs.width) * p).rounded(.down)
+            vs = CGSize(width: newSize.width, height: newSize.height)
+        }
+        
+        self.zoomingView.bounds = CGRect(x: 0, y: 0, width: vs.width, height: vs.height)
+        self.videoViewHolder.setNeedsReconfigure()
     }
     
     // MARK: StepSliderDelegate
