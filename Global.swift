@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Unsafe {
+final class Unsafe {
     static func bridge<T: AnyObject>(obj: T) -> UnsafeMutableRawPointer {
         return UnsafeMutableRawPointer(Unmanaged.passUnretained(obj).toOpaque())
     }

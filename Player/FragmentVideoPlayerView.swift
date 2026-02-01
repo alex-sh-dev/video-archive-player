@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate, StepSliderDelegate, UIScrollViewDelegate
+final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate, StepSliderDelegate, UIScrollViewDelegate
 {
     // MARK: public outlets properties
     
