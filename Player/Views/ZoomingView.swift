@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ZoomingView: UIView {
+final class ZoomingView: UIView {
     override var frame: CGRect {
         didSet {
             guard let videoView = self.superview?.subviews.last as? VideoView else {

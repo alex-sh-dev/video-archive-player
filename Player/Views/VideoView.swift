@@ -7,7 +7,7 @@
 
 import UIKit
 
-class VideoView: UIView {
+final class VideoView: UIView {
     var originalVideoSize: CGSize = CGSizeZero
     private let expectedVideoView = "VLCOpenGLES2VideoView"
     

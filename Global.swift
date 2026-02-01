@@ -37,3 +37,12 @@ func easyLog(_ text: String = "", funcName: String = #function) {
     }
 #endif
 }
+
+func rectBuilt(fromText text:String, font: UIFont,
+               size: CGSize = CGSize(width: CGFLOAT_MAX, height: CGFLOAT_MAX)) -> CGRect {
+    return NSString(string: text).boundingRect(
+        with: size,
+        options: NSStringDrawingOptions.usesLineFragmentOrigin,
+        attributes: [NSAttributedString.Key.font: font],
+        context: nil)
+}

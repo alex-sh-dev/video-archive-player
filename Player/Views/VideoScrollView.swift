@@ -7,7 +7,7 @@
 
 import UIKit
 
-class VideoScrollView : EXScrollView {
+final class VideoScrollView : EXScrollView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         defaultConfigure()

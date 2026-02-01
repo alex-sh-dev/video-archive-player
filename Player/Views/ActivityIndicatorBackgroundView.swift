@@ -7,9 +7,9 @@
 
 import UIKit
 
-class ActivityIndicatorView: UIActivityIndicatorView {}
+final class ActivityIndicatorView: UIActivityIndicatorView {}
 
-class ActivityIndicatorBackgroundView: UIView {
+final class ActivityIndicatorBackgroundView: UIView {
     weak var indicator: ActivityIndicatorView?
     private let kDefaultAlpha: CGFloat = 0.7
     
