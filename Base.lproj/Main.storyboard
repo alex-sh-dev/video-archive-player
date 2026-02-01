@@ -21,7 +21,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="Start player"/>
                                 <connections>
-                                    <segue destination="ZUM-Mc-HDV" kind="show" id="fAw-22-8QQ"/>
+                                    <segue destination="tgo-vr-6uo" kind="show" id="Zeo-G4-eum"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Url to json file" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dAC-2z-fKN">
@@ -35,19 +35,10 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="icX-aZ-K02" userLabel="contentView">
-                                <rect key="frame" x="76.666666666666686" y="508" width="240" height="128"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="8Yw-nK-0a2"/>
-                                    <constraint firstAttribute="height" constant="128" id="B2P-Z1-wfs"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="icX-aZ-K02" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4Se-j1-auX"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dAC-2z-fKN" secondAttribute="trailing" constant="20" id="B7V-VR-rhF"/>
                             <constraint firstItem="jqf-SL-bue" firstAttribute="top" secondItem="dAC-2z-fKN" secondAttribute="bottom" constant="20" id="Itm-EB-UFA"/>
                             <constraint firstItem="dAC-2z-fKN" firstAttribute="top" secondItem="OJ8-YP-1Gr" secondAttribute="bottom" constant="20" id="QuL-RX-upm"/>
@@ -55,15 +46,12 @@
                             <constraint firstItem="dAC-2z-fKN" firstAttribute="centerX" secondItem="OJ8-YP-1Gr" secondAttribute="centerX" id="Xw1-Dt-MdR"/>
                             <constraint firstAttribute="trailing" secondItem="OJ8-YP-1Gr" secondAttribute="trailing" constant="20" id="kjT-0q-DKh"/>
                             <constraint firstItem="jqf-SL-bue" firstAttribute="centerX" secondItem="dAC-2z-fKN" secondAttribute="centerX" id="l4J-zp-f0l"/>
-                            <constraint firstItem="icX-aZ-K02" firstAttribute="top" secondItem="jqf-SL-bue" secondAttribute="bottom" constant="10" id="ms5-ea-ygL"/>
                             <constraint firstItem="dAC-2z-fKN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="qqL-jm-dQR"/>
                             <constraint firstItem="dAC-2z-fKN" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="v9t-g0-0W8"/>
                             <constraint firstItem="dAC-2z-fKN" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="yuW-OK-izk"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="contentView" destination="icX-aZ-K02" id="Sy5-Q1-EWp"/>
-                    </connections>
+                    <navigationItem key="navigationItem" id="PaS-Ep-EEm"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -78,7 +66,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YRh-ZE-q9N" userLabel="contentView">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                                <rect key="frame" x="0.0" y="56" width="393" height="786"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                         </subviews>
@@ -91,10 +79,39 @@
                             <constraint firstItem="YRh-ZE-q9N" firstAttribute="centerX" secondItem="g9S-DR-cl4" secondAttribute="centerX" id="k2k-an-nnj"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="NXP-dK-ZB2">
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="0IR-zH-ZS1">
+                            <connections>
+                                <action selector="closeTapped:" destination="ZUM-Mc-HDV" id="Qvn-Eu-1G0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="contentView" destination="YRh-ZE-q9N" id="nzi-Mw-UUK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k0a-TE-Ydd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="908" y="-35"/>
+            <point key="canvasLocation" x="1741.2213740458014" y="-35.211267605633807"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="gcI-im-8kT">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tgo-vr-6uo" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="EQp-7S-mN7"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wsc-uU-gQ9">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ZUM-Mc-HDV" kind="relationship" relationship="rootViewController" id="Av6-Uc-5pE"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2GE-wB-b4J" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="882" y="-35"/>
         </scene>
     </scenes>
     <resources>
