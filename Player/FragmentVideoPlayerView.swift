@@ -101,18 +101,6 @@ class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate, StepSliderDe
         self.timeScaleView.slidingTimeLabel.clipsToBounds = true
     }
     
-    private func configureVideoScrollView() {
-        //?? to constants
-        self.videoScrollView.delegate = self
-        self.videoScrollView.minimumZoomScale = 1
-        self.videoScrollView.maximumZoomScale = 2
-        self.videoScrollView.showsVerticalScrollIndicator = false
-        self.videoScrollView.showsHorizontalScrollIndicator = false
-        self.videoScrollView.bounces = false
-        self.videoScrollView.contentInsetAdjustmentBehavior = .never
-        self.videoScrollView.stickToBounds = true
-    }
-    
     private func customInit() {
         let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: String(describing: type(of: self)), bundle: bundle)
@@ -123,7 +111,7 @@ class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate, StepSliderDe
         
         setButtonPermanentColor()
         configureSlidingTimeLabel()
-        configureVideoScrollView()
+        self.videoScrollView.delegate = self
         
         self.timeScaleView.timeSlider.delegate = self
         
