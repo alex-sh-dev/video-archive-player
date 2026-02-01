@@ -38,7 +38,7 @@ class ActivityIndicatorBackgroundView: UIView {
         
         ActivityIndicatorView.appearance().color = UIColor.white
         ActivityIndicatorView.appearance().tintColor = UIColor.white
-        self.indicator?.isOpaque = true
-        self.indicator?.style = .medium
+        self.indicator!.isOpaque = true
+        self.indicator!.style = .medium
     }
 }
