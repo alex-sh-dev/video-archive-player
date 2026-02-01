@@ -16,7 +16,7 @@ class PlayerViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
-    private func showPlayerView() {
+    private func attachPlayerView() {
         //?? set date _videoPlayerView.dateLabel.text =
         self.navigationItem.title = "DD:MM:YY" //?? best variant?
         
@@ -41,6 +41,6 @@ class PlayerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        showPlayerView()
+        attachPlayerView()
     }
 }
