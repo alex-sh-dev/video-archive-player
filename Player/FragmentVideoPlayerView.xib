@@ -31,7 +31,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rKL-KG-Utf" userLabel="videoScrollView" customClass="VideoScrollView" customModule="VideoArchivePlayer" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="59" width="393" height="575"/>
+                    <rect key="frame" x="0.0" y="59" width="393" height="580"/>
                     <subviews>
                         <view userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sC8-yT-sau" userLabel="zoomingView" customClass="ZoomingView" customModule="VideoArchivePlayer" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="575"/>
@@ -52,10 +52,10 @@
                     <gestureRecognizers/>
                 </view>
                 <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1oy-XA-ct4" userLabel="activityIndicatorBackgroundView" customClass="ActivityIndicatorBackgroundView" customModule="VideoArchivePlayer" customModuleProvider="target">
-                    <rect key="frame" x="196.66666666666666" y="59" width="0.0" height="575"/>
+                    <rect key="frame" x="196.66666666666666" y="59" width="0.0" height="580"/>
                     <subviews>
                         <activityIndicatorView contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="w6E-yt-1m2" userLabel="activityIndicatorView" customClass="ActivityIndicatorView" customModule="VideoArchivePlayer" customModuleProvider="target">
-                            <rect key="frame" x="-10" y="277.66666666666669" width="20" height="20"/>
+                            <rect key="frame" x="-10" y="280" width="20" height="20"/>
                         </activityIndicatorView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -204,7 +204,7 @@
                     </variation>
                 </view>
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tdJ-Nv-eQ9" userLabel="timeSсaleView" customClass="TimeScaleView" customModule="VideoArchivePlayer" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="634" width="393" height="76"/>
+                    <rect key="frame" x="0.0" y="639" width="393" height="76"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YSz-eO-DIZ" userLabel="timeLabel">
                             <rect key="frame" x="316.66666666666669" y="69" width="60.333333333333314" height="17"/>
@@ -316,7 +316,7 @@
                 <constraint firstItem="tdJ-Nv-eQ9" firstAttribute="top" secondItem="rKL-KG-Utf" secondAttribute="bottom" id="XBl-DU-jnK"/>
                 <constraint firstItem="Lf2-Oe-lEF" firstAttribute="width" secondItem="7Ea-0n-Xgn" secondAttribute="width" id="XEz-Pl-cFl"/>
                 <constraint firstAttribute="bottom" secondItem="rKL-KG-Utf" secondAttribute="bottom" id="aJh-YW-d7g"/>
-                <constraint firstItem="Lf2-Oe-lEF" firstAttribute="top" secondItem="tdJ-Nv-eQ9" secondAttribute="bottom" constant="5" id="b8a-rz-jGh"/>
+                <constraint firstItem="Lf2-Oe-lEF" firstAttribute="top" secondItem="tdJ-Nv-eQ9" secondAttribute="bottom" id="b8a-rz-jGh"/>
                 <constraint firstItem="Lf2-Oe-lEF" firstAttribute="centerX" secondItem="clW-1Z-VFO" secondAttribute="centerX" id="dvV-Jq-4Xj"/>
                 <constraint firstItem="1oy-XA-ct4" firstAttribute="top" secondItem="7Ea-0n-Xgn" secondAttribute="top" id="g8d-EA-IKs"/>
                 <constraint firstItem="1oy-XA-ct4" firstAttribute="centerX" secondItem="7Ea-0n-Xgn" secondAttribute="centerX" id="gMi-EJ-gxe"/>
