@@ -11,21 +11,17 @@ class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate, StepSliderDe
 {
     // MARK: public outlets properties
     
-    @IBOutlet weak var videoViewHolder: VideoViewScrollView!
+    @IBOutlet weak var videoScrollView: VideoScrollView!
     @IBOutlet weak var videoView: VideoView!
     @IBOutlet weak var zoomingView: ZoomingView!
 
-    @IBOutlet weak var timeSlider: TimeSlider!
-    @IBOutlet weak var timeSliderHolder: TimeSliderHolder!
+    @IBOutlet weak var timeScaleView: TimeScaleView!
     
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var fastForwardButton: UIButton!
     @IBOutlet weak var rewindButton: UIButton!
     @IBOutlet weak var skipNextButton: UIButton!
     @IBOutlet weak var skipPrevButton: UIButton!
-
-    @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var slidingTimeLabel: UILabel!
     
     @IBOutlet weak var speedButton: UIButton!
 
@@ -63,6 +59,7 @@ class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate, StepSliderDe
             _player!.play(withFiles: ["http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
                                               "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"])
             _ = _player!.setVideoSpeed(1.7)
+            videoScrollView.isUserInteractionEnabled = true //??
             //??
         case self.fastForwardButton:
             break
@@ -96,24 +93,24 @@ class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate, StepSliderDe
         self.speedButton.tintColor = tintColor
     }
     
-    private func configureSlidingTimeLabel() {
-        self.slidingTimeLabel.textAlignment = .center
-        self.slidingTimeLabel.backgroundColor =  UIColor.black.withAlphaComponent(0.5)//?? -> to constants
-        self.slidingTimeLabel.textColor = UIColor.white
-        self.slidingTimeLabel.layer.cornerRadius = 5.0 //?? -> to constants
-        self.slidingTimeLabel.clipsToBounds = true
+    private func configureSlidingTimeLabel() { //?? move to own class?
+        self.timeScaleView.slidingTimeLabel.textAlignment = .center
+        self.timeScaleView.slidingTimeLabel.backgroundColor =  UIColor.black.withAlphaComponent(0.5)//?? -> to constants
+        self.timeScaleView.slidingTimeLabel.textColor = UIColor.white
+        self.timeScaleView.slidingTimeLabel.layer.cornerRadius = 5.0 //?? -> to constants
+        self.timeScaleView.slidingTimeLabel.clipsToBounds = true
     }
     
-    private func configureVideoViewHolder() {
+    private func configureVideoScrollView() {
         //?? to constants
-        self.videoViewHolder.delegate = self
-        self.videoViewHolder.minimumZoomScale = 1
-        self.videoViewHolder.maximumZoomScale = 2
-        self.videoViewHolder.showsVerticalScrollIndicator = false
-        self.videoViewHolder.showsHorizontalScrollIndicator = false
-        self.videoViewHolder.bounces = false
-        self.videoViewHolder.contentInsetAdjustmentBehavior = .never
-        self.videoViewHolder.stickToBounds = true
+        self.videoScrollView.delegate = self
+        self.videoScrollView.minimumZoomScale = 1
+        self.videoScrollView.maximumZoomScale = 2
+        self.videoScrollView.showsVerticalScrollIndicator = false
+        self.videoScrollView.showsHorizontalScrollIndicator = false
+        self.videoScrollView.bounces = false
+        self.videoScrollView.contentInsetAdjustmentBehavior = .never
+        self.videoScrollView.stickToBounds = true
     }
     
     private func customInit() {
@@ -126,19 +123,21 @@ class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate, StepSliderDe
         
         setButtonPermanentColor()
         configureSlidingTimeLabel()
-        configureVideoViewHolder()
+        configureVideoScrollView()
         
-        self.timeSlider.delegate = self
+        self.timeScaleView.timeSlider.delegate = self
         
         self.videoViewTapGestureRecognizer.require(
-            toFail: self.videoViewHolder.doubleTapGestureRecognizer)
+            toFail: self.videoScrollView.doubleTapGestureRecognizer)
         
         //?? private vars init
         
         showPlayButton()
         
         //??
+        videoScrollView.isUserInteractionEnabled = false //??
         _player = PlaylistVideoPlayer(videoView:self.videoView, noAudio: true)
+        _player.delegate = self
         let ss = UIScreen.main.bounds.size
         let newSize = CGSize(width: CGFloat.maximum(ss.height, ss.width),
                              height: CGFloat.minimum(ss.height, ss.width)) //?? so ok?
@@ -174,7 +173,7 @@ class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate, StepSliderDe
         }
         
         self.zoomingView.bounds = CGRect(x: 0, y: 0, width: vs.width, height: vs.height)
-        self.videoViewHolder.setNeedsReconfigure()
+        self.videoScrollView.setNeedsReconfigure()
     }
     
     // MARK: StepSliderDelegate
@@ -187,6 +186,16 @@ class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate, StepSliderDe
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return zoomingView
+    }
+    
+    // MARK: PlaylistVideoPlayerDelegate
+    
+    func playerHasStartedBuffering(player: PlaylistVideoPlayer) {
+        self.activityIndicatorBackgroundView.isHidden = false
+    }
+    
+    func playerHasCompletedBuffering(player: PlaylistVideoPlayer) {
+        self.activityIndicatorBackgroundView.isHidden = true
     }
     
     //?? add other functions of protocol
