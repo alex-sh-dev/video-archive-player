@@ -14,9 +14,8 @@ private struct Constants {
     static let kTimeScaleDistance: CGFloat = 2
     static let kScaleLineWidth: CGFloat = 1
     
-    static let kDefTickHeight: CGFloat = 6
-    static let kDefTickWidth: CGFloat = 2
-    static let kDefThumbWidth: CGFloat = 2
+    static let kTickWidth: CGFloat = 2
+    static let kTickHeight: CGFloat = 6
     
     static let kTextFont: UIFont = UIFont(name: "Helvetica", size: 12)!
     static let kMaxNumberPattern: String = "99"
@@ -67,7 +66,7 @@ final class TimeScaleView: UIView {
         let scaleLineWidth = Constants.kScaleLineWidth
         let distance = Constants.kTimeScaleDistance
         let scaleHeight = rect.size.height - self.timeSlider.frame.size.height
-        let yOffsetForScale = scaleHeight - Constants.kDefTickHeight - scaleLineWidth - distance
+        let yOffsetForScale = scaleHeight - Constants.kTickHeight - scaleLineWidth - distance
         
         context.setFillColor(Constants.kTickColor.cgColor)
         
@@ -92,10 +91,10 @@ final class TimeScaleView: UIView {
         let max = Constants.kMaxTimeScaleValue
         
         for i in min...max {
-            let r = CGRect(x: timeSliderFrame.origin.x + (CGFloat(i) * segment) - Constants.kDefThumbWidth / 2.0,
+            let r = CGRect(x: timeSliderFrame.origin.x + (CGFloat(i) * segment) - TimeSlider.kThumbWidth / 2.0,
                            y: yOffsetForScale,
-                           width: Constants.kDefTickWidth,
-                           height: Constants.kDefTickHeight)
+                           width: Constants.kTickWidth,
+                           height: Constants.kTickHeight)
             context.fill(r)
             let numberString = String(format: Constants.kNumberStingFormat, i)
             let s = CGRectIntegral(rectBuilt(fromText: numberString, font: Constants.kTextFont)).size
@@ -110,7 +109,7 @@ final class TimeScaleView: UIView {
             }
             
             if shouldShowNumber {
-                let drawRect = CGRect(x: r.origin.x - s.width / 2.0 + Constants.kDefTickWidth / 2.0,
+                let drawRect = CGRect(x: r.origin.x - s.width / 2.0 + Constants.kTickWidth / 2.0,
                                   y: yOffsetForScale - s.height - distance,
                                   width: s.width, height: s.height)
                 
