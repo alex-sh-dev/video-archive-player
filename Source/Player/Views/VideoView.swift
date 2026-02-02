@@ -7,22 +7,45 @@
 
 import UIKit
 
+protocol VideoViewDelegate: AnyObject {
+    func videoViewTapped()
+}
+
+extension VideoViewDelegate {
+    func videoViewTapped() {}
+}
+
 final class VideoView: UIView {
-    var originalVideoSize: CGSize = CGSizeZero
+    @IBOutlet var tapGestureRecognizer: UITapGestureRecognizer! {
+        didSet {
+            if let scrollView = self.superview as? VideoScrollView {
+                self.tapGestureRecognizer.require(
+                    toFail: scrollView.doubleTapGestureRecognizer)
+            }
+        }
+    }
+    
+    weak var delegate: VideoViewDelegate?
+    
+    var initialVideoSize: CGSize = CGSizeZero
     private let expectedVideoView = "VLCOpenGLES2VideoView"
+    
+    @IBAction func tapped(_ sender: Any) {
+        self.delegate?.videoViewTapped()
+    }
     
     final func calcScaleFactor() -> CGFloat {
         let fs = self.frame.size
-        let ovs = self.originalVideoSize
+        let ivs = self.initialVideoSize
         let defScale = UIScreen.main.scale
 
-        if CGSizeEqualToSize(ovs, CGSizeZero) {
+        if ivs.equalTo(CGSizeZero) {
             return defScale
         }
 
-        if fs.height > ovs.height && fs.width > ovs.width {
-            let fh = ovs.height / fs.height
-            let fw = ovs.width / fs.width
+        if fs.height > ivs.height && fs.width > ivs.width {
+            let fh = ivs.height / fs.height
+            let fw = ivs.width / fs.width
             return CGFloat.maximum(fh, fw) * defScale
         }
 

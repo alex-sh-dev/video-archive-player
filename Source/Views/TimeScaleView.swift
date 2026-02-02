@@ -27,24 +27,32 @@ private struct Constants {
     static let kNumberColor = UIColor.white
     static let kTickColor = UIColor.white
     static let kScaleLineColor = UIColor.lightGray
+    
+    static let kSlidingTimeBackroundColor = UIColor.black.withAlphaComponent(0.5)
+    static let kSlidingTimeTextColor = UIColor.white
+    static let kSlidingTimeCornerRadius = 5.0
 }
 
 final class TimeScaleView: UIView {
     // MARK: public outlets
     
-    @IBOutlet weak var timeSlider: TimeSlider!
-    @IBOutlet weak var slidingTimeLabel: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
-    
-    // MARK: public functions
-    
-    override func didAddSubview(_ subview: UIView) {
-        super.didAddSubview(subview)
-        
-        if let timeSlider = subview as? TimeSlider {
+    @IBOutlet weak var timeSlider: TimeSlider! {
+        didSet {
             timeSlider.setRelativeViewForGestureRecognizing(self)
         }
     }
+    @IBOutlet weak var slidingTimeLabel: UILabel! {
+        didSet {
+            self.slidingTimeLabel.textAlignment = .center
+            self.slidingTimeLabel.backgroundColor = Constants.kSlidingTimeBackroundColor
+            self.slidingTimeLabel.textColor = Constants.kSlidingTimeTextColor
+            self.slidingTimeLabel.layer.cornerRadius = Constants.kSlidingTimeCornerRadius
+            self.slidingTimeLabel.clipsToBounds = true
+        }
+    }
+    @IBOutlet weak var timeLabel: UILabel!
+    
+    // MARK: public functions
     
     override func draw(_ rect: CGRect) {
         guard let context: CGContext = UIGraphicsGetCurrentContext() else {

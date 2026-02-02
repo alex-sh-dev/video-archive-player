@@ -20,9 +20,6 @@
                 <outlet property="speedButton" destination="bKV-BX-MrG" id="8xc-tp-XvJ"/>
                 <outlet property="timeScaleView" destination="tdJ-Nv-eQ9" id="Qye-Cg-Aa8"/>
                 <outlet property="videoScrollView" destination="rKL-KG-Utf" id="qQl-Aj-btA"/>
-                <outlet property="videoView" destination="Qzm-wD-Emw" id="qTi-DD-vju"/>
-                <outlet property="videoViewTapGestureRecognizer" destination="mAC-ez-SQI" id="C5Y-og-9ro"/>
-                <outlet property="zoomingView" destination="sC8-yT-sau" id="lbG-F7-q4o"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -44,12 +41,17 @@
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <gestureRecognizers/>
                             <connections>
-                                <outletCollection property="gestureRecognizers" destination="mAC-ez-SQI" appends="YES" id="Msk-jg-wWg"/>
+                                <outlet property="tapGestureRecognizer" destination="5ZT-JJ-Uo1" id="WQV-32-NJP"/>
+                                <outletCollection property="gestureRecognizers" destination="5ZT-JJ-Uo1" appends="YES" id="9f9-zx-CFL"/>
                             </connections>
                         </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <gestureRecognizers/>
+                    <connections>
+                        <outlet property="videoView" destination="Qzm-wD-Emw" id="mmb-Cp-Aei"/>
+                        <outlet property="zoomingView" destination="sC8-yT-sau" id="zmA-ej-wvL"/>
+                    </connections>
                 </view>
                 <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1oy-XA-ct4" userLabel="activityIndicatorBackgroundView" customClass="ActivityIndicatorBackgroundView" customModule="VideoArchivePlayer" customModuleProvider="target">
                     <rect key="frame" x="196.66666666666666" y="59" width="0.0" height="580"/>
@@ -74,6 +76,7 @@
                                 <constraint firstAttribute="height" constant="55" id="i7g-PY-S2N"/>
                                 <constraint firstAttribute="width" constant="55" id="khF-2t-ElK"/>
                             </constraints>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                             <state key="normal" image="play.fill" catalog="system">
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30" scale="large"/>
@@ -88,6 +91,7 @@
                                 <constraint firstAttribute="width" constant="35" id="UNn-RS-z3a"/>
                                 <constraint firstAttribute="height" constant="35" id="aOi-uT-kC3"/>
                             </constraints>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" image="goforward.30" catalog="system"/>
                             <connections>
                                 <action selector="buttonTappedWithSender:" destination="-1" eventType="touchUpInside" id="CK7-UV-n85"/>
@@ -99,6 +103,7 @@
                                 <constraint firstAttribute="width" constant="35" id="i7e-Eu-RwV"/>
                                 <constraint firstAttribute="height" constant="35" id="jVN-3m-59S"/>
                             </constraints>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" image="forward.end.fill" catalog="system"/>
                             <connections>
                                 <action selector="buttonTappedWithSender:" destination="-1" eventType="touchUpInside" id="xg2-G9-YaT"/>
@@ -110,6 +115,7 @@
                                 <constraint firstAttribute="height" constant="35" id="CFZ-al-rJt"/>
                                 <constraint firstAttribute="width" constant="35" id="dLi-sh-wQp"/>
                             </constraints>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" image="gobackward.30" catalog="system"/>
                             <connections>
                                 <action selector="buttonTappedWithSender:" destination="-1" eventType="touchUpInside" id="ZrH-fk-B3n"/>
@@ -121,6 +127,7 @@
                                 <constraint firstAttribute="width" constant="35" id="QX9-Mg-JoV"/>
                                 <constraint firstAttribute="height" constant="35" id="cSQ-y7-jjS"/>
                             </constraints>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" image="backward.end.fill" catalog="system"/>
                             <connections>
                                 <action selector="buttonTappedWithSender:" destination="-1" eventType="touchUpInside" id="LNV-sT-KoT"/>
@@ -156,6 +163,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bKV-BX-MrG" userLabel="speedButton">
                             <rect key="frame" x="181.66666666666666" y="0.0" width="30" height="48"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                             <state key="normal" title="1.0">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -377,9 +385,9 @@
             </variation>
             <point key="canvasLocation" x="129.00763358778624" y="130.98591549295776"/>
         </view>
-        <tapGestureRecognizer id="mAC-ez-SQI">
+        <tapGestureRecognizer id="5ZT-JJ-Uo1">
             <connections>
-                <action selector="tapped:" destination="-1" id="O6k-h0-Xfz"/>
+                <action selector="tapped:" destination="Qzm-wD-Emw" id="urX-0U-MFa"/>
             </connections>
         </tapGestureRecognizer>
     </objects>
