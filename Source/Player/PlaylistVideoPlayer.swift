@@ -17,7 +17,7 @@ enum PlaylistVideoPlayerState: UInt {
     case endReached
 }
 
-enum PlaylistItemIndex: Equatable {
+enum PlaylistItemIndex: Comparable {
     case first
     case last
     case unspecified
