@@ -18,6 +18,7 @@
 		D720B6F52F2B7945005FDA6B /* VLCExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D720B6F42F2B7945005FDA6B /* VLCExtensions.swift */; };
 		D720B6F72F2B79D6005FDA6B /* HttpHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D720B6F62F2B79D6005FDA6B /* HttpHelpers.swift */; };
 		D7485E862F2F3BBD006EB121 /* VideoScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7485E852F2F3BBD006EB121 /* VideoScrollView.swift */; };
+		D7485E892F309220006EB121 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7485E882F309220006EB121 /* Files.swift */; };
 		D78A35972F2BE3D900DC3B87 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D78A35962F2BE3D900DC3B87 /* AudioToolbox.framework */; };
 		D78A359D2F2BE41700DC3B87 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D78A359C2F2BE41700DC3B87 /* CoreAudio.framework */; };
 		D78A359F2F2BE43B00DC3B87 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D78A359E2F2BE43B00DC3B87 /* AVFoundation.framework */; };
@@ -53,6 +54,7 @@
 		D720B6F42F2B7945005FDA6B /* VLCExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCExtensions.swift; sourceTree = "<group>"; };
 		D720B6F62F2B79D6005FDA6B /* HttpHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpHelpers.swift; sourceTree = "<group>"; };
 		D7485E852F2F3BBD006EB121 /* VideoScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoScrollView.swift; sourceTree = "<group>"; };
+		D7485E882F309220006EB121 /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
 		D78A35962F2BE3D900DC3B87 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D78A35982F2BE3E900DC3B87 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		D78A359A2F2BE41000DC3B87 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -107,6 +109,7 @@
 				D720B6F22F2B77F9005FDA6B /* Global.swift */,
 				D7EEE24B2F221C040098A5CB /* AppDelegate.swift */,
 				D7EEE24D2F221C040098A5CB /* SceneDelegate.swift */,
+				D7485E882F309220006EB121 /* Files.swift */,
 				D78A35B42F2DE4F900DC3B87 /* Helpers */,
 				D78A35B32F2DE49000DC3B87 /* Controllers */,
 				D78A35B02F2DD53D00DC3B87 /* Views */,
@@ -290,6 +293,7 @@
 				D7EEE24C2F221C040098A5CB /* AppDelegate.swift in Sources */,
 				D71C627F2F28C28F00D7341D /* PlaylistVideoPlayer.swift in Sources */,
 				D71C62732F232A1C00D7341D /* ActivityIndicatorBackgroundView.swift in Sources */,
+				D7485E892F309220006EB121 /* Files.swift in Sources */,
 				D7EEE24E2F221C040098A5CB /* SceneDelegate.swift in Sources */,
 				D71C62772F2345CF00D7341D /* TimeSlider.swift in Sources */,
 				D71C62812F28C3E900D7341D /* PlaylistVideoPlayerDelegate.swift in Sources */,

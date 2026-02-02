@@ -79,7 +79,7 @@ final class TimeSlider: StepSlider {
                 var j = startX + 1
                 while j < endX {
                     states[j] = true
-                    j+=1
+                    j += 1
                 }
             }
         

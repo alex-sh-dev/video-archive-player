@@ -7,6 +7,17 @@
 
 import UIKit
 
+private struct PlayerPosition
+{
+    var index: PlaylistItemIndex = .first
+    var time: UInt = 0
+    
+    init(index: PlaylistItemIndex, time: UInt) {
+        self.index = index
+        self.time = time
+    }
+}
+
 final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
                                      StepSliderDelegate, VideoViewDelegate
 {
@@ -106,7 +117,6 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
     // MARK: VideoViewDelegate
     
     func videoViewTapped() {
-        
     }
     
     // MARK: StepSliderDelegate
