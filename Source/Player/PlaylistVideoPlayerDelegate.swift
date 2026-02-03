@@ -15,17 +15,17 @@ protocol PlaylistVideoPlayerDelegate: AnyObject {
     func playerStopped(player: PlaylistVideoPlayer)
     
     func playerPositionChanged(player: PlaylistVideoPlayer)
-    func playerPositionChangedAtItem(palyer: PlaylistVideoPlayer, pos: UInt, itemIndex: UInt)
+    func playerPositionChangedAtItem(player: PlaylistVideoPlayer, pos: UInt, itemIndex: PlaylistItemIndex)
     
     func playerEndReached(player: PlaylistVideoPlayer)
-    func playerItemEndReached(player: PlaylistVideoPlayer, itemIndex: UInt)
+    func playerItemEndReached(player: PlaylistVideoPlayer, itemIndex: PlaylistItemIndex)
     
     func playerNextItemSet(player: PlaylistVideoPlayer)
     func playerNextItemSet(player: PlaylistVideoPlayer, startTime: UInt)
     
     func playerErrorEncountered(player: PlaylistVideoPlayer)
     
-    func playerFileCeasedExistence(player: PlaylistVideoPlayer, filePath: String, itemIndex: UInt)
+    func playerFileCeasedExistence(player: PlaylistVideoPlayer, filePath: String, itemIndex: PlaylistItemIndex)
     
     func playerHasStartedBuffering(player: PlaylistVideoPlayer)
     func playerHasCompletedBuffering(player: PlaylistVideoPlayer)
@@ -39,17 +39,17 @@ extension PlaylistVideoPlayerDelegate {
     func playerStopped(player: PlaylistVideoPlayer) {}
     
     func playerPositionChanged(player: PlaylistVideoPlayer) {}
-    func playerPositionChangedAtItem(palyer: PlaylistVideoPlayer, pos: UInt, itemIndex: UInt) {}
+    func playerPositionChangedAtItem(player: PlaylistVideoPlayer, pos: UInt, itemIndex: PlaylistItemIndex) {}
     
     func playerEndReached(player: PlaylistVideoPlayer) {}
-    func playerItemEndReached(player: PlaylistVideoPlayer, itemIndex: UInt) {}
+    func playerItemEndReached(player: PlaylistVideoPlayer, itemIndex: PlaylistItemIndex) {}
     
     func playerNextItemSet(player: PlaylistVideoPlayer) {}
     func playerNextItemSet(player: PlaylistVideoPlayer, startTime: UInt) {}
     
     func playerErrorEncountered(player: PlaylistVideoPlayer) {}
     
-    func playerFileCeasedExistence(player: PlaylistVideoPlayer, filePath: String, itemIndex: UInt) {}
+    func playerFileCeasedExistence(player: PlaylistVideoPlayer, filePath: String, itemIndex: PlaylistItemIndex) {}
     
     func playerHasStartedBuffering(player: PlaylistVideoPlayer) {}
     func playerHasCompletedBuffering(player: PlaylistVideoPlayer) {}

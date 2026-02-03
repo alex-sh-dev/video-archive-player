@@ -43,19 +43,6 @@ private enum MediaListIndex: Equatable {
     case last
     case notFound
     case value(UInt)
-
-    static func == (lhs: MediaListIndex, rhs: MediaListIndex) -> Bool {
-        switch (lhs, rhs) {
-        case (.last, .last):
-            return true
-        case (.notFound, .notFound):
-            return true
-        case (.value(let lhsInd), .value(let rhsInd)):
-            return lhsInd == rhsInd
-        default:
-            return false
-        }
-    }
 }
 
 // MARK: private classes
@@ -78,16 +65,6 @@ private class MediaInfo {
     }
 }
 
-private class MediaItem {
-    let media: VLCMedia?
-    let index: UInt
-
-    init(media: VLCMedia?, index: UInt) {
-        self.media = media
-        self.index = index
-    }
-}
-
 // MARK: consts
 
 private struct Constants {
@@ -102,15 +79,10 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
     // MARK: public properties
     weak var delegate: PlaylistVideoPlayerDelegate?
 
-    var playlistCount: Int {
+    var playlistCount: UInt {
         get {
-            return _mediaList.count
-        }
-    }
-
-    var currentPosition: Int {
-        get {
-            return _playerPosition
+            let count = _mediaList.count
+            return  count > 0 ? UInt(count) : 0
         }
     }
 
@@ -155,13 +127,15 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
     
     private func clearMediaList() {
         _mediaList.lock()
+        defer {
+            _mediaList.unlock()
+        }
         while _mediaList.count != 0 {
             _mediaList.media(at: 0)?.releaseObject(type: MediaInfo.self)
             let success = _mediaList.removeMedia(at: 0)
             assert(success)
         }
         assert(_mediaList.count == 0)
-        _mediaList.unlock()
     }
     
     private func locateMediaFile(filePath: String) -> MediaInfo.FileLocation {
@@ -218,56 +192,59 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
         }
         
         _mediaList.lock()
-        let itemIndex: UInt = _mediaList.index(of: media)
+        let index: UInt = _mediaList.index(of: media)
         let count: Int = _mediaList.count
         _mediaList.unlock()
         
-        if itemIndex == NSNotFound {
+        if index == NSNotFound {
             return .notFound
         }
         
-        if itemIndex == count - 1 {
+        if index == count - 1 {
             return .last
         } else {
-            return .value(itemIndex)
+            return .value(index)
         }
     }
     
-    private func currentPlayerMedia() -> MediaItem? {
+    private func currentPlayerMedia() -> (media: VLCMedia, itemIndex: PlaylistItemIndex)? {
         guard let media = _mediaListPlayer.mediaPlayer?.media else {
             return nil
         }
         _mediaList.lock()
-        let itemIndex = _mediaList.index(of: media)
+        let index = _mediaList.index(of: media)
         _mediaList.unlock()
         
-        if itemIndex == NSNotFound {
+        if index == NSNotFound {
             return nil
         }
         
-        return MediaItem(media: media, index: itemIndex)
+        return (media, .value(index))
     }
     
-    private func media(at itemIndex: PlaylistItemIndex) -> VLCMedia? {
-        var media: VLCMedia?
+    private func media(at itemIndex: PlaylistItemIndex) -> (obj: VLCMedia, index: UInt)? {
+        var media: VLCMedia? = nil
         _mediaList.lock()
-        let count = UInt(_mediaList.count)
+        defer {
+            _mediaList.unlock()
+        }
+        let count = self.playlistCount
+        var index: UInt = itemIndex.rawValue
         if (count > 0) {
-            var index = itemIndex
             if itemIndex == .last {
-                index = .value(count - 1)
+                index = count - 1
             }
-            if index.rawValue >= 0 && index.rawValue < count {
-                media = _mediaList.media(at: index.rawValue)
+            
+            if index >= 0 && index < count {
+                media = _mediaList.media(at: index)
             }
         }
-        _mediaList.unlock()
         
-        return media
-    }
-    
-    private func canJump() -> Bool {
-        return _state != .stopped
+        if media == nil {
+            return nil
+        }
+        
+        return (media!, index)
     }
     
     // MARK: init
@@ -345,8 +322,8 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
             case .last:
                 setState(newState: .endReached)
                 self.delegate?.playerEndReached(player: self)
-            case .value(let index):
-                self.delegate?.playerItemEndReached(player: self, itemIndex: index)
+            case .value(let val):
+                self.delegate?.playerItemEndReached(player: self, itemIndex: .value(val))
             }
         case .error:
             self.delegate?.playerErrorEncountered(player: self)
@@ -367,7 +344,7 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
         let pos = player.directTime != VLCTime.null() ? Int(player.directTime.intValue / 1000) : 0
         assert(pos >= 0)
         if let mediaItem = currentPlayerMedia(), pos != _playerPosition {
-            self.delegate?.playerPositionChangedAtItem(palyer: self, pos: UInt(pos), itemIndex: mediaItem.index)
+            self.delegate?.playerPositionChangedAtItem(player: self, pos: UInt(pos), itemIndex: mediaItem.itemIndex)
         }
         _playerPosition = pos
     }
@@ -385,10 +362,7 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
             return
         }
         
-        guard let mi: MediaInfo = mediaItem.media?.object() else {
-            return
-        }
-        
+        let mi: MediaInfo = mediaItem.media.object()
         let location = mi.location
         let filePath = mi.filePath
         let startTime = mi.startTime
@@ -413,7 +387,7 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
                 if !_mediaListPlayer.next {
                     _mediaListPlayer.stop()
                 }
-                self.delegate?.playerFileCeasedExistence(player: self, filePath: filePath, itemIndex: mediaItem.index)
+                self.delegate?.playerFileCeasedExistence(player: self, filePath: filePath, itemIndex: mediaItem.itemIndex)
             }
         }
     }
@@ -448,7 +422,7 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
             _mediaListPlayer.play()
         } else {
             if let media = media(at: itemIndex) {
-                _mediaListPlayer.play(media)
+                _mediaListPlayer.play(media.obj)
             } else {
                 _mediaListPlayer.play()
             }
@@ -460,49 +434,25 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
         play()
     }
 
-    final func play(fromPlaylistAt itemIndex: UInt, startTime:UInt) -> Bool {
+    final func play(fromPlaylistAt itemIndex: PlaylistItemIndex, startTime:UInt) -> Bool {
         if _state == .stopped {
             return false
         }
         
-        guard let media = _mediaList.media(at: itemIndex) else {
+        guard let media = media(at: itemIndex)?.obj else {
             return false
         }
         
         let mi: MediaInfo = media.object()
         mi.startTime = startTime
         let pos = VLCTime(number: NSNumber(value: Int(startTime) * 1000))
-        _mediaListPlayer.playItemIndex(Int32(itemIndex), inPosition: pos)
+        _mediaListPlayer.playItemIndex(Int32(itemIndex.rawValue), inPosition: pos)
         return true
     }
     
     final func play(withFiles filePaths: [String], startingFrom itemIndex: PlaylistItemIndex = .first) {
         setFiles(filePaths)
         play(startingFrom: itemIndex)
-    }
-    
-    final func shortJumpForward() {
-        if canJump() {
-            _mediaListPlayer.mediaPlayer.shortJumpForward()
-        }
-    }
-    
-    final func shortJumpBackward() {
-        if canJump() {
-            _mediaListPlayer.mediaPlayer.shortJumpBackward()
-        }
-    }
-
-    final func longJumpForward() {
-        if canJump() {
-            _mediaListPlayer.mediaPlayer.longJumpForward()
-        }
-    }
-    
-    final func longJumpBackward() {
-        if canJump() {
-            _mediaListPlayer.mediaPlayer.longJumpBackward()
-        }
     }
 
     final func stop() {
@@ -541,22 +491,23 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
         appendMedia(media: media)
     }
     
-    final func remove(fromPlaylistAt index: UInt) {
+    final func remove(fromPlaylistAt itemIndex: PlaylistItemIndex) {
+        if itemIndex == .unspecified {
+            return
+        }
+        
         guard let mediaItem = currentPlayerMedia() else {
             return
         }
         
-        if mediaItem.index == index {
-            if !_mediaListPlayer.next {
-                _mediaListPlayer.stop()
-            }
+        if mediaItem.itemIndex == itemIndex
+            && !_mediaListPlayer.next {
+            _mediaListPlayer.stop()
         }
         
-        _mediaList.lock()
-        if let media = _mediaList.media(at: index) {
-            media.releaseObject(type: MediaInfo.self)
-            _mediaList.removeMedia(at: index)
+        if let media = media(at: itemIndex) {
+            media.obj.releaseObject(type: MediaInfo.self)
+            _mediaList.removeMedia(at: media.index)
         }
-        _mediaList.unlock()
     }
 }
