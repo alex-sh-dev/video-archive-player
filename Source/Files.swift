@@ -23,7 +23,9 @@ struct VideoFileInfo {
         self.size = size
     }
     
-    /// Returns the converted creation time (in seconds) from the interval [0, 86400) using the device's current time zone.
+    /// Returns the converted creation time (in seconds) from the interval [0, 86400) using the device's time zone
+    /// - Parameters:
+    ///     - timeZone: If nil, the current device's time zone ​​will be used
     func numericalCreationTime(timeZone: TimeZone? = nil) -> (succes: Bool, result: UInt) {
         let date = Date(timeIntervalSince1970: Double(self.creationTime))
         var calendar = Calendar(identifier: .gregorian)
