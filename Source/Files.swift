@@ -13,7 +13,7 @@ struct VideoFileInfo {
     /// Duration of video file
     var duration: UInt = 0
     /// Size of video
-    var size: CGSize = CGSizeZero
+    var size: CGSize = CGSize(width: 0, height: 0)
     
     init() {}
     
@@ -24,9 +24,12 @@ struct VideoFileInfo {
     }
     
     /// Returns the converted creation time (in seconds) from the interval [0, 86400) using the device's current time zone.
-    func numericalCreationTime() -> (succes: Bool, result: UInt) {
+    func numericalCreationTime(timeZone: TimeZone? = nil) -> (succes: Bool, result: UInt) {
         let date = Date(timeIntervalSince1970: Double(self.creationTime))
-        let calendar = Calendar(identifier: .gregorian)
+        var calendar = Calendar(identifier: .gregorian)
+        if timeZone != nil {
+            calendar.timeZone = timeZone!
+        }
         let cmps = calendar.dateComponents([.hour, .minute, .second], from: date)
         if let h = cmps.hour, h >= 0,
            let m = cmps.minute, m >= 0,
