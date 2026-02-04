@@ -345,7 +345,7 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
         return false
     }
     
-    func startPlayer(videoFileList: VideoFileList, videoSize: CGSize,
+    func startPlayer(videoFileList: VideoFileList, videoSize: CGSize = .zero,
                      audioDisabled: Bool = true, startTime: UInt = 0) {
         if videoFileList.count == 0 {
             return
@@ -432,6 +432,10 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
         
         self.videoScrollView.isUserInteractionEnabled = true
         showPauseButton()
+    }
+    
+    func playerReadyVideoSize(player: PlaylistVideoPlayer, videoSize: CGSize) {
+        self.videoScrollView.specifyVideoSize(videoSize)
     }
 
     func playerPaused(player: PlaylistVideoPlayer) {

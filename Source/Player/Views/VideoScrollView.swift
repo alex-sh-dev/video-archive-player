@@ -41,21 +41,20 @@ final class VideoScrollView : EXScrollView, UIScrollViewDelegate {
     // MARK: public functions
     
     public func specifyVideoSize(_ videoSize: CGSize) {
+        var vs = videoSize
+        let ss = UIScreen.main.bounds.size
+        var newSize = CGSize(width: CGFloat.maximum(ss.height, ss.width),
+                             height: CGFloat.minimum(ss.height, ss.width))
         if videoSize.equalTo(.zero) {
-            return
+            vs = newSize
         }
         
         let scale = UIScreen.main.scale
-        var vs = videoSize
         
         vs.height = (vs.height / scale).rounded(.down)
         vs.width = (vs.width / scale).rounded(.down)
         
         self.videoView.initialVideoSize = vs
-        
-        let ss = UIScreen.main.bounds.size
-        var newSize = CGSize(width: CGFloat.maximum(ss.height, ss.width),
-                             height: CGFloat.minimum(ss.height, ss.width))
         
         if vs.width < newSize.width {
             let p = vs.height / vs.width

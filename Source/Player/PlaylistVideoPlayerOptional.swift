@@ -27,4 +27,6 @@ extension PlaylistVideoPlayerDelegate {
     
     func playerHasStartedBuffering(player: PlaylistVideoPlayer) {}
     func playerHasCompletedBuffering(player: PlaylistVideoPlayer) {}
+    
+    func playerReadyVideoSize(player: PlaylistVideoPlayer, videoSize: CGSize) {}
 }

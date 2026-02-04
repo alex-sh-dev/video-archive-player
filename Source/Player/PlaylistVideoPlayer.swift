@@ -293,6 +293,9 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
         if player.isPlaying && _state != .playing {
             setState(newState: .playing)
             self.delegate?.playerPlaying(player: self)
+            if !player.videoSize.equalTo(.zero) {
+                self.delegate?.playerReadyVideoSize(player: self, videoSize: player.videoSize)
+            }
         }
         
         switch (state) {
