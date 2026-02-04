@@ -26,10 +26,11 @@ private struct Constants {
 
 final class TimeSlider: StepSlider {
     var timeIntervals: [TimeInterval]?
+    var userData: Any?
     
     static let kThumbWidth: CGFloat = 2
-    static var kMinValue: Int = 0
-    static var kMaxValue: Int = 86400
+    static let kMinValue: Int = 0
+    static let kMaxValue: Int = 86400
     
     override init(frame: CGRect) {
         super.init(frame: frame)

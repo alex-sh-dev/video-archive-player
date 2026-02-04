@@ -5,4 +5,12 @@
 //  Created by dev on 2/3/26.
 //
 
-import Foundation
+import UIKit
+
+protocol TimeScaleViewDelegate: AnyObject {
+    func timeSliderSetValueAfterDelay(slider: TimeSlider, value: UInt)
+}
+
+extension TimeScaleViewDelegate {
+    func timeSliderSetValueAfterDelay(slider: TimeSlider, value: UInt) {}
+}

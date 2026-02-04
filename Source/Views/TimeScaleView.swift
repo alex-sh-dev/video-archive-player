@@ -32,14 +32,16 @@ private struct Constants {
     static let kSlidingTimeCornerRadius = 5.0
 }
 
-final class TimeScaleView: UIView {
+final class TimeScaleView: UIView, StepSliderDelegate {
     // MARK: public outlets
     
     @IBOutlet weak var timeSlider: TimeSlider! {
         didSet {
             timeSlider.setRelativeViewForGestureRecognizing(self)
+            timeSlider.delegate = self
         }
     }
+    
     @IBOutlet weak var slidingTimeLabel: UILabel! {
         didSet {
             self.slidingTimeLabel.textAlignment = .center
@@ -50,6 +52,44 @@ final class TimeScaleView: UIView {
         }
     }
     @IBOutlet weak var timeLabel: UILabel!
+    
+    // MARK: public properties
+    
+    weak var delegate: TimeScaleViewDelegate?
+    
+    // MARK: private properties
+    
+    private let _timeSliderValueSetQueue = OperationQueue()
+    
+    // MARK: init
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        customInit()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        customInit()
+    }
+    
+    // MARK: private functions
+    
+    private func customInit() {
+        _timeSliderValueSetQueue.maxConcurrentOperationCount = 1
+    }
+    
+    private func timeSliderSetEventToQueue(value: NSNumber) {
+        _timeSliderValueSetQueue.cancelAllOperations()
+        self.timeSlider.userData = value
+        _timeSliderValueSetQueue.addOperation(
+            ViewDelayedOperation({
+                guard let savedValue = self.timeSlider.userData as? NSNumber else {
+                    return
+                }
+                self.delegate?.timeSliderSetValueAfterDelay(slider: self.timeSlider, value: savedValue.uintValue)
+            }))
+    }
     
     // MARK: public functions
     
@@ -130,5 +170,78 @@ final class TimeScaleView: UIView {
             self.timeSlider.setNeedsDisplay()
         }
         super.setNeedsDisplay()
+    }
+    
+    func setTimeSliderValue(_ value: NSNumber, animated: Bool = false,
+                            delayedEventStart: Bool = false) {
+        self.timeSlider.setValue(value, animated: animated)
+        if delayedEventStart {
+            timeSliderSetEventToQueue(value: value)
+        }
+    }
+    
+    // MARK: StepSliderDelegate
+    
+    func stepSlider(_ slider: StepSlider, didChangeValue value: NSNumber) {
+        timeSliderSetEventToQueue(value: value)
+    }
+    
+    func stepSlider(_ slider: StepSlider, didUpdateValue value: NSNumber) {
+        self.timeLabel.text = TimeScaleView.text(forValue: value)
+    }
+    
+    func stepSlider(_ slider: StepSlider, thumbPanGestureBeganAt p: CGPoint, withValue value: NSNumber) {
+        self.slidingTimeLabel.isHidden = false
+        var newRect = self.slidingTimeLabel.frame
+        newRect.origin.y = self.frame.origin.y - self.slidingTimeLabel.frame.size.height - 4
+        //??
+        self.slidingTimeLabel.frame = newRect
+        self.slidingTimeLabel.text = TimeScaleView.text(forValue: value)
+    }
+    
+    func stepSlider(_ slider: StepSlider, thumbPanGestureChangedAt p: CGPoint, withValue value: NSNumber) {
+        let text = TimeScaleView.text(forValue: value)
+        var newSize = rectBuilt(fromText: text, font: self.slidingTimeLabel.font).size
+        newSize.width = newSize.width + 4
+        
+        var newRect = self.slidingTimeLabel.frame
+        newRect.size.height = newSize.height
+        newRect.size.width = newSize.width
+        var newOriginX: CGFloat = p.x + slider.frame.origin.x - newSize.width / 2.0
+        let xOffset: CGFloat = 2.0
+        if newOriginX < xOffset {
+            newOriginX = xOffset
+        } else if newOriginX + newSize.width + xOffset > self.frame.size.width {
+            newOriginX = self.frame.size.width - newSize.width - xOffset
+        }
+        newRect.origin.x = newOriginX
+        
+        self.slidingTimeLabel.frame = newRect
+        self.slidingTimeLabel.text = text
+    }
+    
+    func stepSlider(_ slider: StepSlider, thumbPanGestureEndedAt p: CGPoint, withValue value: NSNumber) {
+        self.slidingTimeLabel.isHidden = true
+    }
+}
+
+extension TimeScaleView {
+    private static let kSiH: Int = 3600
+    private static let kSiM: Int = 60
+    private static let kTimeStringFormat = "%02d:%02d:%02d"
+    
+    static func text(forValue value: NSNumber) -> String {
+        var val = value.intValue
+        if val < TimeSlider.kMinValue {
+            val = TimeSlider.kMinValue
+        } else if val >= TimeSlider.kMaxValue {
+            val = TimeSlider.kMaxValue
+        }
+        
+        let h = val / kSiH
+        let m = (val - h * kSiH) / kSiM
+        let s = val - h * kSiH - m * kSiM
+        
+        return String(format: kTimeStringFormat, h, m, s)
     }
 }
