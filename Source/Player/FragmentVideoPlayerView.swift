@@ -240,7 +240,7 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
         
         if let vi = infoList[itemIndex.rawValue] {
             let value = vi.info.creationTime + time
-            if value <= self.timeScaleView.timeSlider.maximumValue.uintValue {
+            if value <= TimeSlider.kMaxValue {
                 self.timeScaleView.setTimeSliderValue(NSNumber(value: value), animated: true)
             }
         }
@@ -309,7 +309,13 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
             return
         }
             
-        let newValue = self.timeScaleView.timeSlider.value.intValue + time
+        var newValue = self.timeScaleView.timeSlider.value.intValue + time
+        if newValue < TimeSlider.kMinValue {
+            newValue = TimeSlider.kMinValue
+        } else if newValue > TimeSlider.kMaxValue {
+            newValue = TimeSlider.kMaxValue
+        }
+        
         self.timeScaleView.setTimeSliderValue(NSNumber(value: newValue), delayedEventStart: true)
     }
     
@@ -340,10 +346,12 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
     }
     
     func startPlayer(videoFileList: VideoFileList, videoSize: CGSize,
-                     audioDisabled: Bool = false, startTime: UInt = 0) {
+                     audioDisabled: Bool = true, startTime: UInt = 0) {
         if videoFileList.count == 0 {
             return
         }
+        
+        stopPlayer()
         
         _videoInfoList = videoFileList
         
@@ -387,10 +395,10 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
             return
         }
         
-        if slider.maximumValue.uintValue == value {
+        if value == TimeSlider.kMaxValue {
             self.play(fromPlaylistAt: .last, startTime: 0)
             return
-        } else if slider.minimumValue.uintValue == value {
+        } else if value == TimeSlider.kMinValue {
             self.play(fromPlaylistAt: .first, startTime: 0)
             return
         }

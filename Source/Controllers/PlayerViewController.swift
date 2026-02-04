@@ -47,7 +47,7 @@ class PlayerViewController: UIViewController, FragmentVideoPlayerViewDelegate {
         videoInfoList.append(creationTime: 60000, duration: 567, path: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4", size: CGSize(width: 1280, height: 720))
         
         let size = CGSize(width: 1280, height: 720)
-        _videoPlayerView.startPlayer(videoFileList: videoInfoList, videoSize: size)
+        _videoPlayerView.startPlayer(videoFileList: videoInfoList, videoSize: size, audioDisabled: true)
         //??
     }
     
