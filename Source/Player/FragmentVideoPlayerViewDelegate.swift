@@ -5,4 +5,12 @@
 //  Created by dev on 2/4/26.
 //
 
-import Foundation
+import UIKit
+
+protocol FragmentVideoPlayerViewDelegate : AnyObject {
+    func videoViewTapped()
+}
+
+extension FragmentVideoPlayerViewDelegate {
+    func videoViewTapped() {}
+}

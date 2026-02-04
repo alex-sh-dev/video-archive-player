@@ -60,6 +60,8 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
         return self.mainButtonGroup.isHidden
     }
     
+    weak var delegate: FragmentVideoPlayerViewDelegate?
+    
     // MARK: private properties
     
     private weak var contentView: UIView!
@@ -110,10 +112,6 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
     
     // MARK: private functions
     
-//    - (void)resetIsForbiddenToUpdateValueOfTimeSlider {
-//        _isForbiddenToUpdateValueOfTimeSlider = NO;
-//    } //?? Что делать
-    
     private func customInit() {
         let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: String(describing: type(of: self)), bundle: bundle)
@@ -124,7 +122,6 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
         
         self.videoScrollView.videoView.delegate = self
         self.timeScaleView.delegate = self
-        
         self.timeScaleView.timeSlider.isUserInteractionEnabled = false
         
         updateVideoSpeed(Constants.kNormalVideoSpeed)
@@ -133,6 +130,10 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
     }
     
     private func createPlayer(audioDisabled: Bool = true) {
+        if _player != nil {
+            return
+        }
+        
         videoScrollView.isUserInteractionEnabled = false
         _player = PlaylistVideoPlayer(videoView:self.videoScrollView.videoView, noAudio: audioDisabled)
         _player.delegate = self
@@ -221,11 +222,7 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
     }
     
     private func stopPlayer() {
-        if _player == nil {
-            return
-        }
-        
-        _player.stop()
+        _player?.stop()
     }
     
     private func calcAndSetTimeSliderValue(itemIndex: PlaylistItemIndex, time: UInt) {
@@ -233,7 +230,7 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
             _lastPosition = PlayerPosition(itemIndex: itemIndex, time: time)
         }
         
-        if (self.timeScaleView.timeSlider.isThumbCaptured) {
+        if (self.timeScaleView.timeSlider.isThumbCaptured || self.timeScaleView.imitationCaptured) {
             return
         }
         
@@ -296,7 +293,7 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
         _lastPosition.itemIndex = .value(index)
         let number = NSNumber(value: infoList[index]!.info.creationTime)
         self.timeScaleView.setTimeSliderValue(number, animated: true)
-        _ = _player.play(fromPlaylistAt: .value(index), startTime: 0)
+        self.play(fromPlaylistAt: .value(index), startTime: 0)
     }
     
     private func skipNextPlaylistItem() {
@@ -314,6 +311,12 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
             
         let newValue = self.timeScaleView.timeSlider.value.intValue + time
         self.timeScaleView.setTimeSliderValue(NSNumber(value: newValue), delayedEventStart: true)
+    }
+    
+    private func play(fromPlaylistAt itemIndex: PlaylistItemIndex, startTime:UInt) {
+        self.timeScaleView.performSimulatedCapture() {
+            _player.play(fromPlaylistAt: itemIndex, startTime: startTime)
+        }
     }
     
     // MARK: public functions
@@ -385,23 +388,22 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
         }
         
         if slider.maximumValue.uintValue == value {
-            _ = _player.play(fromPlaylistAt: .last, startTime: 0)
+            self.play(fromPlaylistAt: .last, startTime: 0)
             return
         } else if slider.minimumValue.uintValue == value {
-            _ = _player.play(fromPlaylistAt: .first, startTime: 0)
+            self.play(fromPlaylistAt: .first, startTime: 0)
             return
         }
         
         if let pos = playerPosition(for: value) {
-            _ = _player.play(fromPlaylistAt: pos.itemIndex, startTime: pos.time)
+            self.play(fromPlaylistAt: pos.itemIndex, startTime: pos.time)
         }
     }
     
     // MARK: VideoViewDelegate
     
     func videoViewTapped() {
-        //?? hide if landscape orientation
-//        hideTools(!self.toolsHidden)
+        self.delegate?.videoViewTapped()
     }
     
     // MARK: PlaylistVideoPlayerDelegate
@@ -414,7 +416,7 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
         self.timeScaleView.isUserInteractionEnabled = true
         if (_playerSuspended || _needsRestorePosition)
             && _lastPosition.itemIndex.rawValue >= 0 && _lastPosition.time > 0 {
-            _ = _player.play(fromPlaylistAt: _lastPosition.itemIndex, startTime: _lastPosition.time)
+            self.play(fromPlaylistAt: _lastPosition.itemIndex, startTime: _lastPosition.time)
         }
         
         _playerSuspended = false

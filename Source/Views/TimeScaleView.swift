@@ -56,10 +56,12 @@ final class TimeScaleView: UIView, StepSliderDelegate {
     // MARK: public properties
     
     weak var delegate: TimeScaleViewDelegate?
+    var imitationCaptured: Bool = false
     
     // MARK: private properties
     
     private let _timeSliderValueSetQueue = OperationQueue()
+    private let _timeSliderImitationCaptureQueue = OperationQueue()
     
     // MARK: init
     
@@ -77,18 +79,21 @@ final class TimeScaleView: UIView, StepSliderDelegate {
     
     private func customInit() {
         _timeSliderValueSetQueue.maxConcurrentOperationCount = 1
+        _timeSliderImitationCaptureQueue.maxConcurrentOperationCount = 1
     }
     
-    private func timeSliderSetEventToQueue(value: NSNumber) {
+    private func timeSliderSetEventToQueue(value: NSNumber) -> Bool {
         _timeSliderValueSetQueue.cancelAllOperations()
         self.timeSlider.userData = value
         _timeSliderValueSetQueue.addOperation(
-            ViewDelayedOperation({
+            ViewDelayedOperation({[unowned self] in
                 guard let savedValue = self.timeSlider.userData as? NSNumber else {
                     return
                 }
                 self.delegate?.timeSliderSetValueAfterDelay(slider: self.timeSlider, value: savedValue.uintValue)
             }))
+        
+        return true
     }
     
     // MARK: public functions
@@ -176,14 +181,29 @@ final class TimeScaleView: UIView, StepSliderDelegate {
                             delayedEventStart: Bool = false) {
         self.timeSlider.setValue(value, animated: animated)
         if delayedEventStart {
-            timeSliderSetEventToQueue(value: value)
+            _ = timeSliderSetEventToQueue(value: value)
         }
+    }
+    
+    func performSimulatedCapture(delayMs: UInt = 2000, _ block: (() -> Bool)) {
+        _timeSliderImitationCaptureQueue.cancelAllOperations()
+        self.imitationCaptured = block()
+        if !self.imitationCaptured {
+            return
+        }
+
+        _timeSliderImitationCaptureQueue.addOperation(
+            ViewDelayedOperation({[unowned self] in
+                self.imitationCaptured = false
+            }, delayMs: delayMs))
     }
     
     // MARK: StepSliderDelegate
     
     func stepSlider(_ slider: StepSlider, didChangeValue value: NSNumber) {
-        timeSliderSetEventToQueue(value: value)
+        performSimulatedCapture(delayMs: 100) {
+            timeSliderSetEventToQueue(value: value)
+        }
     }
     
     func stepSlider(_ slider: StepSlider, didUpdateValue value: NSNumber) {
