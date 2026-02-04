@@ -7,15 +7,14 @@
 
 import UIKit
 
-private struct PlayerPosition
-{
-    var index: UInt = 0
+private struct PlayerPosition {
+    var itemIndex: PlaylistItemIndex = .first
     var time: UInt = 0
     
     init() {}
     
-    init(index: UInt, time: UInt) {
-        self.index = index
+    init(itemIndex: PlaylistItemIndex, time: UInt) {
+        self.itemIndex = itemIndex
         self.time = time
     }
 }
@@ -25,8 +24,18 @@ private enum PlayButtonIdentity: Int {
     case pause
 }
 
+private struct Constants {
+    static let kFastForwardValue = +30
+    static let kRewindValue = -30
+    
+    static let kMinVideoSpeed = 25
+    static let kMaxVideoSpeed = 200
+    static let kVideoSpeedStep = 25
+    static let kNormalVideoSpeed = 100
+}
+
 final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
-                                     StepSliderDelegate, VideoViewDelegate
+                                     VideoViewDelegate, TimeScaleViewDelegate
 {
     // MARK: public outlets properties
     
@@ -47,6 +56,10 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
 
     @IBOutlet weak var activityIndicatorBackgroundView: ActivityIndicatorBackgroundView!
     
+    var toolsHidden: Bool {
+        return self.mainButtonGroup.isHidden
+    }
+    
     // MARK: private properties
     
     private weak var contentView: UIView!
@@ -54,7 +67,6 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
     
     private var _videoInfoList: VideoFileList?
     
-    private var _shouldUpdateTimeSliderValue = false //??
     private var _playerSuspended = false
     private var _needsRestorePosition = false
     private var _lastPosition = PlayerPosition()
@@ -76,34 +88,31 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
     @IBAction func buttonTapped(sender: UIButton) {
         switch (sender) {
         case self.playButton:
-            _videoInfoList = VideoFileList()
-            _videoInfoList!.append(creationTime: 0, duration: 10, path: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", size: CGSize(width: 1280, height: 720))
-            _videoInfoList?.append(creationTime: 10, duration: 10, path: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4", size: CGSize(width: 1280, height: 720))
-            _videoInfoList?.append(creationTime: 20, duration: 10, path: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4", size: CGSize(width: 1280, height: 720))
-            
-            self.videoScrollView.specifyVideoSize(CGSize(width: 1280, height: 720))
-            createPlayer()
-//            _ = _player!.setVideoSpeed(1.7) //??
-            startPlayer(itemIndex: .value(1))
-            //??
+            if self.playButton.tag == PlayButtonIdentity.play.rawValue {
+                self.startPlayer()
+            } else {
+                self.pausePlayer()
+            }
         case self.fastForwardButton:
-            break
+            self.skipTimeSliderValue(Constants.kFastForwardValue)
         case self.rewindButton:
-            break
+            self.skipTimeSliderValue(Constants.kRewindValue)
         case self.skipNextButton:
-            skipNextPlaylistItem() //??
-            break
+            skipNextPlaylistItem()
         case self.skipPrevButton:
-            skipPrevPlaylistItem() //??
-            break
+            skipPrevPlaylistItem()
         case self.speedButton:
-            break
+            changeVideoSpeed()
         default:
             break
         }
     }
     
     // MARK: private functions
+    
+//    - (void)resetIsForbiddenToUpdateValueOfTimeSlider {
+//        _isForbiddenToUpdateValueOfTimeSlider = NO;
+//    } //?? Что делать
     
     private func customInit() {
         let bundle = Bundle(for: type(of: self))
@@ -113,34 +122,60 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
         self.contentView.frame = self.bounds
         self.addSubview(self.contentView)
         
-        self.timeScaleView.timeSlider.delegate = self
         self.videoScrollView.videoView.delegate = self
+        self.timeScaleView.delegate = self
         
         self.timeScaleView.timeSlider.isUserInteractionEnabled = false
+        
+        updateVideoSpeed(Constants.kNormalVideoSpeed)
         
         showPlayButton()
     }
     
     private func createPlayer(audioDisabled: Bool = true) {
-        //?? player.videoSize best variant?
         videoScrollView.isUserInteractionEnabled = false
         _player = PlaylistVideoPlayer(videoView:self.videoScrollView.videoView, noAudio: audioDisabled)
         _player.delegate = self
+        updateVideoSpeed(self.speedButton.tag)
     }
     
     private func showPlayButton() {
+        if self.playButton.tag == PlayButtonIdentity.play.rawValue {
+            return
+        }
+        
         let image = UIImage(systemName: "play.fill")
         self.playButton.setImage(image, for: .normal)
         self.playButton.tag = PlayButtonIdentity.play.rawValue
     }
     
     private func showPauseButton() {
+        if self.playButton.tag == PlayButtonIdentity.pause.rawValue {
+            return
+        }
+        
         let image = UIImage(systemName: "pause.fill")
         self.playButton.setImage(image, for: .normal)
         self.playButton.tag = PlayButtonIdentity.pause.rawValue
     }
     
-    private func startPlayer(itemIndex: PlaylistItemIndex) {
+    private func updateVideoSpeed(_ speed: Int) {
+        self.speedButton.tag = speed
+        let fspeed = Float(speed) / 100.0
+        
+        self.speedButton.setTitle(String(fspeed), for: .normal)
+        _ = _player?.setVideoSpeed(fspeed)
+    }
+    
+    private func changeVideoSpeed() {
+        var speed = self.speedButton.tag + Constants.kVideoSpeedStep
+        if speed > Constants.kMaxVideoSpeed {
+            speed = Constants.kMinVideoSpeed
+        }
+        updateVideoSpeed(speed)
+    }
+    
+    private func startPlayer(itemIndex: PlaylistItemIndex = .unspecified) {
         if _player == nil {
             return
         }
@@ -157,24 +192,19 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
             }
             
             var creationTime: UInt = 0
-            var index: PlaylistItemIndex = .first
+            var newItemIndex: PlaylistItemIndex = .first
             let count = infoList.count
-            switch (itemIndex) {
-            case .last:
-                index = .value(count - 1)
+            if itemIndex == .last {
+                newItemIndex = .value(count - 1)
                 creationTime = infoList.last!.info.creationTime
-                break
-            case .first..<PlaylistItemIndex.value(count):
-                index = itemIndex
+            } else if itemIndex.rawValue >= 0 && itemIndex.rawValue < count {
+                newItemIndex = itemIndex
                 creationTime = infoList[itemIndex.rawValue]!.info.creationTime
-                break
-            default:
-                break
             }
             
-            _player.play(withFiles: infoList.paths, startingFrom: index)
-            _lastPosition.index = index.rawValue
-            self.timeScaleView.timeSlider.setValue(NSNumber(value: creationTime), animated: false)
+            _player.play(withFiles: infoList.paths, startingFrom: newItemIndex)
+            _lastPosition.itemIndex = newItemIndex
+            self.timeScaleView.setTimeSliderValue(NSNumber(value: creationTime))
         default:
             break
         }
@@ -198,12 +228,12 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
         _player.stop()
     }
     
-    private func calcAndSetTimeSliderValue(itemIndex: UInt, time: UInt) {
+    private func calcAndSetTimeSliderValue(itemIndex: PlaylistItemIndex, time: UInt) {
         if !_playerSuspended {
-            _lastPosition = PlayerPosition(index: itemIndex, time: time)
+            _lastPosition = PlayerPosition(itemIndex: itemIndex, time: time)
         }
         
-        if (self.timeScaleView.timeSlider.isThumbCaptured || _shouldUpdateTimeSliderValue) {
+        if (self.timeScaleView.timeSlider.isThumbCaptured) {
             return
         }
         
@@ -211,19 +241,15 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
             return
         }
         
-        if let vi = infoList[itemIndex] {
+        if let vi = infoList[itemIndex.rawValue] {
             let value = vi.info.creationTime + time
             if value <= self.timeScaleView.timeSlider.maximumValue.uintValue {
-                self.timeScaleView.timeSlider.setValue(NSNumber(value: value), animated: true)
+                self.timeScaleView.setTimeSliderValue(NSNumber(value: value), animated: true)
             }
         }
     }
     
-    private func resetShouldUpdateTimeSliderValue() {
-        _shouldUpdateTimeSliderValue = false
-    }
-    
-    private func findPlayerPosition(for time: UInt) -> PlayerPosition? {
+    private func playerPosition(for time: UInt) -> PlayerPosition? {
         guard let infoList = _videoInfoList, infoList.count > 0 else {
             return nil
         }
@@ -249,16 +275,7 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
             }
         }
         
-        return PlayerPosition(index: rindex, time: rtime)
-    }
-    
-    final func play(fromPlaylistAt itemIndex: UInt, startTime:UInt) {
-//        resetShouldUpdateTimeSliderValue() cancel //??
-        let success = _player.play(fromPlaylistAt: itemIndex, startTime: startTime)
-//        _shouldUpdateTimeSliderValue = success //??
-        if success {
-//            resetShouldUpdateTimeSliderValue() delayed 2 //??
-        }
+        return PlayerPosition(itemIndex: .value(rindex), time: rtime)
     }
     
     private func skipPlaylistItem(_ direction: Int) {
@@ -266,7 +283,7 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
             return
         }
         
-        let newIndex: Int = Int(_lastPosition.index) + direction
+        let newIndex: Int = Int(_lastPosition.itemIndex.rawValue) + direction
         guard let infoList = _videoInfoList else {
             return
         }
@@ -276,10 +293,10 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
         }
         
         let index = UInt(newIndex)
-        _lastPosition.index = index
+        _lastPosition.itemIndex = .value(index)
         let number = NSNumber(value: infoList[index]!.info.creationTime)
-        self.timeScaleView.timeSlider.setValue(number, animated: true)
-        self.play(fromPlaylistAt: index, startTime: 0)
+        self.timeScaleView.setTimeSliderValue(number, animated: true)
+        _ = _player.play(fromPlaylistAt: .value(index), startTime: 0)
     }
     
     private func skipNextPlaylistItem() {
@@ -290,18 +307,153 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
         skipPlaylistItem(-1)
     }
     
+    private func skipTimeSliderValue(_ time: Int) {
+        if _player.state == .stopped {
+            return
+        }
+            
+        let newValue = self.timeScaleView.timeSlider.value.intValue + time
+        self.timeScaleView.setTimeSliderValue(NSNumber(value: newValue), delayedEventStart: true)
+    }
+    
+    // MARK: public functions
+    
+    func suspendPlayer() {
+        if _player.state == .stopped {
+            return
+        }
+        
+        stopPlayer()
+        _playerSuspended = true
+    }
+    
+    func restorePlayer() -> Bool {
+        if _playerSuspended {
+            startPlayer(itemIndex: _lastPosition.itemIndex)
+            return true
+        }
+        
+        return false
+    }
+    
+    func startPlayer(videoFileList: VideoFileList, videoSize: CGSize,
+                     audioDisabled: Bool = false, startTime: UInt = 0) {
+        if videoFileList.count == 0 {
+            return
+        }
+        
+        _videoInfoList = videoFileList
+        
+        var timeIntervals: [TimeInterval] = []
+        for i in 0..<videoFileList.count {
+            let vfi = videoFileList[i]!.info
+            let ti = TimeInterval(start: vfi.creationTime, length: vfi.duration)
+            timeIntervals.append(ti)
+        }
+
+        if !timeIntervals.isEmpty {
+            self.timeScaleView.timeSlider.timeIntervals = timeIntervals
+            self.timeScaleView.setNeedsDisplay()
+        }
+    
+        var foundItemIndex: PlaylistItemIndex = .first
+        if startTime >= TimeSlider.kMinValue
+            && startTime < TimeSlider.kMaxValue {
+            if let pos = playerPosition(for: startTime) {
+                foundItemIndex = pos.itemIndex
+                _lastPosition = pos
+                _needsRestorePosition = true
+            }
+        }
+        
+        self.createPlayer(audioDisabled: audioDisabled)
+        self.videoScrollView.specifyVideoSize(videoSize)
+        self.startPlayer(itemIndex: foundItemIndex)
+    }
+    
+    func hideTools(_ hidden: Bool) {
+        self.timeScaleView.isHidden = hidden
+        self.mainButtonGroup.isHidden = hidden
+        self.extraButtonGroup.isHidden = hidden
+    }
+    
+    // MARK: TimeScaleViewDelegate
+    
+    func timeSliderSetValueAfterDelay(slider: TimeSlider, value: UInt) {
+        if _player.state == .stopped {
+            return
+        }
+        
+        if slider.maximumValue.uintValue == value {
+            _ = _player.play(fromPlaylistAt: .last, startTime: 0)
+            return
+        } else if slider.minimumValue.uintValue == value {
+            _ = _player.play(fromPlaylistAt: .first, startTime: 0)
+            return
+        }
+        
+        if let pos = playerPosition(for: value) {
+            _ = _player.play(fromPlaylistAt: pos.itemIndex, startTime: pos.time)
+        }
+    }
+    
     // MARK: VideoViewDelegate
     
     func videoViewTapped() {
-    }
-    
-    // MARK: StepSliderDelegate
-    
-    func stepSlider(_ slider: StepSlider, didChangeValue value: NSNumber) {
-        
+        //?? hide if landscape orientation
+//        hideTools(!self.toolsHidden)
     }
     
     // MARK: PlaylistVideoPlayerDelegate
+    
+    func playerPlaying(player: PlaylistVideoPlayer) {
+        if self.playButton.tag == PlayButtonIdentity.pause.rawValue {
+            return
+        }
+        
+        self.timeScaleView.isUserInteractionEnabled = true
+        if (_playerSuspended || _needsRestorePosition)
+            && _lastPosition.itemIndex.rawValue >= 0 && _lastPosition.time > 0 {
+            _ = _player.play(fromPlaylistAt: _lastPosition.itemIndex, startTime: _lastPosition.time)
+        }
+        
+        _playerSuspended = false
+        _needsRestorePosition = false
+        
+        self.videoScrollView.isUserInteractionEnabled = true
+        showPauseButton()
+    }
+
+    func playerPaused(player: PlaylistVideoPlayer) {
+        self.showPlayButton()
+    }
+
+    func playerStopped(player: PlaylistVideoPlayer) {
+        showPlayButton()
+        self.timeScaleView.setTimeSliderValue(self.timeScaleView.timeSlider.minimumValue, animated: true)
+        self.timeScaleView.isUserInteractionEnabled = false
+        self.activityIndicatorBackgroundView.isHidden = true
+        self.videoScrollView.zoomScale = self.videoScrollView.minimumZoomScale
+        self.videoScrollView.isUserInteractionEnabled = false
+    }
+
+    func playerPositionChangedAtItem(player: PlaylistVideoPlayer, pos: UInt, itemIndex: PlaylistItemIndex) {
+        self.calcAndSetTimeSliderValue(itemIndex: itemIndex, time: pos)
+    }
+    
+    func playerEndReached(player: PlaylistVideoPlayer) {
+        self.showPlayButton()
+    }
+    
+    func playerErrorEncountered(player: PlaylistVideoPlayer) {
+        player.stop()
+        showPlayButton()
+    }
+    
+    func playerNextItemSet(player: PlaylistVideoPlayer, itemIndex: PlaylistItemIndex, startTime: UInt) {
+        easyLog()
+        self.calcAndSetTimeSliderValue(itemIndex: itemIndex, time: startTime)
+    }
     
     func playerHasStartedBuffering(player: PlaylistVideoPlayer) {
         self.activityIndicatorBackgroundView.isHidden = false
@@ -310,6 +462,4 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
     func playerHasCompletedBuffering(player: PlaylistVideoPlayer) {
         self.activityIndicatorBackgroundView.isHidden = true
     }
-    
-    //?? add other functions of protocol
 }

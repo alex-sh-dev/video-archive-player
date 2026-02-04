@@ -33,10 +33,20 @@ class PlayerViewController: UIViewController {
         
         self.contentView.addConstraints([leading, trailing])
             
-        let videoSize = CGSizeZero
-        //?? get video size from json or in another way
+//        let videoSize = CGSizeZero //??
         
-        //?? start player with videoSize, files, startTime
+        //?? get video size from json or in another way
+        //?? player.videoSize best variant?
+        
+        //??
+        let videoInfoList: VideoFileList = VideoFileList()
+        videoInfoList.append(creationTime: 0, duration: 596, path: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", size: CGSize(width: 1280, height: 720))
+        videoInfoList.append(creationTime: 44000, duration: 567, path: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4", size: CGSize(width: 1280, height: 720))
+        videoInfoList.append(creationTime: 60000, duration: 567, path: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4", size: CGSize(width: 1280, height: 720))
+        
+        let size = CGSize(width: 1280, height: 720)
+        _videoPlayerView.startPlayer(videoFileList: videoInfoList, videoSize: size)
+        //??
     }
     
     override func viewDidLoad() {
