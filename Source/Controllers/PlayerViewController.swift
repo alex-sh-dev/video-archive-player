@@ -34,11 +34,6 @@ class PlayerViewController: UIViewController, FragmentVideoPlayerViewDelegate {
         let trailing = _videoPlayerView.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor)
         
         self.contentView.addConstraints([leading, trailing])
-            
-//        let videoSize = CGSizeZero //??
-        
-        //?? get video size from json or in another way
-        //?? player.videoSize best variant?
         
         //??
         let videoInfoList: VideoFileList = VideoFileList()
@@ -46,8 +41,7 @@ class PlayerViewController: UIViewController, FragmentVideoPlayerViewDelegate {
         videoInfoList.append(creationTime: 44000, duration: 567, path: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4", size: CGSize(width: 1280, height: 720))
         videoInfoList.append(creationTime: 60000, duration: 567, path: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4", size: CGSize(width: 1280, height: 720))
         
-        let size = CGSize(width: 1280, height: 720)
-        _videoPlayerView.startPlayer(videoFileList: videoInfoList, videoSize: size, audioDisabled: true)
+        _videoPlayerView.startPlayer(videoFileList: videoInfoList, videoSize: videoInfoList.first!.info.size)
         //??
     }
     
@@ -69,6 +63,16 @@ class PlayerViewController: UIViewController, FragmentVideoPlayerViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         attachPlayerView()
+        
+        NotificationCenter.default.addObserver(
+            forName: UIApplication.didBecomeActiveNotification, object: nil, queue: .main) { _ in
+            _ = self._videoPlayerView.restorePlayer()
+        }
+
+        NotificationCenter.default.addObserver(
+            forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: .main) { _ in
+            self._videoPlayerView.suspendPlayer()
+        }
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
