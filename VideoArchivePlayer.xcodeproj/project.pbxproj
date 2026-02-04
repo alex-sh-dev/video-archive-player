@@ -22,6 +22,7 @@
 		D733D0032F324F7300EF0CAC /* Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733D0022F324F7300EF0CAC /* Operations.swift */; };
 		D733D0052F32501700EF0CAC /* TimeScaleViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733D0042F32501700EF0CAC /* TimeScaleViewDelegate.swift */; };
 		D733D0072F3331AF00EF0CAC /* FragmentVideoPlayerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733D0062F3331AF00EF0CAC /* FragmentVideoPlayerViewDelegate.swift */; };
+		D733D0092F33441E00EF0CAC /* PlaylistVideoPlayerOptional.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733D0082F33441E00EF0CAC /* PlaylistVideoPlayerOptional.swift */; };
 		D7485E862F2F3BBD006EB121 /* VideoScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7485E852F2F3BBD006EB121 /* VideoScrollView.swift */; };
 		D7485E892F309220006EB121 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7485E882F309220006EB121 /* Files.swift */; };
 		D78A35972F2BE3D900DC3B87 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D78A35962F2BE3D900DC3B87 /* AudioToolbox.framework */; };
@@ -72,6 +73,7 @@
 		D733D0022F324F7300EF0CAC /* Operations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operations.swift; sourceTree = "<group>"; };
 		D733D0042F32501700EF0CAC /* TimeScaleViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeScaleViewDelegate.swift; sourceTree = "<group>"; };
 		D733D0062F3331AF00EF0CAC /* FragmentVideoPlayerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FragmentVideoPlayerViewDelegate.swift; sourceTree = "<group>"; };
+		D733D0082F33441E00EF0CAC /* PlaylistVideoPlayerOptional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistVideoPlayerOptional.swift; sourceTree = "<group>"; };
 		D7485E852F2F3BBD006EB121 /* VideoScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoScrollView.swift; sourceTree = "<group>"; };
 		D7485E882F309220006EB121 /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
 		D78A35962F2BE3D900DC3B87 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -151,6 +153,7 @@
 			children = (
 				D71C627E2F28C28F00D7341D /* PlaylistVideoPlayer.swift */,
 				D71C62802F28C3E900D7341D /* PlaylistVideoPlayerDelegate.swift */,
+				D733D0082F33441E00EF0CAC /* PlaylistVideoPlayerOptional.swift */,
 				D7B5E7162F226ACF00B7B64B /* FragmentVideoPlayerView.xib */,
 				D7C0A4232F2E57F700BDE75B /* FragmentVideoPlayerView.swift */,
 				D733D0062F3331AF00EF0CAC /* FragmentVideoPlayerViewDelegate.swift */,
@@ -374,6 +377,7 @@
 				D7EEE24C2F221C040098A5CB /* AppDelegate.swift in Sources */,
 				D71C627F2F28C28F00D7341D /* PlaylistVideoPlayer.swift in Sources */,
 				D733D0032F324F7300EF0CAC /* Operations.swift in Sources */,
+				D733D0092F33441E00EF0CAC /* PlaylistVideoPlayerOptional.swift in Sources */,
 				D71C62732F232A1C00D7341D /* ActivityIndicatorBackgroundView.swift in Sources */,
 				D7485E892F309220006EB121 /* Files.swift in Sources */,
 				D7EEE24E2F221C040098A5CB /* SceneDelegate.swift in Sources */,
