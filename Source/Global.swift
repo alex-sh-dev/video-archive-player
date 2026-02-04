@@ -57,3 +57,11 @@ func rectBuilt(fromText text:String, font: UIFont,
         attributes: [NSAttributedString.Key.font: font],
         context: nil)
 }
+
+extension UIWindow {
+    static var isLandscape: Bool {
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        return windowScene?.interfaceOrientation.isLandscape ?? false
+    }
+}
