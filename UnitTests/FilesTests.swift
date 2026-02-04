@@ -70,7 +70,7 @@ final class FilesTests: XCTestCase {
         XCTAssertEqual(list.last!.path, "path3")
         XCTAssertEqual(list.last!.info.creationTime, 0)
         
-        list.append(creationTime: 20, duration: 10, path: "path4", size: CGSizeZero)
+        list.append(creationTime: 20, duration: 10, path: "path4", size: .zero)
         XCTAssertEqual(list.first!.path, "path1")
         XCTAssertEqual(list.last!.path, "path4")
         XCTAssertEqual(list.last!.info.creationTime, 20)

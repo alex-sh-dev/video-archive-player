@@ -27,7 +27,7 @@ final class VideoView: UIView {
     
     weak var delegate: VideoViewDelegate?
     
-    var initialVideoSize: CGSize = CGSizeZero
+    var initialVideoSize: CGSize = .zero
     private let expectedVideoView = "VLCOpenGLES2VideoView"
     
     @IBAction func tapped(_ sender: Any) {
@@ -39,7 +39,7 @@ final class VideoView: UIView {
         let ivs = self.initialVideoSize
         let defScale = UIScreen.main.scale
 
-        if ivs.equalTo(CGSizeZero) {
+        if ivs.equalTo(.zero) {
             return defScale
         }
 

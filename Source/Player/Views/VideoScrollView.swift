@@ -41,7 +41,7 @@ final class VideoScrollView : EXScrollView, UIScrollViewDelegate {
     // MARK: public functions
     
     public func specifyVideoSize(_ videoSize: CGSize) {
-        if videoSize.equalTo(CGSizeZero) {
+        if videoSize.equalTo(.zero) {
             return
         }
         
