@@ -193,8 +193,7 @@ final class TimeScaleView: UIView, StepSliderDelegate {
     func stepSlider(_ slider: StepSlider, thumbPanGestureBeganAt p: CGPoint, withValue value: NSNumber) {
         self.slidingTimeLabel.isHidden = false
         var newRect = self.slidingTimeLabel.frame
-        newRect.origin.y = self.frame.origin.y - self.slidingTimeLabel.frame.size.height - 4
-        //??
+        newRect.origin.y = -self.slidingTimeLabel.frame.size.height - 4
         self.slidingTimeLabel.frame = newRect
         self.slidingTimeLabel.text = TimeScaleView.text(forValue: value)
     }
