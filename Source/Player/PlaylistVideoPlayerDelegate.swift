@@ -21,7 +21,7 @@ protocol PlaylistVideoPlayerDelegate: AnyObject {
     func playerItemEndReached(player: PlaylistVideoPlayer, itemIndex: PlaylistItemIndex)
     
     func playerNextItemSet(player: PlaylistVideoPlayer)
-    func playerNextItemSet(player: PlaylistVideoPlayer, startTime: UInt)
+    func playerNextItemSet(player: PlaylistVideoPlayer, itemIndex: PlaylistItemIndex, startTime: UInt)
     
     func playerErrorEncountered(player: PlaylistVideoPlayer)
     
@@ -45,7 +45,7 @@ extension PlaylistVideoPlayerDelegate {
     func playerItemEndReached(player: PlaylistVideoPlayer, itemIndex: PlaylistItemIndex) {}
     
     func playerNextItemSet(player: PlaylistVideoPlayer) {}
-    func playerNextItemSet(player: PlaylistVideoPlayer, startTime: UInt) {}
+    func playerNextItemSet(player: PlaylistVideoPlayer, itemIndex:PlaylistItemIndex, startTime: UInt) {}
     
     func playerErrorEncountered(player: PlaylistVideoPlayer) {}
     

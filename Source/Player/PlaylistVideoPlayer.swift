@@ -382,7 +382,7 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
             }
 
             if (exists) {
-                self.delegate?.playerNextItemSet(player: self, startTime: startTime)
+                self.delegate?.playerNextItemSet(player: self, itemIndex: mediaItem.itemIndex, startTime: startTime)
             } else {
                 if !_mediaListPlayer.next {
                     _mediaListPlayer.stop()
@@ -439,14 +439,14 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
             return false
         }
         
-        guard let media = media(at: itemIndex)?.obj else {
+        guard let media = media(at: itemIndex) else {
             return false
         }
         
-        let mi: MediaInfo = media.object()
+        let mi: MediaInfo = media.obj.object()
         mi.startTime = startTime
         let pos = VLCTime(number: NSNumber(value: Int(startTime) * 1000))
-        _mediaListPlayer.playItemIndex(Int32(itemIndex.rawValue), inPosition: pos)
+        _mediaListPlayer.playItemIndex(Int32(media.index), inPosition: pos)
         return true
     }
     
