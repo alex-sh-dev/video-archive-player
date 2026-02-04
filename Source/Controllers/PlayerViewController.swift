@@ -7,10 +7,11 @@
 
 import UIKit
 
-class PlayerViewController: UIViewController {
+class PlayerViewController: UIViewController, FragmentVideoPlayerViewDelegate {
     @IBOutlet weak var contentView: UIView!
     
     private let _videoPlayerView: FragmentVideoPlayerView = FragmentVideoPlayerView()
+    private var _hidePlayerToolsTask: Task<Void, Never>?
     
     @IBAction func closeTapped(_ sender: Any) {
         self.dismiss(animated: true)
@@ -21,6 +22,7 @@ class PlayerViewController: UIViewController {
         self.navigationItem.title = "DD:MM:YY" //?? best variant?
         
         _videoPlayerView.translatesAutoresizingMaskIntoConstraints = false
+        _videoPlayerView.delegate = self
         self.contentView.addSubview(_videoPlayerView)
         let subviews = ["view" : _videoPlayerView]
         let constraints = NSLayoutConstraint.constraints(
@@ -49,8 +51,43 @@ class PlayerViewController: UIViewController {
         //??
     }
     
+    private func hidePlayerTools(_ hidden: Bool) {
+        _videoPlayerView.hideTools(hidden)
+        self.navigationController?.setNavigationBarHidden(hidden, animated: true)
+    }
+    
+    private func hidePlayerTools(_ hidden: Bool, delaySec: UInt64 = 2) async {
+        do {
+            try await Task.sleep(nanoseconds: delaySec * 1_000_000_000)
+        } catch {}
+        
+        if hidden && UIWindow.isLandscape {
+            self.hidePlayerTools(hidden)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         attachPlayerView()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        if !UIWindow.isLandscape {
+            self.hidePlayerTools(false)
+        } else {
+            _hidePlayerToolsTask?.cancel()
+            _hidePlayerToolsTask = Task() {
+                await hidePlayerTools(true)
+            }
+        }
+    }
+    
+    func videoViewTapped() {
+        var hidden = false
+        if UIWindow.isLandscape {
+            hidden = !_videoPlayerView.toolsHidden
+        }
+        
+        self.hidePlayerTools(hidden)
     }
 }
