@@ -394,18 +394,18 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
     
     // MARK: public functions
     
-    final func setFile(_ filePath: String) {
+    func setFile(_ filePath: String) {
         setFiles([filePath])
     }
     
-    final func setFiles(_ filePaths: [String]) {
+    func setFiles(_ filePaths: [String]) {
         clearMediaList()
         for filePath in filePaths {
             append(toPlaylist: filePath)
         }
     }
     
-    final func play(startingFrom itemIndex: PlaylistItemIndex = .unspecified) {
+    func play(startingFrom itemIndex: PlaylistItemIndex = .unspecified) {
         var play = false
         switch (_state) {
         case .paused, .stopped:
@@ -429,12 +429,12 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
         }
     }
 
-    final func play(withFile filePath: String) {
+    func play(withFile filePath: String) {
         setFile(filePath)
         play()
     }
 
-    final func play(fromPlaylistAt itemIndex: PlaylistItemIndex, startTime:UInt) -> Bool {
+    func play(fromPlaylistAt itemIndex: PlaylistItemIndex, startTime:UInt) -> Bool {
         if _state == .stopped {
             return false
         }
@@ -450,17 +450,17 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
         return true
     }
     
-    final func play(withFiles filePaths: [String], startingFrom itemIndex: PlaylistItemIndex = .first) {
+    func play(withFiles filePaths: [String], startingFrom itemIndex: PlaylistItemIndex = .first) {
         setFiles(filePaths)
         play(startingFrom: itemIndex)
     }
 
-    final func stop() {
+    func stop() {
         _mediaListPlayer.stop()
         clearMediaList()
     }
     
-    final func pause() -> Bool {
+    func pause() -> Bool {
         if _mediaListPlayer.isPlaying() {
             _mediaListPlayer.pause()
             return true
@@ -469,7 +469,7 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
         return false
     }
 
-    final func setVideoSpeed(_ speed: Float) -> Bool {
+    func setVideoSpeed(_ speed: Float) -> Bool {
         if speed >= Constants.kMinVideoSpeed &&
             speed <= Constants.kMaxVideoSpeed {
             _mediaListPlayer.mediaPlayer?.rate = speed
@@ -479,7 +479,7 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
         return false
     }
 
-    final func append(toPlaylist filePath: String) {
+    func append(toPlaylist filePath: String) {
         if filePath.isEmpty {
             return
         }
@@ -491,7 +491,7 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
         appendMedia(media: media)
     }
     
-    final func remove(fromPlaylistAt itemIndex: PlaylistItemIndex) {
+    func remove(fromPlaylistAt itemIndex: PlaylistItemIndex) {
         if itemIndex == .unspecified {
             return
         }

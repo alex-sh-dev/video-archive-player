@@ -34,7 +34,7 @@ final class VideoView: UIView {
         self.delegate?.videoViewTapped()
     }
     
-    final func calcScaleFactor() -> CGFloat {
+    func calcScaleFactor() -> CGFloat {
         let fs = self.frame.size
         let ivs = self.initialVideoSize
         let defScale = UIScreen.main.scale
