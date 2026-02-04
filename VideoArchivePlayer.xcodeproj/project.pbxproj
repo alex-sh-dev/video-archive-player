@@ -19,6 +19,8 @@
 		D720B6F32F2B77F9005FDA6B /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = D720B6F22F2B77F9005FDA6B /* Global.swift */; };
 		D720B6F52F2B7945005FDA6B /* VLCExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D720B6F42F2B7945005FDA6B /* VLCExtensions.swift */; };
 		D720B6F72F2B79D6005FDA6B /* HttpHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D720B6F62F2B79D6005FDA6B /* HttpHelpers.swift */; };
+		D733D0032F324F7300EF0CAC /* Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733D0022F324F7300EF0CAC /* Operations.swift */; };
+		D733D0052F32501700EF0CAC /* TimeScaleViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733D0042F32501700EF0CAC /* TimeScaleViewDelegate.swift */; };
 		D7485E862F2F3BBD006EB121 /* VideoScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7485E852F2F3BBD006EB121 /* VideoScrollView.swift */; };
 		D7485E892F309220006EB121 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7485E882F309220006EB121 /* Files.swift */; };
 		D78A35972F2BE3D900DC3B87 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D78A35962F2BE3D900DC3B87 /* AudioToolbox.framework */; };
@@ -66,6 +68,8 @@
 		D720B6F22F2B77F9005FDA6B /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		D720B6F42F2B7945005FDA6B /* VLCExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCExtensions.swift; sourceTree = "<group>"; };
 		D720B6F62F2B79D6005FDA6B /* HttpHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpHelpers.swift; sourceTree = "<group>"; };
+		D733D0022F324F7300EF0CAC /* Operations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operations.swift; sourceTree = "<group>"; };
+		D733D0042F32501700EF0CAC /* TimeScaleViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeScaleViewDelegate.swift; sourceTree = "<group>"; };
 		D7485E852F2F3BBD006EB121 /* VideoScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoScrollView.swift; sourceTree = "<group>"; };
 		D7485E882F309220006EB121 /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
 		D78A35962F2BE3D900DC3B87 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -131,6 +135,7 @@
 				D7EEE24B2F221C040098A5CB /* AppDelegate.swift */,
 				D7EEE24D2F221C040098A5CB /* SceneDelegate.swift */,
 				D7485E882F309220006EB121 /* Files.swift */,
+				D733D0022F324F7300EF0CAC /* Operations.swift */,
 				D78A35B42F2DE4F900DC3B87 /* Helpers */,
 				D78A35B32F2DE49000DC3B87 /* Controllers */,
 				D78A35B02F2DD53D00DC3B87 /* Views */,
@@ -157,6 +162,7 @@
 			children = (
 				D71C62742F23455500D7341D /* TimeScaleView.swift */,
 				D71C62762F2345CF00D7341D /* TimeSlider.swift */,
+				D733D0042F32501700EF0CAC /* TimeScaleViewDelegate.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -358,10 +364,12 @@
 				D7EEE2502F221C040098A5CB /* StartViewController.swift in Sources */,
 				D7B5E7152F223D4F00B7B64B /* PlayerViewController.swift in Sources */,
 				D71C62752F23455500D7341D /* TimeScaleView.swift in Sources */,
+				D733D0052F32501700EF0CAC /* TimeScaleViewDelegate.swift in Sources */,
 				D71C626D2F2327E700D7341D /* ZoomingView.swift in Sources */,
 				D720B6F32F2B77F9005FDA6B /* Global.swift in Sources */,
 				D7EEE24C2F221C040098A5CB /* AppDelegate.swift in Sources */,
 				D71C627F2F28C28F00D7341D /* PlaylistVideoPlayer.swift in Sources */,
+				D733D0032F324F7300EF0CAC /* Operations.swift in Sources */,
 				D71C62732F232A1C00D7341D /* ActivityIndicatorBackgroundView.swift in Sources */,
 				D7485E892F309220006EB121 /* Files.swift in Sources */,
 				D7EEE24E2F221C040098A5CB /* SceneDelegate.swift in Sources */,
