@@ -21,7 +21,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="Start player"/>
                                 <connections>
-                                    <segue destination="tgo-vr-6uo" kind="show" id="Zeo-G4-eum"/>
+                                    <action selector="startPlayerTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EOo-jc-Nvr"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Url to json file" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dAC-2z-fKN">
@@ -52,6 +52,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="PaS-Ep-EEm"/>
+                    <connections>
+                        <outlet property="jsonUrlTextField" destination="dAC-2z-fKN" id="SkV-Be-iSq"/>
+                        <outlet property="startPlayerButton" destination="jqf-SL-bue" id="aNM-Ew-c7J"/>
+                        <segue destination="tgo-vr-6uo" kind="show" identifier="PlayerViewController" id="Q5F-WM-bWk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
