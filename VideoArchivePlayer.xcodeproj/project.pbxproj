@@ -31,6 +31,8 @@
 		D76FDBE32F34B364009482A3 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = D720B6F22F2B77F9005FDA6B /* Global.swift */; };
 		D76FDBE72F34B55C009482A3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76FDBE52F34B548009482A3 /* Extensions.swift */; };
 		D76FDBE92F34B605009482A3 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76FDBE82F34B605009482A3 /* Utilities.swift */; };
+		D76FDBEA2F34BACA009482A3 /* HttpHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D720B6F62F2B79D6005FDA6B /* HttpHelpers.swift */; };
+		D76FDBEC2F34BADF009482A3 /* HttpHelpersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76FDBEB2F34BADF009482A3 /* HttpHelpersTests.swift */; };
 		D78A35972F2BE3D900DC3B87 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D78A35962F2BE3D900DC3B87 /* AudioToolbox.framework */; };
 		D78A359D2F2BE41700DC3B87 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D78A359C2F2BE41700DC3B87 /* CoreAudio.framework */; };
 		D78A359F2F2BE43B00DC3B87 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D78A359E2F2BE43B00DC3B87 /* AVFoundation.framework */; };
@@ -87,6 +89,7 @@
 		D76FDBE12F34B272009482A3 /* GlobalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalTests.swift; sourceTree = "<group>"; };
 		D76FDBE52F34B548009482A3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D76FDBE82F34B605009482A3 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		D76FDBEB2F34BADF009482A3 /* HttpHelpersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpHelpersTests.swift; sourceTree = "<group>"; };
 		D78A35962F2BE3D900DC3B87 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D78A35982F2BE3E900DC3B87 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		D78A359A2F2BE41000DC3B87 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -229,6 +232,7 @@
 			children = (
 				D704CC982F31BD9D00B3DBD7 /* FilesTests.swift */,
 				D76FDBE12F34B272009482A3 /* GlobalTests.swift */,
+				D76FDBEB2F34BADF009482A3 /* HttpHelpersTests.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -383,7 +387,9 @@
 				D76FDBE32F34B364009482A3 /* Global.swift in Sources */,
 				D76FDBE22F34B273009482A3 /* GlobalTests.swift in Sources */,
 				D704CC9B2F31C06500B3DBD7 /* Files.swift in Sources */,
+				D76FDBEA2F34BACA009482A3 /* HttpHelpers.swift in Sources */,
 				D704CC992F31BD9D00B3DBD7 /* FilesTests.swift in Sources */,
+				D76FDBEC2F34BADF009482A3 /* HttpHelpersTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
