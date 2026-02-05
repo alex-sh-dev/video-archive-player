@@ -26,6 +26,7 @@
 		D7485E862F2F3BBD006EB121 /* VideoScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7485E852F2F3BBD006EB121 /* VideoScrollView.swift */; };
 		D7485E892F309220006EB121 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7485E882F309220006EB121 /* Files.swift */; };
 		D76FDBDD2F346491009482A3 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76FDBDC2F346491009482A3 /* TitleView.swift */; };
+		D76FDBE02F349482009482A3 /* VideoMetaDataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76FDBDF2F349482009482A3 /* VideoMetaDataParser.swift */; };
 		D78A35972F2BE3D900DC3B87 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D78A35962F2BE3D900DC3B87 /* AudioToolbox.framework */; };
 		D78A359D2F2BE41700DC3B87 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D78A359C2F2BE41700DC3B87 /* CoreAudio.framework */; };
 		D78A359F2F2BE43B00DC3B87 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D78A359E2F2BE43B00DC3B87 /* AVFoundation.framework */; };
@@ -78,6 +79,7 @@
 		D7485E852F2F3BBD006EB121 /* VideoScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoScrollView.swift; sourceTree = "<group>"; };
 		D7485E882F309220006EB121 /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
 		D76FDBDC2F346491009482A3 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
+		D76FDBDF2F349482009482A3 /* VideoMetaDataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMetaDataParser.swift; sourceTree = "<group>"; };
 		D78A35962F2BE3D900DC3B87 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D78A35982F2BE3E900DC3B87 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		D78A359A2F2BE41000DC3B87 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -142,6 +144,7 @@
 				D7EEE24D2F221C040098A5CB /* SceneDelegate.swift */,
 				D7485E882F309220006EB121 /* Files.swift */,
 				D733D0022F324F7300EF0CAC /* Operations.swift */,
+				D76FDBDF2F349482009482A3 /* VideoMetaDataParser.swift */,
 				D78A35B42F2DE4F900DC3B87 /* Helpers */,
 				D78A35B32F2DE49000DC3B87 /* Controllers */,
 				D78A35B02F2DD53D00DC3B87 /* Views */,
@@ -397,6 +400,7 @@
 				D7C0A4242F2E57F700BDE75B /* FragmentVideoPlayerView.swift in Sources */,
 				D76FDBDD2F346491009482A3 /* TitleView.swift in Sources */,
 				D720B6F72F2B79D6005FDA6B /* HttpHelpers.swift in Sources */,
+				D76FDBE02F349482009482A3 /* VideoMetaDataParser.swift in Sources */,
 				D720B6F52F2B7945005FDA6B /* VLCExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
