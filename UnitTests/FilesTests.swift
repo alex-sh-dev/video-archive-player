@@ -14,7 +14,7 @@ final class FilesTests: XCTestCase {
     override func tearDownWithError() throws {}
     
     func testVideoFileInfo() {
-        var vfi1 = VideoFileInfo()
+        let vfi1 = VideoFileInfo()
         XCTAssertEqual(vfi1.creationTime, 0)
         XCTAssertEqual(vfi1.duration, 0)
         let vfi2 = VideoFileInfo(time: 1770099945, duration: 2)
