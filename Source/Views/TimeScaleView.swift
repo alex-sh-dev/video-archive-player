@@ -124,8 +124,8 @@ final class TimeScaleView: UIView, StepSliderDelegate {
                          NSAttributedString.Key.foregroundColor : Constants.kNumberColor,
                          NSAttributedString.Key.backgroundColor : UIColor.clear]
         
-        let maxNumberTextSize = CGRectIntegral(rectBuilt(fromText: Constants.kMaxNumberPattern,
-                                                         font: Constants.kTextFont))
+        let maxNumberTextSize = rectBuilt(fromText: Constants.kMaxNumberPattern,
+                                          font: Constants.kTextFont).integral
         let f: CGFloat = segment / maxNumberTextSize.width
         var shouldShowAllNumbers = true
         if f < Constants.kShowAllNumbersFactor {
@@ -142,7 +142,7 @@ final class TimeScaleView: UIView, StepSliderDelegate {
                            height: Constants.kTickHeight)
             context.fill(r)
             let numberString = String(format: Constants.kNumberStingFormat, i)
-            let s = CGRectIntegral(rectBuilt(fromText: numberString, font: Constants.kTextFont)).size
+            let s = rectBuilt(fromText: numberString, font: Constants.kTextFont).integral.size
             
             var shouldShowNumber = shouldShowAllNumbers
             if !shouldShowNumber {
