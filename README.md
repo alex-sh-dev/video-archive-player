@@ -43,5 +43,9 @@
 
 ## Troubleshooting
 При использовании этого проекта в своем проекте обязательно добавьте либы/фреймворки, которые использует vlc, дабы избежать следующие ошибки
-<img width="1140" height="682" alt="undefined symbols" src="https://github.com/user-attachments/assets/f2424780-125f-4343-975e-cfca1f00265b" />
-![Требуемые либы](/media/used_libs.png)
+Вариант ошибки                |  Требуемые либы
+:----------------------------:|:------------------------------:
+<img width="1140" height="682" alt="undefined symbols" src="https://github.com/user-attachments/assets/f2424780-125f-4343-975e-cfca1f00265b" />  |  ![Требуемые либы](/media/used_libs.png)
+
+
+
