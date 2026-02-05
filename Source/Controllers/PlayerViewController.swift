@@ -10,6 +10,9 @@ import UIKit
 class PlayerViewController: UIViewController, FragmentVideoPlayerViewDelegate {
     @IBOutlet weak var contentView: UIView!
     
+    var videoFileList: VideoFileList? = nil
+    var videoSize: CGSize = .zero
+    
     private let _videoPlayerView: FragmentVideoPlayerView = FragmentVideoPlayerView()
     private var _hidePlayerToolsTask: Task<Void, Never>?
     
@@ -18,9 +21,6 @@ class PlayerViewController: UIViewController, FragmentVideoPlayerViewDelegate {
     }
     
     private func attachPlayerView() {
-        //?? set date _videoPlayerView.dateLabel.text =
-        self.navigationItem.title = "DD:MM:YY" //?? best variant?
-        
         _videoPlayerView.translatesAutoresizingMaskIntoConstraints = false
         _videoPlayerView.delegate = self
         self.contentView.addSubview(_videoPlayerView)
@@ -34,15 +34,7 @@ class PlayerViewController: UIViewController, FragmentVideoPlayerViewDelegate {
         let trailing = _videoPlayerView.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor)
         
         self.contentView.addConstraints([leading, trailing])
-        
-        //??
-        let videoInfoList: VideoFileList = VideoFileList()
-        videoInfoList.append(creationTime: 0, duration: 596, path: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", size: CGSize(width: 1280, height: 720))
-        videoInfoList.append(creationTime: 44000, duration: 567, path: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4", size: CGSize(width: 1280, height: 720))
-        videoInfoList.append(creationTime: 60000, duration: 567, path: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4", size: CGSize(width: 1280, height: 720))
-        
-        _videoPlayerView.startPlayer(videoFileList: videoInfoList, videoSize: videoInfoList.first!.info.size)
-        //??
+        _videoPlayerView.startPlayer(videoFileList: self.videoFileList ?? VideoFileList(), videoSize: self.videoSize)
     }
     
     private func hidePlayerTools(_ hidden: Bool) {
