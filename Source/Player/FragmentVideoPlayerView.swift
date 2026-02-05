@@ -114,7 +114,7 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
     
     private func customInit() {
         let bundle = Bundle(for: type(of: self))
-        let nib = UINib(nibName: String(describing: type(of: self)), bundle: bundle)
+        let nib = UINib(nibName: self.className, bundle: bundle)
         let view = nib.instantiate(withOwner: self).first as! UIView
         self.contentView = view
         self.contentView.frame = self.bounds
@@ -138,6 +138,10 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
         _player = PlaylistVideoPlayer(videoView:self.videoScrollView.videoView, noAudio: audioDisabled)
         _player.delegate = self
         updateVideoSpeed(self.speedButton.tag)
+    }
+    
+    private func playerStopped() -> Bool {
+        return _player == nil || _player.state == .stopped
     }
     
     private func showPlayButton() {
@@ -276,7 +280,7 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
     }
     
     private func skipPlaylistItem(_ direction: Int) {
-        if _player.state == .stopped {
+        if playerStopped() {
             return
         }
         
@@ -305,7 +309,7 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
     }
     
     private func skipTimeSliderValue(_ time: Int) {
-        if _player.state == .stopped {
+        if playerStopped() {
             return
         }
             
@@ -328,7 +332,7 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
     // MARK: public functions
     
     func suspendPlayer() {
-        if _player.state == .stopped {
+        if playerStopped() {
             return
         }
         
