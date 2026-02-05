@@ -17,29 +17,17 @@ final class FilesTests: XCTestCase {
         var vfi1 = VideoFileInfo()
         XCTAssertEqual(vfi1.creationTime, 0)
         XCTAssertEqual(vfi1.duration, 0)
-        XCTAssertEqual(vfi1.size.height, 0)
-        XCTAssertEqual(vfi1.size.width, 0)
-        let vfi2 = VideoFileInfo(creationTime: 1, duration: 2, size: CGSize(width: 3, height: 4))
-        XCTAssertEqual(vfi2.creationTime, 1)
+        let vfi2 = VideoFileInfo(time: 1770099945, duration: 2)
         XCTAssertEqual(vfi2.duration, 2)
-        XCTAssertEqual(vfi2.size.width, 3)
-        XCTAssertEqual(vfi2.size.height, 4)
-        
-        vfi1.creationTime = 1770099945
-        let nct = vfi1.numericalCreationTime()
-        XCTAssertTrue(nct.succes)
-        XCTAssertGreaterThanOrEqual(nct.result, 0)
-        XCTAssertLessThan(nct.result, 86400)
+        XCTAssertGreaterThanOrEqual(vfi2.creationTime, 0)
+        XCTAssertLessThan(vfi2.creationTime, 86400)
         
         let tz = TimeZone(abbreviation: "GMT+5:00")
-        vfi1.creationTime = 1770058800
-        var res = vfi1.numericalCreationTime(timeZone: tz)
+        var res = VideoFileInfo.toDailySec(1770058800, timeZone: tz)
         XCTAssertEqual(res.result, 0)
-        vfi1.creationTime = 1770102000
-        res = vfi1.numericalCreationTime(timeZone: tz)
+        res = VideoFileInfo.toDailySec(1770102000, timeZone: tz)
         XCTAssertEqual(res.result, 43200)
-        vfi1.creationTime = 1770145199
-        res = vfi1.numericalCreationTime(timeZone: tz)
+        res = VideoFileInfo.toDailySec(1770145199, timeZone: tz)
         XCTAssertEqual(res.result, 86399)
     }
     
@@ -50,15 +38,15 @@ final class FilesTests: XCTestCase {
         XCTAssertNil(list.last)
         XCTAssertEqual(list.paths.count, 0)
         
-        let vfi1: VideoFileInfo = VideoFileInfo(creationTime: 1, duration: 10, size: CGSize(width: 10, height: 10))
-        let vfi2: VideoFileInfo = VideoFileInfo(creationTime: 11, duration: 10, size: CGSize(width: 20, height: 20))
+        let vfi1: VideoFileInfo = VideoFileInfo(time: 1, duration: 10)
+        let vfi2: VideoFileInfo = VideoFileInfo(time: 11, duration: 100)
         let vfi3: VideoFileInfo = VideoFileInfo()
         
         list.append(info: vfi1, path: "path1")
         XCTAssertEqual(list.first!.path, "path1")
-        XCTAssertEqual(list.first!.info.creationTime, 1)
+        XCTAssertEqual(list.first!.info.duration, 10)
         XCTAssertEqual(list.last!.path, "path1")
-        XCTAssertEqual(list.last!.info.creationTime, 1)
+        XCTAssertEqual(list.last!.info.duration, 10)
         
         list.append(info: vfi2, path: "path2")
         XCTAssertEqual(list.first!.path, "path1")
@@ -70,10 +58,10 @@ final class FilesTests: XCTestCase {
         XCTAssertEqual(list.last!.path, "path3")
         XCTAssertEqual(list.last!.info.creationTime, 0)
         
-        list.append(creationTime: 20, duration: 10, path: "path4", size: .zero)
+        list.append(time: 20, duration: 20, path: "path4")
         XCTAssertEqual(list.first!.path, "path1")
         XCTAssertEqual(list.last!.path, "path4")
-        XCTAssertEqual(list.last!.info.creationTime, 20)
+        XCTAssertEqual(list.last!.info.duration, 20)
         
         XCTAssertEqual(list.count, 4)
         XCTAssertEqual(list.paths.count, 4)

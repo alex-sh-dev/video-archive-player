@@ -8,26 +8,28 @@
 import Foundation
 
 struct VideoFileInfo {
-    /// Creation time of file in unix time
+    /// Converted creation time from the interval [0, 86400)
     var creationTime: UInt = 0
     /// Duration of video file
     var duration: UInt = 0
-    /// Size of video
-    var size: CGSize = CGSize(width: 0, height: 0)
     
     init() {}
     
-    init(creationTime: UInt, duration: UInt, size: CGSize) {
-        self.creationTime = creationTime
+    /// init with time and duration
+    /// - Parameters:
+    ///         - time:  time of file in unix time format
+    ///         - duration: duration of video files
+    init(time: UInt, duration: UInt) {
+        self.creationTime = VideoFileInfo.toDailySec(time).result
         self.duration = duration
-        self.size = size
     }
     
-    /// Returns the converted creation time (in seconds) from the interval [0, 86400) using the device's time zone
+    /// Returns the converted time (in seconds) from the interval [0, 86400) using the device's time zone
     /// - Parameters:
+    ///     - time: in unix time format
     ///     - timeZone: If nil, the current device's time zone ​​will be used
-    func numericalCreationTime(timeZone: TimeZone? = nil) -> (succes: Bool, result: UInt) {
-        let date = Date(timeIntervalSince1970: Double(self.creationTime))
+    static func toDailySec(_ time: UInt, timeZone: TimeZone? = nil) -> (succes: Bool, result: UInt) {
+        let date = Date(timeIntervalSince1970: Double(time))
         var calendar = Calendar(identifier: .gregorian)
         if timeZone != nil {
             calendar.timeZone = timeZone!
@@ -69,8 +71,8 @@ final class VideoFileList {
 
     init() {}
     
-    func append(creationTime: UInt, duration: UInt, path: String, size: CGSize) {
-        _info.append(VideoFileInfo(creationTime: creationTime, duration: duration, size: size))
+    func append(time: UInt, duration: UInt, path: String) {
+        _info.append(VideoFileInfo(time: time, duration: duration))
         _paths.append(path)
     }
     
