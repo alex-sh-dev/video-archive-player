@@ -28,10 +28,10 @@ extension UIWindow {
 
 extension NSObject {
   var className: String {
-    return String(describing: type(of: self))
+      return String(describing: type(of: self))
   }
 
   class var className: String {
-    return String(describing: self)
+      return String(describing: self)
   }
 }
