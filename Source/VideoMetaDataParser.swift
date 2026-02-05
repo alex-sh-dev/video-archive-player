@@ -97,7 +97,7 @@ final class VideoMetaDataParser {
                             parseResult.videoFileList.append(time: time, duration: duration, path: url)
                         }
                     }
-                    if parseResult.videoFileList.count > 0 {
+                    if !parseResult.videoFileList.isEmpty {
                         DispatchQueue.main.async {
                             self.delegate?.parseFinished(result: parseResult)
                         }

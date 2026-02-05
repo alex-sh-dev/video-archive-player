@@ -192,7 +192,7 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
         case .paused:
             _player.play()
         case .stopped:
-            guard let infoList = _videoInfoList, infoList.count > 0 else {
+            guard let infoList = _videoInfoList, !infoList.isEmpty else {
                 return
             }
             
@@ -238,7 +238,7 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
             return
         }
         
-        guard let infoList = _videoInfoList, infoList.count > 0 else {
+        guard let infoList = _videoInfoList, !infoList.isEmpty else {
             return
         }
         
@@ -251,7 +251,7 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
     }
     
     private func playerPosition(for time: UInt) -> PlayerPosition? {
-        guard let infoList = _videoInfoList, infoList.count > 0 else {
+        guard let infoList = _videoInfoList, !infoList.isEmpty else {
             return nil
         }
         

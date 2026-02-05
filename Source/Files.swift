@@ -50,6 +50,10 @@ final class VideoFileList {
         return UInt(_info.count)
     }
     
+    var isEmpty: Bool {
+        return _info.isEmpty
+    }
+    
     var first: (info: VideoFileInfo, path: String)? {
         return self[0]
     }
