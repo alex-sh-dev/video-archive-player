@@ -1,2 +1,4 @@
 Frameworks/MobileVLCKit.framework/MobileVLCKit filter=lfs diff=lfs merge=lfs -text
 media/presentation.mov filter=lfs diff=lfs merge=lfs -text
+Frameworks/** -linguist-detectable
+Libraries/** -linguist-detectable
