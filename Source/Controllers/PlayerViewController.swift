@@ -44,7 +44,7 @@ class PlayerViewController: UIViewController, FragmentVideoPlayerViewDelegate {
     
     private func hidePlayerTools(_ hidden: Bool, delaySec: UInt64 = 2) async {
         do {
-            try await Task.sleep(nanoseconds: delaySec * 1_000_000_000)
+            try await Task.sleep(nanoseconds: delaySec * NSEC_PER_SEC)
         } catch {}
         
         if hidden && UIWindow.isLandscape {
