@@ -18,12 +18,17 @@ final class ViewDelayedOperation: Operation {
     }
     
     override func main() {
-        Thread.sleep(forTimeInterval:Double(_delay) / 1000.0)
+        Thread.sleep(forTimeInterval: Double(_delay) / 1000.0)
         if isCancelled {
             return
         }
+        
+        guard let block = self._block else {
+            return
+        }
+        
         OperationQueue.main.addOperation {
-            self._block?()
+            block()
         }
     }
 }
