@@ -31,9 +31,10 @@ final class Unsafe {
 
 func easyLog(_ text: String = "", funcName: String = #function) {
 #if DEBUG
-    print(funcName)
+    var str = funcName
     if !text.isEmpty {
-        print(text)
+        str += ": \(text)"
     }
+    print(str)
 #endif
 }
