@@ -56,6 +56,7 @@ final class VideoMetaDataParser {
             return
         }
         
+        // TODO: refactor using JSONDecoder()
         URLSession.shared.dataTask(with: url) {
             [unowned self] (data, response, error) -> Void in
             let parseResult = VideoMetaDataParseResult()
