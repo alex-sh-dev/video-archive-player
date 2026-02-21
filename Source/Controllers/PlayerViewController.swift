@@ -10,14 +10,18 @@ import UIKit
 class PlayerViewController: UIViewController, FragmentVideoPlayerViewDelegate {
     @IBOutlet weak var contentView: UIView!
     
-    var videoFileList: VideoFileList? = nil
+    var videoFileList: VideoFileList?
     var videoSize: CGSize = .zero
     
-    private let _videoPlayerView: FragmentVideoPlayerView = FragmentVideoPlayerView()
+    private let _videoPlayerView = FragmentVideoPlayerView()
     private var _hidePlayerToolsTask: Task<Void, Never>?
     
     @IBAction func closeTapped(_ sender: Any) {
         self.dismiss(animated: true)
+    }
+    
+    deinit {
+        easyLog(self.className)
     }
     
     private func attachPlayerView() {
@@ -47,8 +51,10 @@ class PlayerViewController: UIViewController, FragmentVideoPlayerViewDelegate {
             try await Task.sleep(nanoseconds: delaySec * NSEC_PER_SEC)
         } catch {}
         
-        if hidden && UIWindow.isLandscape {
-            self.hidePlayerTools(hidden)
+        DispatchQueue.main.async { [weak self] in
+            if hidden && UIWindow.isLandscape {
+                self?.hidePlayerTools(hidden)
+            }
         }
     }
     
@@ -57,13 +63,15 @@ class PlayerViewController: UIViewController, FragmentVideoPlayerViewDelegate {
         attachPlayerView()
         
         NotificationCenter.default.addObserver(
-            forName: UIApplication.didBecomeActiveNotification, object: nil, queue: .main) { _ in
-            _ = self._videoPlayerView.restorePlayer()
+            forName: UIApplication.didBecomeActiveNotification, object: nil, queue: .main) {
+                [weak self] _ in
+                self?._videoPlayerView.restorePlayer()
         }
 
         NotificationCenter.default.addObserver(
-            forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: .main) { _ in
-            self._videoPlayerView.suspendPlayer()
+            forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: .main) {
+                [weak self] _ in
+                self?._videoPlayerView.suspendPlayer()
         }
     }
     
