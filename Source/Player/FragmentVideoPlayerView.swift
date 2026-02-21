@@ -169,7 +169,7 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
         let fspeed = Float(speed) / 100.0
         
         self.speedButton.setTitle(String(fspeed), for: .normal)
-        _ = _player?.setVideoSpeed(fspeed)
+        _player?.setVideoSpeed(fspeed)
     }
     
     private func changeVideoSpeed() {
@@ -340,6 +340,7 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
         _playerSuspended = true
     }
     
+    @discardableResult
     func restorePlayer() -> Bool {
         if _playerSuspended {
             startPlayer(itemIndex: _lastPosition.itemIndex)

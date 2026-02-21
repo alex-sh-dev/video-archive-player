@@ -82,11 +82,13 @@ final class TimeScaleView: UIView, StepSliderDelegate {
         _timeSliderImitationCaptureQueue.maxConcurrentOperationCount = 1
     }
     
+    @discardableResult
     private func timeSliderSetEventToQueue(value: NSNumber) -> Bool {
         _timeSliderValueSetQueue.cancelAllOperations()
         self.timeSlider.userData = value
         _timeSliderValueSetQueue.addOperation(
-            ViewDelayedOperation({[unowned self] in
+            ViewDelayedOperation({ [weak self] in
+                guard let self = self else { return }
                 guard let savedValue = self.timeSlider.userData as? NSNumber else {
                     return
                 }
@@ -181,7 +183,7 @@ final class TimeScaleView: UIView, StepSliderDelegate {
                             delayedEventStart: Bool = false) {
         self.timeSlider.setValue(value, animated: animated)
         if delayedEventStart {
-            _ = timeSliderSetEventToQueue(value: value)
+            timeSliderSetEventToQueue(value: value)
         }
     }
     
@@ -193,8 +195,8 @@ final class TimeScaleView: UIView, StepSliderDelegate {
         }
 
         _timeSliderImitationCaptureQueue.addOperation(
-            ViewDelayedOperation({[unowned self] in
-                self.imitationCaptured = false
+            ViewDelayedOperation({ [weak self] in
+                self?.imitationCaptured = false
             }, delayMs: delayMs))
     }
     

@@ -261,6 +261,7 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
         _mediaListPlayer.mediaPlayer?.delegate = nil
         _mediaListPlayer.delegate = nil
         _mediaListPlayer.stop()
+        easyLog(self.className)
     }
     
     // MARK: VLCMediaPlayerDelegate
@@ -472,6 +473,7 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
         return false
     }
 
+    @discardableResult
     func setVideoSpeed(_ speed: Float) -> Bool {
         if speed >= Constants.kMinVideoSpeed &&
             speed <= Constants.kMaxVideoSpeed {
