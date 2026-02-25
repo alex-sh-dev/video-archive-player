@@ -45,13 +45,13 @@
 		D7B5E7172F226ACF00B7B64B /* FragmentVideoPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7B5E7162F226ACF00B7B64B /* FragmentVideoPlayerView.xib */; };
 		D7C0A4222F2E550F00BDE75B /* libStepSlider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C0A4212F2E550F00BDE75B /* libStepSlider.a */; };
 		D7C0A4242F2E57F700BDE75B /* FragmentVideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C0A4232F2E57F700BDE75B /* FragmentVideoPlayerView.swift */; };
+		D7C609232F4EC1A70014D0AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7C609222F4EC1A70014D0AF /* Assets.xcassets */; };
+		D7C609282F4EC1B40014D0AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7C609242F4EC1B40014D0AF /* LaunchScreen.storyboard */; };
+		D7C609292F4EC1B40014D0AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7C609262F4EC1B40014D0AF /* Main.storyboard */; };
 		D7C6A9942F2B95FE006D5B70 /* libExtendedScrollView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C6A9932F2B95FE006D5B70 /* libExtendedScrollView.a */; };
 		D7EEE24C2F221C040098A5CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EEE24B2F221C040098A5CB /* AppDelegate.swift */; };
 		D7EEE24E2F221C040098A5CB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EEE24D2F221C040098A5CB /* SceneDelegate.swift */; };
 		D7EEE2502F221C040098A5CB /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EEE24F2F221C040098A5CB /* StartViewController.swift */; };
-		D7EEE2532F221C040098A5CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7EEE2512F221C040098A5CB /* Main.storyboard */; };
-		D7EEE2552F221C050098A5CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7EEE2542F221C050098A5CB /* Assets.xcassets */; };
-		D7EEE2582F221C050098A5CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7EEE2562F221C050098A5CB /* LaunchScreen.storyboard */; };
 		D7EEE2612F221C8C0098A5CB /* MobileVLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7EEE2602F221C8C0098A5CB /* MobileVLCKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -74,7 +74,6 @@
 		D71C62762F2345CF00D7341D /* TimeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSlider.swift; sourceTree = "<group>"; };
 		D71C627E2F28C28F00D7341D /* PlaylistVideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistVideoPlayer.swift; sourceTree = "<group>"; };
 		D71C62802F28C3E900D7341D /* PlaylistVideoPlayerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistVideoPlayerDelegate.swift; sourceTree = "<group>"; };
-		D720B6F12F28E29A005FDA6B /* VideoArchivePlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VideoArchivePlayer-Bridging-Header.h"; sourceTree = "<group>"; };
 		D720B6F22F2B77F9005FDA6B /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		D720B6F42F2B7945005FDA6B /* VLCExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCExtensions.swift; sourceTree = "<group>"; };
 		D720B6F62F2B79D6005FDA6B /* HttpHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpHelpers.swift; sourceTree = "<group>"; };
@@ -105,15 +104,16 @@
 		D7B5E7162F226ACF00B7B64B /* FragmentVideoPlayerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FragmentVideoPlayerView.xib; path = Source/Player/FragmentVideoPlayerView.xib; sourceTree = SOURCE_ROOT; };
 		D7C0A4212F2E550F00BDE75B /* libStepSlider.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libStepSlider.a; path = Libraries/StepSlider/libStepSlider.a; sourceTree = "<group>"; };
 		D7C0A4232F2E57F700BDE75B /* FragmentVideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FragmentVideoPlayerView.swift; sourceTree = "<group>"; };
+		D7C609222F4EC1A70014D0AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
+		D7C609252F4EC1B40014D0AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Resources/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D7C609272F4EC1B40014D0AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Resources/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D7C6092A2F4EC1BD0014D0AF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = "<group>"; };
+		D7C6092D2F4EC4C30014D0AF /* VideoArchivePlayer-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VideoArchivePlayer-Bridging-Header.h"; sourceTree = "<group>"; };
 		D7C6A9932F2B95FE006D5B70 /* libExtendedScrollView.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libExtendedScrollView.a; path = Libraries/ExtendedScrollView/libExtendedScrollView.a; sourceTree = "<group>"; };
 		D7EEE2482F221C040098A5CB /* VideoArchivePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoArchivePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7EEE24B2F221C040098A5CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7EEE24D2F221C040098A5CB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D7EEE24F2F221C040098A5CB /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
-		D7EEE2522F221C040098A5CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D7EEE2542F221C050098A5CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		D7EEE2572F221C050098A5CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		D7EEE2592F221C050098A5CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D7EEE2602F221C8C0098A5CB /* MobileVLCKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileVLCKit.framework; path = Frameworks/MobileVLCKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -240,12 +240,12 @@
 		D7EEE23F2F221C040098A5CB = {
 			isa = PBXGroup;
 			children = (
+				D7C609262F4EC1B40014D0AF /* Main.storyboard */,
 				D7485E872F2FE7C2006EB121 /* Source */,
-				D7EEE2512F221C040098A5CB /* Main.storyboard */,
-				D7EEE2562F221C050098A5CB /* LaunchScreen.storyboard */,
-				D7EEE2542F221C050098A5CB /* Assets.xcassets */,
-				D7EEE2592F221C050098A5CB /* Info.plist */,
-				D720B6F12F28E29A005FDA6B /* VideoArchivePlayer-Bridging-Header.h */,
+				D7C6092D2F4EC4C30014D0AF /* VideoArchivePlayer-Bridging-Header.h */,
+				D7C609242F4EC1B40014D0AF /* LaunchScreen.storyboard */,
+				D7C609222F4EC1A70014D0AF /* Assets.xcassets */,
+				D7C6092A2F4EC1BD0014D0AF /* Info.plist */,
 				D794BC4F2F31BA910012DA5D /* UnitTests */,
 				D7EEE2492F221C040098A5CB /* Products */,
 				D7EEE25F2F221C8C0098A5CB /* Frameworks */,
@@ -370,10 +370,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7C609282F4EC1B40014D0AF /* LaunchScreen.storyboard in Resources */,
+				D7C609292F4EC1B40014D0AF /* Main.storyboard in Resources */,
+				D7C609232F4EC1A70014D0AF /* Assets.xcassets in Resources */,
 				D7B5E7172F226ACF00B7B64B /* FragmentVideoPlayerView.xib in Resources */,
-				D7EEE2582F221C050098A5CB /* LaunchScreen.storyboard in Resources */,
-				D7EEE2552F221C050098A5CB /* Assets.xcassets in Resources */,
-				D7EEE2532F221C040098A5CB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,20 +436,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		D7EEE2512F221C040098A5CB /* Main.storyboard */ = {
+		D7C609242F4EC1B40014D0AF /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D7EEE2522F221C040098A5CB /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		D7EEE2562F221C050098A5CB /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D7EEE2572F221C050098A5CB /* Base */,
+				D7C609252F4EC1B40014D0AF /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D7C609262F4EC1B40014D0AF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D7C609272F4EC1B40014D0AF /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -631,7 +631,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Libraries/**";
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = VAPlayer;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -680,7 +680,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Libraries/**";
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = VAPlayer;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
