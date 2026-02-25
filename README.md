@@ -25,10 +25,6 @@
 
 [Презентация возможностей приложения](/Media/presentation.mov)
 
-<div align="left">
-  <video src="/Media/presentation.mov" width="640" />
-</div>
-
 ### Usage
 - В качестве примера смотрите этот вариант [json файла](/Example/demo-01022026.json) ([json в raw формате](https://github.com/alex-sh-dev/video-archive-player/raw/refs/heads/master/Example/demo-01022026.json) подходит в качестве указания файла в приложении, в иных случаях требуется добавить json файл на ваш сервер и полученную ссылку указать в приложении)
 - В проекте не предусмотрена сортировка данных по времени (_time_). Ваш список должен быть заранее отсортирован
