@@ -18,6 +18,7 @@ final class ViewDelayedOperation: Operation {
     }
     
     override func main() {
+        // TODO: redo using DispatchQueue.main.asyncAfter
         Thread.sleep(forTimeInterval: Double(_delay) / 1000.0)
         if isCancelled {
             return
