@@ -95,8 +95,8 @@ final class TimeScaleView: UIView, StepSliderDelegate {
             self.delegate?.timeSliderSetValueAfterDelay(slider: self.timeSlider, value: savedValue.uintValue)
         }
 
-        let time: DispatchTime = .now() + Constants.kTimeSliderValueSetDelaySec
-        DispatchQueue.main.asyncAfter(deadline: time, execute: _timeSliderValueSetWorkItem!)
+        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.kTimeSliderValueSetDelaySec,
+                                      execute: _timeSliderValueSetWorkItem!)
 
         return true
     }
@@ -204,8 +204,8 @@ final class TimeScaleView: UIView, StepSliderDelegate {
             self?.imitationCaptured = false
         }
 
-        let time: DispatchTime = .now() + delaySec
-        DispatchQueue.main.asyncAfter(deadline: time, execute: _timeSliderImitationCaptureWorkItem!)
+        DispatchQueue.main.asyncAfter(deadline: .now() + delaySec,
+                                      execute: _timeSliderImitationCaptureWorkItem!)
     }
     
     // MARK: StepSliderDelegate

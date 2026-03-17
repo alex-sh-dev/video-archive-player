@@ -8,6 +8,10 @@
 import UIKit
 
 class PlayerViewController: UIViewController, FragmentVideoPlayerViewDelegate {
+    private struct Constants {
+        static let kHidePlayerToolsDelaySec: Double = 2.0
+    }
+
     @IBOutlet weak var contentView: UIView!
     
     var videoFileList: VideoFileList?
@@ -15,6 +19,7 @@ class PlayerViewController: UIViewController, FragmentVideoPlayerViewDelegate {
     
     private let _videoPlayerView = FragmentVideoPlayerView()
     private var _hidePlayerToolsTask: Task<Void, Never>?
+    private var _hidePlayerToolsWorkItem: DispatchWorkItem?
     
     @IBAction func closeTapped(_ sender: Any) {
         self.dismiss(animated: true)
@@ -45,19 +50,23 @@ class PlayerViewController: UIViewController, FragmentVideoPlayerViewDelegate {
         _videoPlayerView.hideTools(hidden)
         self.navigationController?.setNavigationBarHidden(hidden, animated: true)
     }
-    
-    private func hidePlayerTools(_ hidden: Bool, delaySec: UInt64 = 2) async {
-        do {
-            try await Task.sleep(nanoseconds: delaySec * NSEC_PER_SEC)
-        } catch {}
-        
-        DispatchQueue.main.async { [weak self] in
+
+    private func hidePlayerTools(_ hidden: Bool, delaySec: Double) {
+        _hidePlayerToolsWorkItem?.cancel()
+        _hidePlayerToolsWorkItem = DispatchWorkItem {
+            [weak self] in
+            if self?._hidePlayerToolsWorkItem?.isCancelled ?? true {
+                return
+            }
             if hidden && UIWindow.isLandscape {
                 self?.hidePlayerTools(hidden)
             }
         }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + delaySec,
+                                      execute: _hidePlayerToolsWorkItem!)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         attachPlayerView()
@@ -79,10 +88,7 @@ class PlayerViewController: UIViewController, FragmentVideoPlayerViewDelegate {
         if !UIWindow.isLandscape {
             self.hidePlayerTools(false)
         } else {
-            _hidePlayerToolsTask?.cancel()
-            _hidePlayerToolsTask = Task() {
-                await hidePlayerTools(true)
-            }
+            self.hidePlayerTools(true, delaySec: Constants.kHidePlayerToolsDelaySec)
         }
     }
     
