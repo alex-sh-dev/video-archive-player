@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		D704CC992F31BD9D00B3DBD7 /* FilesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D704CC982F31BD9D00B3DBD7 /* FilesTests.swift */; };
-		D704CC9B2F31C06500B3DBD7 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7485E882F309220006EB121 /* Files.swift */; };
 		D71C626D2F2327E700D7341D /* ZoomingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C626C2F2327E700D7341D /* ZoomingView.swift */; };
 		D71C626F2F23286400D7341D /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C626E2F23286400D7341D /* VideoView.swift */; };
 		D71C62732F232A1C00D7341D /* ActivityIndicatorBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C62722F232A1C00D7341D /* ActivityIndicatorBackgroundView.swift */; };
@@ -169,11 +168,9 @@
 		D7485E872F2FE7C2006EB121 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				D7464F0B2F4ECD47000ADA9B /* App */,
 				D720B6F22F2B77F9005FDA6B /* Global.swift */,
-				D7485E882F309220006EB121 /* Files.swift */,
-				D7AC346F2F6971840021BA8E /* VideoMetaDataStructures.swift */,
-				D76FDBDF2F349482009482A3 /* VideoMetaDataParser.swift */,
+				D7464F0B2F4ECD47000ADA9B /* App */,
+				D7AC34712F697F260021BA8E /* VideoData */,
 				D7464F0C2F4ECD57000ADA9B /* Utilities */,
 				D78A35B42F2DE4F900DC3B87 /* Helpers */,
 				D78A35B32F2DE49000DC3B87 /* Controllers */,
@@ -254,6 +251,16 @@
 				D76FDBEB2F34BADF009482A3 /* HttpHelpersTests.swift */,
 			);
 			path = UnitTests;
+			sourceTree = "<group>";
+		};
+		D7AC34712F697F260021BA8E /* VideoData */ = {
+			isa = PBXGroup;
+			children = (
+				D7485E882F309220006EB121 /* Files.swift */,
+				D7AC346F2F6971840021BA8E /* VideoMetaDataStructures.swift */,
+				D76FDBDF2F349482009482A3 /* VideoMetaDataParser.swift */,
+			);
+			path = VideoData;
 			sourceTree = "<group>";
 		};
 		D7EEE23F2F221C040098A5CB = {
@@ -405,7 +412,6 @@
 			files = (
 				D76FDBE32F34B364009482A3 /* Global.swift in Sources */,
 				D76FDBE22F34B273009482A3 /* GlobalTests.swift in Sources */,
-				D704CC9B2F31C06500B3DBD7 /* Files.swift in Sources */,
 				D76FDBEA2F34BACA009482A3 /* HttpHelpers.swift in Sources */,
 				D704CC992F31BD9D00B3DBD7 /* FilesTests.swift in Sources */,
 				D76FDBEC2F34BADF009482A3 /* HttpHelpersTests.swift in Sources */,
