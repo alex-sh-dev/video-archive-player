@@ -12,7 +12,7 @@ class StartViewController: UIViewController, VideoMetaDataParserDelegate {
     @IBOutlet weak var startPlayerButton: UIButton!
     
     private var _parser = VideoMetaDataParser()
-    private var _parseResult: VideoMetaDataParseResult?
+    private var _parseResult: VideoMetaData?
     
     @IBAction func startPlayerTapped(_ sender: Any) {
         self.startPlayerButton.isEnabled = false
@@ -49,7 +49,7 @@ class StartViewController: UIViewController, VideoMetaDataParserDelegate {
     
     // MARK: VideoMetaDataParserDelegate
     
-    func parseFinished(result: VideoMetaDataParseResult) {
+    func parseFinished(result: VideoMetaData) {
         self.startPlayerButton.isEnabled = true
         _parseResult = result
         self.performSegue(withIdentifier: PlayerViewController.className, sender: self)

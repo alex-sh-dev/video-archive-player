@@ -43,6 +43,7 @@
 		D78A35A92F2BE51100DC3B87 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D78A35982F2BE3E900DC3B87 /* VideoToolbox.framework */; };
 		D78A35AA2F2BE52800DC3B87 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D78A35A62F2BE4C000DC3B87 /* CoreMedia.framework */; };
 		D78A35AC2F2BE54000DC3B87 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D78A35AB2F2BE54000DC3B87 /* libbz2.tbd */; };
+		D7AC34702F6971840021BA8E /* VideoMetaDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AC346F2F6971840021BA8E /* VideoMetaDataStructures.swift */; };
 		D7B5E7152F223D4F00B7B64B /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B5E7142F223D4F00B7B64B /* PlayerViewController.swift */; };
 		D7B5E7172F226ACF00B7B64B /* FragmentVideoPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7B5E7162F226ACF00B7B64B /* FragmentVideoPlayerView.xib */; };
 		D7C0A4222F2E550F00BDE75B /* libStepSlider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C0A4212F2E550F00BDE75B /* libStepSlider.a */; };
@@ -102,6 +103,7 @@
 		D78A35A62F2BE4C000DC3B87 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		D78A35AB2F2BE54000DC3B87 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
 		D794BC4E2F31BA900012DA5D /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7AC346F2F6971840021BA8E /* VideoMetaDataStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMetaDataStructures.swift; sourceTree = "<group>"; };
 		D7B5E7142F223D4F00B7B64B /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		D7B5E7162F226ACF00B7B64B /* FragmentVideoPlayerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FragmentVideoPlayerView.xib; path = Source/Player/FragmentVideoPlayerView.xib; sourceTree = SOURCE_ROOT; };
 		D7C0A4212F2E550F00BDE75B /* libStepSlider.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libStepSlider.a; path = Libraries/StepSlider/libStepSlider.a; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				D7464F0B2F4ECD47000ADA9B /* App */,
 				D720B6F22F2B77F9005FDA6B /* Global.swift */,
 				D7485E882F309220006EB121 /* Files.swift */,
+				D7AC346F2F6971840021BA8E /* VideoMetaDataStructures.swift */,
 				D76FDBDF2F349482009482A3 /* VideoMetaDataParser.swift */,
 				D7464F0C2F4ECD57000ADA9B /* Utilities */,
 				D78A35B42F2DE4F900DC3B87 /* Helpers */,
@@ -413,6 +416,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7AC34702F6971840021BA8E /* VideoMetaDataStructures.swift in Sources */,
 				D7464F132F4ECDBC000ADA9B /* AppDelegate.swift in Sources */,
 				D7464F102F4ECDB1000ADA9B /* Extensions.swift in Sources */,
 				D7485E862F2F3BBD006EB121 /* VideoScrollView.swift in Sources */,
