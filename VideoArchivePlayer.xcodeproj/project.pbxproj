@@ -42,6 +42,7 @@
 		D78A35AA2F2BE52800DC3B87 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D78A35A62F2BE4C000DC3B87 /* CoreMedia.framework */; };
 		D78A35AC2F2BE54000DC3B87 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D78A35AB2F2BE54000DC3B87 /* libbz2.tbd */; };
 		D7AC34702F6971840021BA8E /* VideoMetaDataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AC346F2F6971840021BA8E /* VideoMetaDataStructures.swift */; };
+		D7AC34722F698B430021BA8E /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7485E882F309220006EB121 /* Files.swift */; };
 		D7B5E7152F223D4F00B7B64B /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B5E7142F223D4F00B7B64B /* PlayerViewController.swift */; };
 		D7B5E7172F226ACF00B7B64B /* FragmentVideoPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7B5E7162F226ACF00B7B64B /* FragmentVideoPlayerView.xib */; };
 		D7C0A4222F2E550F00BDE75B /* libStepSlider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C0A4212F2E550F00BDE75B /* libStepSlider.a */; };
@@ -412,6 +413,7 @@
 				D76FDBEA2F34BACA009482A3 /* HttpHelpers.swift in Sources */,
 				D704CC992F31BD9D00B3DBD7 /* FilesTests.swift in Sources */,
 				D76FDBEC2F34BADF009482A3 /* HttpHelpersTests.swift in Sources */,
+				D7AC34722F698B430021BA8E /* Files.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
