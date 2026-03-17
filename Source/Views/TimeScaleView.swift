@@ -30,6 +30,8 @@ private struct Constants {
     static let kSlidingTimeBackroundColor = UIColor.black.withAlphaComponent(0.5)
     static let kSlidingTimeTextColor = UIColor.white
     static let kSlidingTimeCornerRadius = 5.0
+
+    static let kTimeSliderValueSetDelaySec: Double = 0.1
 }
 
 final class TimeScaleView: UIView, StepSliderDelegate {
@@ -60,8 +62,8 @@ final class TimeScaleView: UIView, StepSliderDelegate {
     
     // MARK: private properties
     
-    private let _timeSliderValueSetQueue = OperationQueue()
-    private let _timeSliderImitationCaptureQueue = OperationQueue()
+    private var _timeSliderValueSetWorkItem: DispatchWorkItem?
+    private var _timeSliderImitationCaptureWorkItem: DispatchWorkItem?
     
     // MARK: init
     
@@ -77,24 +79,25 @@ final class TimeScaleView: UIView, StepSliderDelegate {
     
     // MARK: private functions
     
-    private func customInit() {
-        _timeSliderValueSetQueue.maxConcurrentOperationCount = 1
-        _timeSliderImitationCaptureQueue.maxConcurrentOperationCount = 1
-    }
+    private func customInit() {}
     
     @discardableResult
     private func timeSliderSetEventToQueue(value: NSNumber) -> Bool {
-        _timeSliderValueSetQueue.cancelAllOperations()
+        _timeSliderValueSetWorkItem?.cancel()
         self.timeSlider.userData = value
-        _timeSliderValueSetQueue.addOperation(
-            ViewDelayedOperation({ [weak self] in
-                guard let self = self else { return }
-                guard let savedValue = self.timeSlider.userData as? NSNumber else {
-                    return
-                }
-                self.delegate?.timeSliderSetValueAfterDelay(slider: self.timeSlider, value: savedValue.uintValue)
-            }))
-        
+        _timeSliderValueSetWorkItem = DispatchWorkItem {
+            [weak self] in
+            guard let self = self else { return }
+            if self._timeSliderValueSetWorkItem?.isCancelled ?? true { return }
+            guard let savedValue = self.timeSlider.userData as? NSNumber else {
+                return
+            }
+            self.delegate?.timeSliderSetValueAfterDelay(slider: self.timeSlider, value: savedValue.uintValue)
+        }
+
+        let time: DispatchTime = .now() + Constants.kTimeSliderValueSetDelaySec
+        DispatchQueue.main.asyncAfter(deadline: time, execute: _timeSliderValueSetWorkItem!)
+
         return true
     }
     
@@ -186,24 +189,29 @@ final class TimeScaleView: UIView, StepSliderDelegate {
             timeSliderSetEventToQueue(value: value)
         }
     }
-    
-    func performSimulatedCapture(delayMs: UInt = 2000, _ block: (() -> Bool)) {
-        _timeSliderImitationCaptureQueue.cancelAllOperations()
+
+    func performSimulatedCapture(delaySec: Double = 2.0, _ block: (() -> Bool)) {
+        _timeSliderImitationCaptureWorkItem?.cancel()
         self.imitationCaptured = block()
         if !self.imitationCaptured {
             return
         }
+        _timeSliderImitationCaptureWorkItem = DispatchWorkItem {
+            [weak self] in
+            if self?._timeSliderImitationCaptureWorkItem?.isCancelled ?? true {
+                return
+            }
+            self?.imitationCaptured = false
+        }
 
-        _timeSliderImitationCaptureQueue.addOperation(
-            ViewDelayedOperation({ [weak self] in
-                self?.imitationCaptured = false
-            }, delayMs: delayMs))
+        let time: DispatchTime = .now() + delaySec
+        DispatchQueue.main.asyncAfter(deadline: time, execute: _timeSliderImitationCaptureWorkItem!)
     }
     
     // MARK: StepSliderDelegate
     
     func stepSlider(_ slider: StepSlider, didChangeValue value: NSNumber) {
-        performSimulatedCapture(delayMs: 100) {
+        performSimulatedCapture(delaySec: 0.1) {
             timeSliderSetEventToQueue(value: value)
         }
     }
