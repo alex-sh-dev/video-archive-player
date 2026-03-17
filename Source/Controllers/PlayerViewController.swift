@@ -18,7 +18,6 @@ class PlayerViewController: UIViewController, FragmentVideoPlayerViewDelegate {
     var videoSize: CGSize = .zero
     
     private let _videoPlayerView = FragmentVideoPlayerView()
-    private var _hidePlayerToolsTask: Task<Void, Never>?
     private var _hidePlayerToolsWorkItem: DispatchWorkItem?
     
     @IBAction func closeTapped(_ sender: Any) {
