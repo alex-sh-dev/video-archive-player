@@ -18,10 +18,13 @@
 		D720B6F32F2B77F9005FDA6B /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = D720B6F22F2B77F9005FDA6B /* Global.swift */; };
 		D720B6F52F2B7945005FDA6B /* VLCExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D720B6F42F2B7945005FDA6B /* VLCExtensions.swift */; };
 		D720B6F72F2B79D6005FDA6B /* HttpHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D720B6F62F2B79D6005FDA6B /* HttpHelpers.swift */; };
+		D729BD3C2F6A59D6004C8CB8 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D729BD3B2F6A59D6004C8CB8 /* Color.swift */; };
+		D729BD3E2F6A59E0004C8CB8 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = D729BD3D2F6A59E0004C8CB8 /* Window.swift */; };
+		D729BD412F6A59F7004C8CB8 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = D729BD402F6A59F7004C8CB8 /* Object.swift */; };
+		D729BD442F6A5A49004C8CB8 /* ParseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D729BD432F6A5A49004C8CB8 /* ParseError.swift */; };
 		D733D0052F32501700EF0CAC /* TimeScaleViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733D0042F32501700EF0CAC /* TimeScaleViewDelegate.swift */; };
 		D733D0072F3331AF00EF0CAC /* FragmentVideoPlayerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733D0062F3331AF00EF0CAC /* FragmentVideoPlayerViewDelegate.swift */; };
 		D733D0092F33441E00EF0CAC /* PlaylistVideoPlayerOptional.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733D0082F33441E00EF0CAC /* PlaylistVideoPlayerOptional.swift */; };
-		D7464F102F4ECDB1000ADA9B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7464F0E2F4ECDB1000ADA9B /* Extensions.swift */; };
 		D7464F132F4ECDBC000ADA9B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7464F112F4ECDBC000ADA9B /* AppDelegate.swift */; };
 		D7464F142F4ECDBC000ADA9B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7464F122F4ECDBC000ADA9B /* SceneDelegate.swift */; };
 		D7485E862F2F3BBD006EB121 /* VideoScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7485E852F2F3BBD006EB121 /* VideoScrollView.swift */; };
@@ -77,10 +80,13 @@
 		D720B6F22F2B77F9005FDA6B /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		D720B6F42F2B7945005FDA6B /* VLCExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VLCExtensions.swift; sourceTree = "<group>"; };
 		D720B6F62F2B79D6005FDA6B /* HttpHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpHelpers.swift; sourceTree = "<group>"; };
+		D729BD3B2F6A59D6004C8CB8 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		D729BD3D2F6A59E0004C8CB8 /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
+		D729BD402F6A59F7004C8CB8 /* Object.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
+		D729BD432F6A5A49004C8CB8 /* ParseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseError.swift; sourceTree = "<group>"; };
 		D733D0042F32501700EF0CAC /* TimeScaleViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeScaleViewDelegate.swift; sourceTree = "<group>"; };
 		D733D0062F3331AF00EF0CAC /* FragmentVideoPlayerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FragmentVideoPlayerViewDelegate.swift; sourceTree = "<group>"; };
 		D733D0082F33441E00EF0CAC /* PlaylistVideoPlayerOptional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistVideoPlayerOptional.swift; sourceTree = "<group>"; };
-		D7464F0E2F4ECDB1000ADA9B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D7464F112F4ECDBC000ADA9B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7464F122F4ECDBC000ADA9B /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D7485E852F2F3BBD006EB121 /* VideoScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoScrollView.swift; sourceTree = "<group>"; };
@@ -155,12 +161,14 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		D7464F0C2F4ECD57000ADA9B /* Utilities */ = {
+		D7464F0C2F4ECD57000ADA9B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				D7464F0E2F4ECDB1000ADA9B /* Extensions.swift */,
+				D729BD3B2F6A59D6004C8CB8 /* Color.swift */,
+				D729BD3D2F6A59E0004C8CB8 /* Window.swift */,
+				D729BD402F6A59F7004C8CB8 /* Object.swift */,
 			);
-			path = Utilities;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		D7485E872F2FE7C2006EB121 /* Source */ = {
@@ -169,7 +177,7 @@
 				D720B6F22F2B77F9005FDA6B /* Global.swift */,
 				D7464F0B2F4ECD47000ADA9B /* App */,
 				D7AC34712F697F260021BA8E /* VideoData */,
-				D7464F0C2F4ECD57000ADA9B /* Utilities */,
+				D7464F0C2F4ECD57000ADA9B /* Extensions */,
 				D78A35B42F2DE4F900DC3B87 /* Helpers */,
 				D78A35B32F2DE49000DC3B87 /* Controllers */,
 				D78A35B02F2DD53D00DC3B87 /* Views */,
@@ -255,6 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				D7485E882F309220006EB121 /* Files.swift */,
+				D729BD432F6A5A49004C8CB8 /* ParseError.swift */,
 				D7AC346F2F6971840021BA8E /* VideoMetaDataStructures.swift */,
 				D76FDBDF2F349482009482A3 /* VideoMetaDataParser.swift */,
 			);
@@ -423,14 +432,15 @@
 			files = (
 				D7AC34702F6971840021BA8E /* VideoMetaDataStructures.swift in Sources */,
 				D7464F132F4ECDBC000ADA9B /* AppDelegate.swift in Sources */,
-				D7464F102F4ECDB1000ADA9B /* Extensions.swift in Sources */,
 				D7485E862F2F3BBD006EB121 /* VideoScrollView.swift in Sources */,
 				D71C626F2F23286400D7341D /* VideoView.swift in Sources */,
 				D7EEE2502F221C040098A5CB /* StartViewController.swift in Sources */,
 				D7B5E7152F223D4F00B7B64B /* PlayerViewController.swift in Sources */,
 				D71C62752F23455500D7341D /* TimeScaleView.swift in Sources */,
 				D733D0052F32501700EF0CAC /* TimeScaleViewDelegate.swift in Sources */,
+				D729BD442F6A5A49004C8CB8 /* ParseError.swift in Sources */,
 				D733D0072F3331AF00EF0CAC /* FragmentVideoPlayerViewDelegate.swift in Sources */,
+				D729BD412F6A59F7004C8CB8 /* Object.swift in Sources */,
 				D71C626D2F2327E700D7341D /* ZoomingView.swift in Sources */,
 				D720B6F32F2B77F9005FDA6B /* Global.swift in Sources */,
 				D71C627F2F28C28F00D7341D /* PlaylistVideoPlayer.swift in Sources */,
@@ -438,8 +448,10 @@
 				D71C62732F232A1C00D7341D /* ActivityIndicatorBackgroundView.swift in Sources */,
 				D7485E892F309220006EB121 /* Files.swift in Sources */,
 				D71C62772F2345CF00D7341D /* TimeSlider.swift in Sources */,
+				D729BD3C2F6A59D6004C8CB8 /* Color.swift in Sources */,
 				D71C62812F28C3E900D7341D /* PlaylistVideoPlayerDelegate.swift in Sources */,
 				D7C0A4242F2E57F700BDE75B /* FragmentVideoPlayerView.swift in Sources */,
+				D729BD3E2F6A59E0004C8CB8 /* Window.swift in Sources */,
 				D76FDBDD2F346491009482A3 /* TitleView.swift in Sources */,
 				D7464F142F4ECDBC000ADA9B /* SceneDelegate.swift in Sources */,
 				D720B6F72F2B79D6005FDA6B /* HttpHelpers.swift in Sources */,
