@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class VideoScrollView : EXScrollView, UIScrollViewDelegate {
+final class VideoScrollView : EXScrollView {
     // MARK: public outlets
     
     @IBOutlet weak var videoView: VideoView!
@@ -65,9 +65,9 @@ final class VideoScrollView : EXScrollView, UIScrollViewDelegate {
         self.zoomingView.bounds = CGRect(x: 0, y: 0, width: vs.width, height: vs.height)
         self.setNeedsReconfigure()
     }
-    
-    // MARK: UIScrollViewDelegate
-    
+}
+
+extension VideoScrollView: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.zoomingView
     }

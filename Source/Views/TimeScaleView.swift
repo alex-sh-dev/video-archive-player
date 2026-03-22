@@ -7,34 +7,34 @@
 
 import UIKit
 
-private struct Constants {
-    static let kMinTimeScaleValue: Int = 0
-    static let kMaxTimeScaleValue: Int = 24
-    
-    static let kTimeScaleDistance: CGFloat = 2
-    static let kScaleLineWidth: CGFloat = 1
-    
-    static let kTickWidth: CGFloat = 2
-    static let kTickHeight: CGFloat = 6
-    
-    static let kTextFont: UIFont = UIFont(name: "Helvetica", size: 12)!
-    static let kMaxNumberPattern: String = "99"
-    static let kNumberStingFormat: String = "%02d"
-    
-    static let kShowAllNumbersFactor: CGFloat = 1.2
-    
-    static let kNumberColor = UIColor.white
-    static let kTickColor = UIColor.white
-    static let kScaleLineColor = UIColor.lightGray
-    
-    static let kSlidingTimeBackroundColor = UIColor.black.withAlphaComponent(0.5)
-    static let kSlidingTimeTextColor = UIColor.white
-    static let kSlidingTimeCornerRadius = 5.0
+final class TimeScaleView: UIView {
+    private struct Constants {
+        static let kMinTimeScaleValue: Int = 0
+        static let kMaxTimeScaleValue: Int = 24
+        
+        static let kTimeScaleDistance: CGFloat = 2
+        static let kScaleLineWidth: CGFloat = 1
+        
+        static let kTickWidth: CGFloat = 2
+        static let kTickHeight: CGFloat = 6
+        
+        static let kTextFont: UIFont = UIFont(name: "Helvetica", size: 12)!
+        static let kMaxNumberPattern: String = "99"
+        static let kNumberStingFormat: String = "%02d"
+        
+        static let kShowAllNumbersFactor: CGFloat = 1.2
+        
+        static let kNumberColor = UIColor.white
+        static let kTickColor = UIColor.white
+        static let kScaleLineColor = UIColor.lightGray
+        
+        static let kSlidingTimeBackroundColor = UIColor.black.withAlphaComponent(0.5)
+        static let kSlidingTimeTextColor = UIColor.white
+        static let kSlidingTimeCornerRadius = 5.0
 
-    static let kTimeSliderValueSetDelaySec: Double = 0.1
-}
+        static let kTimeSliderValueSetDelaySec: TimeInterval = 0.1
+    }
 
-final class TimeScaleView: UIView, StepSliderDelegate {
     // MARK: public outlets
     
     @IBOutlet weak var timeSlider: TimeSlider! {
@@ -190,7 +190,7 @@ final class TimeScaleView: UIView, StepSliderDelegate {
         }
     }
 
-    func performSimulatedCapture(delaySec: Double = 2.0, _ block: (() -> Bool)) {
+    func performSimulatedCapture(delaySec: TimeInterval = 2.0, _ block: (() -> Bool)) {
         _timeSliderImitationCaptureWorkItem?.cancel()
         self.imitationCaptured = block()
         if !self.imitationCaptured {
@@ -207,9 +207,9 @@ final class TimeScaleView: UIView, StepSliderDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + delaySec,
                                       execute: _timeSliderImitationCaptureWorkItem!)
     }
-    
-    // MARK: StepSliderDelegate
-    
+}
+
+extension TimeScaleView: StepSliderDelegate {
     func stepSlider(_ slider: StepSlider, didChangeValue value: NSNumber) {
         performSimulatedCapture(delaySec: 0.1) {
             timeSliderSetEventToQueue(value: value)

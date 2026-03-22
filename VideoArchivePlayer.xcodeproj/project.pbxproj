@@ -23,7 +23,6 @@
 		D729BD412F6A59F7004C8CB8 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = D729BD402F6A59F7004C8CB8 /* Object.swift */; };
 		D729BD442F6A5A49004C8CB8 /* ParseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D729BD432F6A5A49004C8CB8 /* ParseError.swift */; };
 		D733D0052F32501700EF0CAC /* TimeScaleViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733D0042F32501700EF0CAC /* TimeScaleViewDelegate.swift */; };
-		D733D0072F3331AF00EF0CAC /* FragmentVideoPlayerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733D0062F3331AF00EF0CAC /* FragmentVideoPlayerViewDelegate.swift */; };
 		D733D0092F33441E00EF0CAC /* PlaylistVideoPlayerOptional.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733D0082F33441E00EF0CAC /* PlaylistVideoPlayerOptional.swift */; };
 		D7464F132F4ECDBC000ADA9B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7464F112F4ECDBC000ADA9B /* AppDelegate.swift */; };
 		D7464F142F4ECDBC000ADA9B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7464F122F4ECDBC000ADA9B /* SceneDelegate.swift */; };
@@ -85,7 +84,6 @@
 		D729BD402F6A59F7004C8CB8 /* Object.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
 		D729BD432F6A5A49004C8CB8 /* ParseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseError.swift; sourceTree = "<group>"; };
 		D733D0042F32501700EF0CAC /* TimeScaleViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeScaleViewDelegate.swift; sourceTree = "<group>"; };
-		D733D0062F3331AF00EF0CAC /* FragmentVideoPlayerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FragmentVideoPlayerViewDelegate.swift; sourceTree = "<group>"; };
 		D733D0082F33441E00EF0CAC /* PlaylistVideoPlayerOptional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistVideoPlayerOptional.swift; sourceTree = "<group>"; };
 		D7464F112F4ECDBC000ADA9B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7464F122F4ECDBC000ADA9B /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -202,7 +200,6 @@
 				D733D0082F33441E00EF0CAC /* PlaylistVideoPlayerOptional.swift */,
 				D7B5E7162F226ACF00B7B64B /* FragmentVideoPlayerView.xib */,
 				D7C0A4232F2E57F700BDE75B /* FragmentVideoPlayerView.swift */,
-				D733D0062F3331AF00EF0CAC /* FragmentVideoPlayerViewDelegate.swift */,
 				D720B6F42F2B7945005FDA6B /* VLCExtensions.swift */,
 				D78A35B22F2DD62400DC3B87 /* Views */,
 			);
@@ -439,7 +436,6 @@
 				D71C62752F23455500D7341D /* TimeScaleView.swift in Sources */,
 				D733D0052F32501700EF0CAC /* TimeScaleViewDelegate.swift in Sources */,
 				D729BD442F6A5A49004C8CB8 /* ParseError.swift in Sources */,
-				D733D0072F3331AF00EF0CAC /* FragmentVideoPlayerViewDelegate.swift in Sources */,
 				D729BD412F6A59F7004C8CB8 /* Object.swift in Sources */,
 				D71C626D2F2327E700D7341D /* ZoomingView.swift in Sources */,
 				D720B6F32F2B77F9005FDA6B /* Global.swift in Sources */,

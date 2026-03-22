@@ -24,19 +24,17 @@ private enum PlayButtonIdentity: Int {
     case pause
 }
 
-private struct Constants {
-    static let kFastForwardValue = +30
-    static let kRewindValue = -30
-    
-    static let kMinVideoSpeed = 25
-    static let kMaxVideoSpeed = 200
-    static let kVideoSpeedStep = 25
-    static let kNormalVideoSpeed = 100
-}
+final class FragmentVideoPlayerView: UIView {
+    private struct Constants {
+        static let kFastForwardValue = +30
+        static let kRewindValue = -30
+        
+        static let kMinVideoSpeed = 25
+        static let kMaxVideoSpeed = 200
+        static let kVideoSpeedStep = 25
+        static let kNormalVideoSpeed = 100
+    }
 
-final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
-                                     VideoViewDelegate, TimeScaleViewDelegate
-{
     // MARK: public outlets properties
     
     @IBOutlet weak var videoScrollView: VideoScrollView!
@@ -55,13 +53,15 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
     @IBOutlet weak var extraButtonGroup: UIView!
 
     @IBOutlet weak var activityIndicatorBackgroundView: ActivityIndicatorBackgroundView!
+
+    // MARK: public computed vars
     
     var toolsHidden: Bool {
         return self.mainButtonGroup.isHidden
     }
-    
-    weak var delegate: FragmentVideoPlayerViewDelegate?
-    
+
+    var videoView: VideoView! { videoScrollView.videoView }
+
     // MARK: private properties
     
     private weak var contentView: UIView!
@@ -120,7 +120,6 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
         self.contentView.frame = self.bounds
         self.addSubview(self.contentView)
         
-        self.videoScrollView.videoView.delegate = self
         self.timeScaleView.delegate = self
         self.timeScaleView.timeSlider.isUserInteractionEnabled = false
         
@@ -360,10 +359,10 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
         
         _videoInfoList = videoFileList
         
-        var timeIntervals: [TimeInterval] = []
+        var timeIntervals: [TimeSliderInterval] = []
         for i in 0..<videoFileList.count {
             let vfi = videoFileList[i]!.info
-            let ti = TimeInterval(start: vfi.creationTime, length: vfi.duration)
+            let ti = TimeSliderInterval(start: vfi.creationTime, length: vfi.duration)
             timeIntervals.append(ti)
         }
 
@@ -392,9 +391,9 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
         self.mainButtonGroup.isHidden = hidden
         self.extraButtonGroup.isHidden = hidden
     }
-    
-    // MARK: TimeScaleViewDelegate
-    
+}
+
+extension FragmentVideoPlayerView: TimeScaleViewDelegate {
     func timeSliderSetValueAfterDelay(slider: TimeSlider, value: UInt) {
         if _player.state == .stopped {
             return
@@ -412,15 +411,9 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
             self.play(fromPlaylistAt: pos.itemIndex, startTime: pos.time)
         }
     }
-    
-    // MARK: VideoViewDelegate
-    
-    func videoViewTapped() {
-        self.delegate?.videoViewTapped()
-    }
-    
-    // MARK: PlaylistVideoPlayerDelegate
-    
+}
+
+extension FragmentVideoPlayerView: PlaylistVideoPlayerDelegate {
     func playerPlaying(player: PlaylistVideoPlayer) {
         if self.playButton.tag == PlayButtonIdentity.pause.rawValue {
             return
@@ -442,11 +435,11 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
     func playerReadyVideoSize(player: PlaylistVideoPlayer, videoSize: CGSize) {
         self.videoScrollView.specifyVideoSize(videoSize)
     }
-
+    
     func playerPaused(player: PlaylistVideoPlayer) {
         self.showPlayButton()
     }
-
+    
     func playerStopped(player: PlaylistVideoPlayer) {
         showPlayButton()
         self.timeScaleView.setTimeSliderValue(self.timeScaleView.timeSlider.minimumValue, animated: true)
@@ -455,7 +448,7 @@ final class FragmentVideoPlayerView: UIView, PlaylistVideoPlayerDelegate,
         self.videoScrollView.zoomScale = self.videoScrollView.minimumZoomScale
         self.videoScrollView.isUserInteractionEnabled = false
     }
-
+    
     func playerPositionChangedAtItem(player: PlaylistVideoPlayer, pos: UInt, itemIndex: PlaylistItemIndex) {
         self.calcAndSetTimeSliderValue(itemIndex: itemIndex, time: pos)
     }

@@ -7,9 +7,9 @@
 
 import UIKit
 
-class PlayerViewController: UIViewController, FragmentVideoPlayerViewDelegate {
+class PlayerViewController: UIViewController {
     private struct Constants {
-        static let kHidePlayerToolsDelaySec: Double = 2.0
+        static let kHidePlayerToolsDelaySec: TimeInterval = 2.0
     }
 
     @IBOutlet weak var contentView: UIView!
@@ -30,7 +30,6 @@ class PlayerViewController: UIViewController, FragmentVideoPlayerViewDelegate {
     
     private func attachPlayerView() {
         _videoPlayerView.translatesAutoresizingMaskIntoConstraints = false
-        _videoPlayerView.delegate = self
         self.contentView.addSubview(_videoPlayerView)
         let subviews = ["view" : _videoPlayerView]
         let constraints = NSLayoutConstraint.constraints(
@@ -42,6 +41,18 @@ class PlayerViewController: UIViewController, FragmentVideoPlayerViewDelegate {
         let trailing = _videoPlayerView.trailingAnchor.constraint(equalTo: safeAreaGuide.trailingAnchor)
         
         self.contentView.addConstraints([leading, trailing])
+
+        _videoPlayerView.videoView.tappedHandler = {
+            [weak self] in
+            guard let self = self else { return }
+            var hidden = false
+            if UIWindow.isLandscape {
+                hidden = !self._videoPlayerView.toolsHidden
+            }
+            
+            self.hidePlayerTools(hidden)
+        }
+
         _videoPlayerView.startPlayer(videoFileList: self.videoFileList ?? VideoFileList(), videoSize: self.videoSize)
     }
     
@@ -50,20 +61,20 @@ class PlayerViewController: UIViewController, FragmentVideoPlayerViewDelegate {
         self.navigationController?.setNavigationBarHidden(hidden, animated: true)
     }
 
-    private func hidePlayerTools(_ hidden: Bool, delaySec: Double) {
+    private func hidePlayerTools(_ hidden: Bool, delaySec: TimeInterval) {
         _hidePlayerToolsWorkItem?.cancel()
         _hidePlayerToolsWorkItem = DispatchWorkItem {
             [weak self] in
-            if self?._hidePlayerToolsWorkItem?.isCancelled ?? true {
+            guard let self = self else { return }
+            if self._hidePlayerToolsWorkItem?.isCancelled ?? true {
                 return
             }
             if hidden && UIWindow.isLandscape {
-                self?.hidePlayerTools(hidden)
+                self.hidePlayerTools(hidden)
             }
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + delaySec,
-                                      execute: _hidePlayerToolsWorkItem!)
+        DispatchQueue.main.asyncAfter(deadline: .now() + delaySec, execute: _hidePlayerToolsWorkItem!)
     }
 
     override func viewDidLoad() {
@@ -89,14 +100,5 @@ class PlayerViewController: UIViewController, FragmentVideoPlayerViewDelegate {
         } else {
             self.hidePlayerTools(true, delaySec: Constants.kHidePlayerToolsDelaySec)
         }
-    }
-    
-    func videoViewTapped() {
-        var hidden = false
-        if UIWindow.isLandscape {
-            hidden = !_videoPlayerView.toolsHidden
-        }
-        
-        self.hidePlayerTools(hidden)
     }
 }

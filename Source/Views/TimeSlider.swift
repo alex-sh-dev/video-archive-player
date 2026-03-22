@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct TimeInterval {
+struct TimeSliderInterval {
     var start: UInt = 0
     var length: UInt = 0
     
@@ -17,15 +17,15 @@ struct TimeInterval {
     }
 }
 
-private struct Constants {
-    static let kThumbColor = UIColor(hex: 0xf9825e)
-    static let kVLinesColor = UIColor(hex: 0x26cfc9)
-    
-    static let kOffsetForScale: CGFloat = 3.0
-}
-
 final class TimeSlider: StepSlider {
-    var timeIntervals: [TimeInterval]?
+    private struct Constants {
+        static let kThumbColor = UIColor(hex: 0xf9825e)
+        static let kVLinesColor = UIColor(hex: 0x26cfc9)
+        
+        static let kOffsetForScale: CGFloat = 3.0
+    }
+
+    var timeIntervals: [TimeSliderInterval]?
     var userData: Any?
     
     static let kThumbWidth: CGFloat = 2

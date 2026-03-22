@@ -7,14 +7,6 @@
 
 import UIKit
 
-protocol VideoViewDelegate: AnyObject {
-    func videoViewTapped()
-}
-
-extension VideoViewDelegate {
-    func videoViewTapped() {}
-}
-
 final class VideoView: UIView {
     @IBOutlet var tapGestureRecognizer: UITapGestureRecognizer! {
         didSet {
@@ -25,13 +17,13 @@ final class VideoView: UIView {
         }
     }
     
-    weak var delegate: VideoViewDelegate?
+    var tappedHandler: (() -> Void)? = nil
     
     var initialVideoSize: CGSize = .zero
     private let expectedVideoView = "VLCOpenGLES2VideoView"
     
     @IBAction func tapped(_ sender: Any) {
-        self.delegate?.videoViewTapped()
+        self.tappedHandler?()
     }
     
     func calcScaleFactor() -> CGFloat {

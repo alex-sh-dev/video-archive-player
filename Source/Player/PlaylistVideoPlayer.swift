@@ -65,32 +65,25 @@ private class MediaInfo {
     }
 }
 
-// MARK: consts
+final class PlaylistVideoPlayer: NSObject {
+    private struct Constants {
+        static let kDefaultMediaListPlayerOptions = ["--no-stats", "--http-reconnect", "--network-caching=1000"]
+        static let kDefaultMediaPlayerPosition = -1
+        static let kDefaultOptionsToDisableAudio = ["--no-audio", "--no-sout-audio"]
+        static let kMaxVideoSpeed: Float = 2.0
+        static let kMinVideoSpeed: Float = 0.25
+    }
 
-private struct Constants {
-    static let kDefaultMediaListPlayerOptions = ["--no-stats", "--http-reconnect", "--network-caching=1000"]
-    static let kDefaultMediaPlayerPosition = -1
-    static let kDefaultOptionsToDisableAudio = ["--no-audio", "--no-sout-audio"]
-    static let kMaxVideoSpeed: Float = 2.0
-    static let kMinVideoSpeed: Float = 0.25
-}
-
-final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListPlayerDelegate {
     // MARK: public properties
+
     weak var delegate: PlaylistVideoPlayerDelegate?
 
     var playlistCount: UInt {
-        get {
-            let count = _mediaList.count
-            return  count > 0 ? UInt(count) : 0
-        }
+        let count = _mediaList.count
+        return  count > 0 ? UInt(count) : 0
     }
 
-    var state: PlaylistVideoPlayerState {
-        get {
-            return _state
-        }
-    }
+    var state: PlaylistVideoPlayerState { _state }
     
     // MARK: private properties
     
@@ -264,138 +257,6 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
         easyLog(self.className)
     }
     
-    // MARK: VLCMediaPlayerDelegate
-    
-    func mediaPlayerStateChanged(_ aNotification: Notification!) {
-        guard let player = aNotification.object as? VLCMediaPlayer else {
-            return
-        }
-        
-        assert(player == _mediaListPlayer.mediaPlayer)
-            
-        let state = player.state
-        easyLog("\(state)")
-
-        if state == .buffering {
-            if let userInfo = aNotification.userInfo as? Dictionary<String, NSNumber> {
-                var completeness = 0
-                if let cache = userInfo["cache"] {
-                    completeness = cache.intValue
-                }
-                
-                if completeness == 0 {
-                    self.delegate?.playerHasStartedBuffering(player: self)
-                } else if completeness == 100 {
-                    self.delegate?.playerHasCompletedBuffering(player: self)
-                }
-            }
-        }
-        
-        if player.isPlaying && _state != .playing {
-            setState(newState: .playing)
-            self.delegate?.playerPlaying(player: self)
-            if !player.videoSize.equalTo(.zero) {
-                self.delegate?.playerReadyVideoSize(player: self, videoSize: player.videoSize)
-            }
-        }
-        
-        switch (state) {
-        case .playing:
-            break
-        case .paused:
-            setState(newState: .paused)
-            self.delegate?.playerPaused(player: self)
-        case .stopped:
-            let state = _mediaListPlayer.state()
-            let index = getMediaListIndex(for: player.media)
-            if (state == .error || state == .ended) && index != .notFound {
-                if !(state == .ended && index == .last) {
-                    if !_mediaListPlayer.next {
-                        _mediaListPlayer.stop()
-                    }
-                }
-            } else {
-                setState(newState: .stopped)
-                self.delegate?.playerStopped(player: self)
-            }
-        case .ended:
-            let index = getMediaListIndex(for: player.media)
-            switch (index) {
-            case .notFound:
-                break
-            case .last:
-                setState(newState: .endReached)
-                self.delegate?.playerEndReached(player: self)
-            case .value(let val):
-                self.delegate?.playerItemEndReached(player: self, itemIndex: .value(val))
-            }
-        case .error:
-            self.delegate?.playerErrorEncountered(player: self)
-        default:
-            break
-        }
-    }
-    
-    func mediaPlayerPositionChanged(_ aNotification: Notification!) {
-        guard let player = aNotification.object as? VLCMediaPlayer else {
-            return
-        }
-        
-        assert(player == _mediaListPlayer.mediaPlayer)
-        
-        self.delegate?.playerPositionChanged(player: self)
-        
-        let pos = player.directTime != VLCTime.null() ? Int(player.directTime.intValue / 1000) : 0
-        assert(pos >= 0)
-        if let mediaItem = currentPlayerMedia(), pos != _playerPosition {
-            self.delegate?.playerPositionChangedAtItem(player: self, pos: UInt(pos), itemIndex: mediaItem.itemIndex)
-        }
-        _playerPosition = pos
-    }
-    
-    // MARK: VLCMediaListPlayerDelegate
-    
-    func mediaListPlayer(_ player: VLCMediaListPlayer!, nextMedia media: VLCMedia!) {
-        easyLog()
-        assert(player == _mediaListPlayer)
-        self.delegate?.playerNextItemSet(player: self)
-        
-        _playerPosition = Constants.kDefaultMediaPlayerPosition
-
-        guard let mediaItem = currentPlayerMedia() else {
-            return
-        }
-        
-        let mi: MediaInfo = mediaItem.media.object()
-        let location = mi.location
-        let filePath = mi.filePath
-        let startTime = mi.startTime
-        
-        if location != .unknown && !filePath.isEmpty && startTime != NSNotFound {
-            var exists = false
-            switch (location) {
-            case .onDevice:
-                exists = FileManager.default.fileExists(atPath: filePath)
-            case .onServer:
-                guard let url = URL(string: filePath) else {
-                    break
-                }
-                exists = existsRemoteFile(url: url)
-            default:
-                break
-            }
-
-            if (exists) {
-                self.delegate?.playerNextItemSet(player: self, itemIndex: mediaItem.itemIndex, startTime: startTime)
-            } else {
-                if !_mediaListPlayer.next {
-                    _mediaListPlayer.stop()
-                }
-                self.delegate?.playerFileCeasedExistence(player: self, filePath: filePath, itemIndex: mediaItem.itemIndex)
-            }
-        }
-    }
-    
     // MARK: public functions
     
     func setFile(_ filePath: String) {
@@ -513,6 +374,138 @@ final class PlaylistVideoPlayer: NSObject, VLCMediaPlayerDelegate, VLCMediaListP
         if let media = media(at: itemIndex) {
             media.obj.releaseObject(type: MediaInfo.self)
             _mediaList.removeMedia(at: media.index)
+        }
+    }
+}
+
+extension PlaylistVideoPlayer: VLCMediaPlayerDelegate {
+    func mediaPlayerStateChanged(_ aNotification: Notification!) {
+        guard let player = aNotification.object as? VLCMediaPlayer else {
+            return
+        }
+        
+        assert(player == _mediaListPlayer.mediaPlayer)
+            
+        let state = player.state
+        easyLog("\(state)")
+
+        if state == .buffering {
+            if let userInfo = aNotification.userInfo as? Dictionary<String, NSNumber> {
+                var completeness = 0
+                if let cache = userInfo["cache"] {
+                    completeness = cache.intValue
+                }
+                
+                if completeness == 0 {
+                    self.delegate?.playerHasStartedBuffering(player: self)
+                } else if completeness == 100 {
+                    self.delegate?.playerHasCompletedBuffering(player: self)
+                }
+            }
+        }
+        
+        if player.isPlaying && _state != .playing {
+            setState(newState: .playing)
+            self.delegate?.playerPlaying(player: self)
+            if !player.videoSize.equalTo(.zero) {
+                self.delegate?.playerReadyVideoSize(player: self, videoSize: player.videoSize)
+            }
+        }
+        
+        switch (state) {
+        case .playing:
+            break
+        case .paused:
+            setState(newState: .paused)
+            self.delegate?.playerPaused(player: self)
+        case .stopped:
+            let state = _mediaListPlayer.state()
+            let index = getMediaListIndex(for: player.media)
+            if (state == .error || state == .ended) && index != .notFound {
+                if !(state == .ended && index == .last) {
+                    if !_mediaListPlayer.next {
+                        _mediaListPlayer.stop()
+                    }
+                }
+            } else {
+                setState(newState: .stopped)
+                self.delegate?.playerStopped(player: self)
+            }
+        case .ended:
+            let index = getMediaListIndex(for: player.media)
+            switch (index) {
+            case .notFound:
+                break
+            case .last:
+                setState(newState: .endReached)
+                self.delegate?.playerEndReached(player: self)
+            case .value(let val):
+                self.delegate?.playerItemEndReached(player: self, itemIndex: .value(val))
+            }
+        case .error:
+            self.delegate?.playerErrorEncountered(player: self)
+        default:
+            break
+        }
+    }
+    
+    func mediaPlayerPositionChanged(_ aNotification: Notification!) {
+        guard let player = aNotification.object as? VLCMediaPlayer else {
+            return
+        }
+        
+        assert(player == _mediaListPlayer.mediaPlayer)
+        
+        self.delegate?.playerPositionChanged(player: self)
+        
+        let pos = player.directTime != VLCTime.null() ? Int(player.directTime.intValue / 1000) : 0
+        assert(pos >= 0)
+        if let mediaItem = currentPlayerMedia(), pos != _playerPosition {
+            self.delegate?.playerPositionChangedAtItem(player: self, pos: UInt(pos), itemIndex: mediaItem.itemIndex)
+        }
+        _playerPosition = pos
+    }
+}
+
+extension PlaylistVideoPlayer: VLCMediaListPlayerDelegate {
+    func mediaListPlayer(_ player: VLCMediaListPlayer!, nextMedia media: VLCMedia!) {
+        easyLog()
+        assert(player == _mediaListPlayer)
+        self.delegate?.playerNextItemSet(player: self)
+        
+        _playerPosition = Constants.kDefaultMediaPlayerPosition
+
+        guard let mediaItem = currentPlayerMedia() else {
+            return
+        }
+        
+        let mi: MediaInfo = mediaItem.media.object()
+        let location = mi.location
+        let filePath = mi.filePath
+        let startTime = mi.startTime
+        
+        if location != .unknown && !filePath.isEmpty && startTime != NSNotFound {
+            var exists = false
+            switch (location) {
+            case .onDevice:
+                exists = FileManager.default.fileExists(atPath: filePath)
+            case .onServer:
+                guard let url = URL(string: filePath) else {
+                    break
+                }
+                exists = existsRemoteFile(url: url)
+            default:
+                break
+            }
+
+            if (exists) {
+                self.delegate?.playerNextItemSet(player: self, itemIndex: mediaItem.itemIndex, startTime: startTime)
+            } else {
+                if !_mediaListPlayer.next {
+                    _mediaListPlayer.stop()
+                }
+                self.delegate?.playerFileCeasedExistence(player: self, filePath: filePath, itemIndex: mediaItem.itemIndex)
+            }
         }
     }
 }

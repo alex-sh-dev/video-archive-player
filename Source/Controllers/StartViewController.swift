@@ -7,11 +7,11 @@
 
 import UIKit
 
-class StartViewController: UIViewController, VideoMetaDataParserDelegate {
+class StartViewController: UIViewController {
     @IBOutlet weak var jsonUrlTextField: UITextField!
     @IBOutlet weak var startPlayerButton: UIButton!
     
-    private var _parser = VideoMetaDataParser()
+    private let _parser = VideoMetaDataParser()
     private var _parseResult: VideoMetaData?
     
     @IBAction func startPlayerTapped(_ sender: Any) {
@@ -46,9 +46,9 @@ class StartViewController: UIViewController, VideoMetaDataParserDelegate {
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
-    
-    // MARK: VideoMetaDataParserDelegate
-    
+}
+
+extension StartViewController: VideoMetaDataParserDelegate {
     func parseFinished(result: VideoMetaData) {
         self.startPlayerButton.isEnabled = true
         _parseResult = result
