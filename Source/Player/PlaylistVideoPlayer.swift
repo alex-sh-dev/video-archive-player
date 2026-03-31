@@ -154,7 +154,7 @@ final class PlaylistVideoPlayer: NSObject {
     private func createMedia(filePath: String) -> VLCMedia? {
         let loc = locateMediaFile(filePath: filePath)
         var media: VLCMedia?
-        switch (loc) {
+        switch loc {
         case .onServer:
             let url = URL(string: filePath)
             media = VLCMedia(url: url!)
@@ -223,7 +223,7 @@ final class PlaylistVideoPlayer: NSObject {
         }
         let count = self.playlistCount
         var index: UInt = itemIndex.rawValue
-        if (count > 0) {
+        if count > 0 {
             if itemIndex == .last {
                 index = count - 1
             }
@@ -272,7 +272,7 @@ final class PlaylistVideoPlayer: NSObject {
     
     func play(startingFrom itemIndex: PlaylistItemIndex = .unspecified) {
         var play = false
-        switch (_state) {
+        switch _state {
         case .paused, .stopped:
             play = true
         default:
@@ -412,7 +412,7 @@ extension PlaylistVideoPlayer: VLCMediaPlayerDelegate {
             }
         }
         
-        switch (state) {
+        switch state {
         case .playing:
             break
         case .paused:
@@ -433,7 +433,7 @@ extension PlaylistVideoPlayer: VLCMediaPlayerDelegate {
             }
         case .ended:
             let index = getMediaListIndex(for: player.media)
-            switch (index) {
+            switch index {
             case .notFound:
                 break
             case .last:
@@ -486,7 +486,7 @@ extension PlaylistVideoPlayer: VLCMediaListPlayerDelegate {
         
         if location != .unknown && !filePath.isEmpty && startTime != NSNotFound {
             var exists = false
-            switch (location) {
+            switch location {
             case .onDevice:
                 exists = FileManager.default.fileExists(atPath: filePath)
             case .onServer:
@@ -498,7 +498,7 @@ extension PlaylistVideoPlayer: VLCMediaListPlayerDelegate {
                 break
             }
 
-            if (exists) {
+            if exists {
                 self.delegate?.playerNextItemSet(player: self, itemIndex: mediaItem.itemIndex, startTime: startTime)
             } else {
                 if !_mediaListPlayer.next {

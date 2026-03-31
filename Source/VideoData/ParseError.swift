@@ -14,7 +14,7 @@ enum ParseError: Error {
     case parseFailed(Error)
 
     func desc() -> String {
-        switch (self) {
+        switch self {
         case .parseFailed(let error):
             return error.localizedDescription
         case .urlEmpty:

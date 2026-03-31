@@ -88,7 +88,7 @@ final class FragmentVideoPlayerView: UIView {
     // MARK: actions
     
     @IBAction func buttonTapped(sender: UIButton) {
-        switch (sender) {
+        switch sender {
         case self.playButton:
             if self.playButton.tag == PlayButtonIdentity.play.rawValue {
                 self.startPlayer()
@@ -184,7 +184,7 @@ final class FragmentVideoPlayerView: UIView {
             return
         }
         
-        switch (_player.state) {
+        switch _player.state {
         case .endReached:
             skipNextPlaylistItem()
             return
@@ -233,7 +233,8 @@ final class FragmentVideoPlayerView: UIView {
             _lastPosition = PlayerPosition(itemIndex: itemIndex, time: time)
         }
         
-        if (self.timeScaleView.timeSlider.isThumbCaptured || self.timeScaleView.imitationCaptured) {
+        if self.timeScaleView.timeSlider.isThumbCaptured ||
+            self.timeScaleView.imitationCaptured {
             return
         }
         
