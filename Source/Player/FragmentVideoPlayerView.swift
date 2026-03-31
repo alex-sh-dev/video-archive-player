@@ -468,11 +468,11 @@ extension FragmentVideoPlayerView: PlaylistVideoPlayerDelegate {
         self.calcAndSetTimeSliderValue(itemIndex: itemIndex, time: startTime)
     }
     
-    func playerHasStartedBuffering(player: PlaylistVideoPlayer) {
+    func playerStartedBuffering(player: PlaylistVideoPlayer) {
         self.activityIndicatorBackgroundView.isHidden = false
     }
     
-    func playerHasCompletedBuffering(player: PlaylistVideoPlayer) {
+    func playerCompletedBuffering(player: PlaylistVideoPlayer) {
         self.activityIndicatorBackgroundView.isHidden = true
     }
 }

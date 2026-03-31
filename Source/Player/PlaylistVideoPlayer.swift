@@ -397,9 +397,9 @@ extension PlaylistVideoPlayer: VLCMediaPlayerDelegate {
                 }
                 
                 if completeness == 0 {
-                    self.delegate?.playerHasStartedBuffering(player: self)
+                    self.delegate?.playerStartedBuffering(player: self)
                 } else if completeness == 100 {
-                    self.delegate?.playerHasCompletedBuffering(player: self)
+                    self.delegate?.playerCompletedBuffering(player: self)
                 }
             }
         }

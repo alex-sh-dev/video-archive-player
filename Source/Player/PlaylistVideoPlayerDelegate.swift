@@ -25,8 +25,8 @@ protocol PlaylistVideoPlayerDelegate: AnyObject {
     
     func playerFileCeasedExistence(player: PlaylistVideoPlayer, filePath: String, itemIndex: PlaylistItemIndex)
     
-    func playerHasStartedBuffering(player: PlaylistVideoPlayer)
-    func playerHasCompletedBuffering(player: PlaylistVideoPlayer)
+    func playerStartedBuffering(player: PlaylistVideoPlayer)
+    func playerCompletedBuffering(player: PlaylistVideoPlayer)
     
     func playerReadyVideoSize(player: PlaylistVideoPlayer, videoSize: CGSize)
 }
